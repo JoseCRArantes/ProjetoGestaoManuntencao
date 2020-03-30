@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDGestaoManutencaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Autenticacao">
+    <Key>
+      <PropertyRef Name="UtilizadorIDUser" />
+    </Key>
+    <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Username" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Utilizador" Relationship="Self.FKAutenticac472228" FromRole="Autenticacao" ToRole="Utilizador" />
+  </EntityType>
+  <EntityType Name="Equipamento">
+    <Key>
+      <PropertyRef Name="IDEquipamento" />
+    </Key>
+    <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
+    <Property Name="IDGrupoM" Type="Int32" Nullable="false" />
+    <Property Name="NumeroSerie" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DataCompra" Type="DateTime" Precision="0" />
+    <Property Name="CodigoInterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoEqui" Type="Int32" />
+    <Property Name="DataFimAtividade" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="EstadoIntervencao">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Descr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PedidoManutCurativa" Relationship="Self.FK_PedidoManutCurativa_EstadoIntervencao" FromRole="EstadoIntervencao" ToRole="PedidoManutCurativa" />
+  </EntityType>
+  <EntityType Name="FichaManutencao">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="IDGrupoMaquinas" Type="Int32" Nullable="false" />
+    <Property Name="NumFichaManutencao" Type="Int32" />
+    <Property Name="CaminhoPDF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="GrupoMaquina" Relationship="Self.FKFichaManut955630" FromRole="FichaManutencao" ToRole="GrupoMaquina" />
+    <NavigationProperty Name="PedidoManutPreventiva" Relationship="Self.FKPedidoManu399343" FromRole="FichaManutencao" ToRole="PedidoManutPreventiva" />
+  </EntityType>
+  <EntityType Name="GrupoMaquina">
+    <Key>
+      <PropertyRef Name="IDGrupoMaquinas" />
+    </Key>
+    <Property Name="IDGrupoMaquinas" Type="Int32" Nullable="false" />
+    <Property Name="CodigoInterno" Type="Int32" />
+    <Property Name="Descr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="IntervencaoCurativa">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="IDPedido" Type="Int32" Nullable="false" />
+    <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
+    <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+    <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DataInicioIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DataFimIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Equipamento" Relationship="Self.FKIntervenca464077" FromRole="IntervencaoCurativa" ToRole="Equipamento" />
+    <NavigationProperty Name="PedidoManutCurativa" Relationship="Self.FKIntervenca350631" FromRole="IntervencaoCurativa" ToRole="PedidoManutCurativa" />
+    <NavigationProperty Name="Utilizador" Relationship="Self.FKIntervenca774679" FromRole="IntervencaoCurativa" ToRole="Utilizador" />
+  </EntityType>
+  <EntityType Name="IntervencaoPreventiva">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="PedidoManutPreventivaID" Type="Int32" Nullable="false" />
+    <Property Name="Observacoes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DataRealizacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PedidoManutPreventiva" Relationship="Self.FKIntervenca782768" FromRole="IntervencaoPreventiva" ToRole="PedidoManutPreventiva" />
+  </EntityType>
+  <EntityType Name="PedidoManutCurativa">
+    <Key>
+      <PropertyRef Name="IDPedido" />
+    </Key>
+    <Property Name="IDPedido" Type="Int32" Nullable="false" />
+    <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+    <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
+    <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IDEstadoIntervencao" Type="Int32" />
+    <Property Name="DataPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PedidoManutPreventiva">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
+    <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+    <Property Name="FichaManutencaoID" Type="Int32" Nullable="false" />
+    <Property Name="DataLimiteManutencaoPrev" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DataDoPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Equipamento" Relationship="Self.FKPedidoManu701029" FromRole="PedidoManutPreventiva" ToRole="Equipamento" />
+    <NavigationProperty Name="FichaManutencao" Relationship="Self.FKPedidoManu399343" FromRole="PedidoManutPreventiva" ToRole="FichaManutencao" />
+    <NavigationProperty Name="IntervencaoPreventiva" Relationship="Self.FKIntervenca782768" FromRole="PedidoManutPreventiva" ToRole="IntervencaoPreventiva" />
+    <NavigationProperty Name="Utilizador" Relationship="Self.FKPedidoManu31804" FromRole="PedidoManutPreventiva" ToRole="Utilizador" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TipoUtilizador">
+    <Key>
+      <PropertyRef Name="IDTipo" />
+    </Key>
+    <Property Name="IDTipo" Type="Int32" Nullable="false" />
+    <Property Name="TipoDescr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SeccaoTrabalho" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Utilizador" Relationship="Self.FKUtilizador314280" FromRole="TipoUtilizador" ToRole="Utilizador" />
+  </EntityType>
+  <EntityType Name="Utilizador">
+    <Key>
+      <PropertyRef Name="IDUser" />
+    </Key>
+    <Property Name="IDUser" Type="Int32" Nullable="false" />
+    <Property Name="IDTipo" Type="Int32" Nullable="false" />
+    <Property Name="NumeroUtilizador" Type="Int32" Nullable="false" />
+    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EstadoAtividade" Type="Int32" />
+    <Property Name="DataInativacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Autenticacao" Relationship="Self.FKAutenticac472228" FromRole="Utilizador" ToRole="Autenticacao" />
+    <NavigationProperty Name="IntervencaoCurativa" Relationship="Self.FKIntervenca774679" FromRole="Utilizador" ToRole="IntervencaoCurativa" />
+    <NavigationProperty Name="PedidoManutCurativa" Relationship="Self.FKPedidoManu235659" FromRole="Utilizador" ToRole="PedidoManutCurativa" />
+    <NavigationProperty Name="PedidoManutPreventiva" Relationship="Self.FKPedidoManu31804" FromRole="Utilizador" ToRole="PedidoManutPreventiva" />
+    <NavigationProperty Name="TipoUtilizador" Relationship="Self.FKUtilizador314280" FromRole="Utilizador" ToRole="TipoUtilizador" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKAutenticac472228">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="Autenticacao" Type="Self.Autenticacao" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="Autenticacao">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKEquipament289357">
+    <End Role="GrupoMaquina" Type="Self.GrupoMaquina" Multiplicity="1" />
+    <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GrupoMaquina">
+        <PropertyRef Name="IDGrupoMaquinas" />
+      </Principal>
+      <Dependent Role="Equipamento">
+        <PropertyRef Name="IDGrupoM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKIntervenca464077">
+    <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
+    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipamento">
+        <PropertyRef Name="IDEquipamento" />
+      </Principal>
+      <Dependent Role="IntervencaoCurativa">
+        <PropertyRef Name="IDEquipamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKPedidoManu3098">
+    <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
+    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipamento">
+        <PropertyRef Name="IDEquipamento" />
+      </Principal>
+      <Dependent Role="PedidoManutCurativa">
+        <PropertyRef Name="IDEquipamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKPedidoManu701029">
+    <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
+    <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipamento">
+        <PropertyRef Name="IDEquipamento" />
+      </Principal>
+      <Dependent Role="PedidoManutPreventiva">
+        <PropertyRef Name="IDEquipamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoManutCurativa_EstadoIntervencao">
+    <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="0..1" />
+    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoIntervencao">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PedidoManutCurativa">
+        <PropertyRef Name="IDEstadoIntervencao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKFichaManut955630">
+    <End Role="GrupoMaquina" Type="Self.GrupoMaquina" Multiplicity="1" />
+    <End Role="FichaManutencao" Type="Self.FichaManutencao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GrupoMaquina">
+        <PropertyRef Name="IDGrupoMaquinas" />
+      </Principal>
+      <Dependent Role="FichaManutencao">
+        <PropertyRef Name="IDGrupoMaquinas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKPedidoManu399343">
+    <End Role="FichaManutencao" Type="Self.FichaManutencao" Multiplicity="1" />
+    <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FichaManutencao">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PedidoManutPreventiva">
+        <PropertyRef Name="FichaManutencaoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKIntervenca350631">
+    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="1" />
+    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PedidoManutCurativa">
+        <PropertyRef Name="IDPedido" />
+      </Principal>
+      <Dependent Role="IntervencaoCurativa">
+        <PropertyRef Name="IDPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKIntervenca774679">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="IntervencaoCurativa">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKIntervenca782768">
+    <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="1" />
+    <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PedidoManutPreventiva">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IntervencaoPreventiva">
+        <PropertyRef Name="PedidoManutPreventivaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKPedidoManu235659">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="PedidoManutCurativa">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKPedidoManu31804">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="IDUser" />
+      </Principal>
+      <Dependent Role="PedidoManutPreventiva">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKUtilizador314280">
+    <End Role="TipoUtilizador" Type="Self.TipoUtilizador" Multiplicity="1" />
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoUtilizador">
+        <PropertyRef Name="IDTipo" />
+      </Principal>
+      <Dependent Role="Utilizador">
+        <PropertyRef Name="IDTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="BDGestaoManutencaoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+    <EntitySet Name="Autenticacao" EntityType="Self.Autenticacao" />
+    <EntitySet Name="Equipamento" EntityType="Self.Equipamento" />
+    <EntitySet Name="EstadoIntervencao" EntityType="Self.EstadoIntervencao" />
+    <EntitySet Name="FichaManutencao" EntityType="Self.FichaManutencao" />
+    <EntitySet Name="GrupoMaquina" EntityType="Self.GrupoMaquina" />
+    <EntitySet Name="IntervencaoCurativa" EntityType="Self.IntervencaoCurativa" />
+    <EntitySet Name="IntervencaoPreventiva" EntityType="Self.IntervencaoPreventiva" />
+    <EntitySet Name="PedidoManutCurativa" EntityType="Self.PedidoManutCurativa" />
+    <EntitySet Name="PedidoManutPreventiva" EntityType="Self.PedidoManutPreventiva" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TipoUtilizador" EntityType="Self.TipoUtilizador" />
+    <EntitySet Name="Utilizador" EntityType="Self.Utilizador" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FKAutenticac472228" Association="Self.FKAutenticac472228">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="Autenticacao" EntitySet="Autenticacao" />
+    </AssociationSet>
+    <AssociationSet Name="FKEquipament289357" Association="Self.FKEquipament289357">
+      <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />
+      <End Role="Equipamento" EntitySet="Equipamento" />
+    </AssociationSet>
+    <AssociationSet Name="FKIntervenca464077" Association="Self.FKIntervenca464077">
+      <End Role="Equipamento" EntitySet="Equipamento" />
+      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FKPedidoManu3098" Association="Self.FKPedidoManu3098">
+      <End Role="Equipamento" EntitySet="Equipamento" />
+      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FKPedidoManu701029" Association="Self.FKPedidoManu701029">
+      <End Role="Equipamento" EntitySet="Equipamento" />
+      <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoManutCurativa_EstadoIntervencao" Association="Self.FK_PedidoManutCurativa_EstadoIntervencao">
+      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
+      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FKFichaManut955630" Association="Self.FKFichaManut955630">
+      <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />
+      <End Role="FichaManutencao" EntitySet="FichaManutencao" />
+    </AssociationSet>
+    <AssociationSet Name="FKPedidoManu399343" Association="Self.FKPedidoManu399343">
+      <End Role="FichaManutencao" EntitySet="FichaManutencao" />
+      <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
+    </AssociationSet>
+    <AssociationSet Name="FKIntervenca350631" Association="Self.FKIntervenca350631">
+      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
+      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FKIntervenca774679" Association="Self.FKIntervenca774679">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FKIntervenca782768" Association="Self.FKIntervenca782768">
+      <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
+      <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
+    </AssociationSet>
+    <AssociationSet Name="FKPedidoManu235659" Association="Self.FKPedidoManu235659">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FKPedidoManu31804" Association="Self.FKPedidoManu31804">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
+    </AssociationSet>
+    <AssociationSet Name="FKUtilizador314280" Association="Self.FKUtilizador314280">
+      <End Role="TipoUtilizador" EntitySet="TipoUtilizador" />
+      <End Role="Utilizador" EntitySet="Utilizador" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <FunctionImport Name="InsertEq">
+      <Parameter Name="IDGrupoM" Mode="In" Type="Int32" />
+      <Parameter Name="NumeroSerie" Mode="In" Type="String" />
+      <Parameter Name="Descr" Mode="In" Type="String" />
+      <Parameter Name="Marca" Mode="In" Type="String" />
+      <Parameter Name="Tipo" Mode="In" Type="String" />
+      <Parameter Name="DataCompra" Mode="In" Type="String" />
+      <Parameter Name="CodigoInterno" Mode="In" Type="String" />
+      <Parameter Name="EstadoEqui" Mode="In" Type="Int32" />
+      <Parameter Name="DataFimAtividade" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertGMaquina">
+      <Parameter Name="CodigoInterno" Mode="In" Type="Int32" />
+      <Parameter Name="Descr" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertIntervencaoCurativa">
+      <Parameter Name="IDPedido" Mode="In" Type="Int32" />
+      <Parameter Name="IDEquipamento" Mode="In" Type="Int32" />
+      <Parameter Name="UtilizadorIDUser" Mode="In" Type="Int32" />
+      <Parameter Name="Descricao" Mode="In" Type="String" />
+      <Parameter Name="DataInicioIntervencao" Mode="In" Type="String" />
+      <Parameter Name="DataFimIntervencao" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertPedidoCurativo">
+      <Parameter Name="UtilizadorIDUser" Mode="In" Type="Int32" />
+      <Parameter Name="IDEquipamento" Mode="In" Type="Int32" />
+      <Parameter Name="Descricao" Mode="In" Type="String" />
+      <Parameter Name="IDEstadoIntervencao" Mode="In" Type="Int32" />
+      <Parameter Name="DataPedido" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUtilizador">
+      <Parameter Name="IDTipo" Mode="In" Type="Int32" />
+      <Parameter Name="NumeroUtilizador" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="EstadoAtividade" Mode="In" Type="Int32" />
+      <Parameter Name="DataInativacao" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BDGestaoManutencaoModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BDGestaoManutencaoModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
