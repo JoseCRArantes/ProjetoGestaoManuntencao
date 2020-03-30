@@ -1,0 +1,32 @@
+<div class="container wrapper">
+    <div class="row">
+
+        <!-- GruposMaquinas table -->
+        <div class="col-md-12">
+            <div class="inner">
+                <h3>Grupos de maquinas</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Codigo interno</th>
+                            <th scope="col">Descricao</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let grupomaquinas of GrupoMaquinaList">
+                            <th scope="row">{{grupomaquinas.IDGrupoMaquinas}}</th>
+                            <td>{{grupomaquinas.CodigoInterno}}</td>
+                            <td>{{grupomaquinas.Descr}}</td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

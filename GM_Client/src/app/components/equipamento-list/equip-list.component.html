@@ -1,0 +1,46 @@
+<div class="container wrapper">
+    <div class="row">
+
+        <!-- Equipamentos table -->
+        <div class="col-md-12">
+            <div class="inner">
+                <h3>Equipamentos</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">ID GrupoMaquina</th>
+                            <th scope="col">Numero Serie</th>
+                            <th scope="col">Descricao</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Data Compra</th>
+                            <th scope="col">Codigo Interno</th>
+                            <th scope="col">Estado equipamento</th>
+                            <th scope="col">Data fim atividade</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let equipamentos of EquipList">
+                            <th scope="row">{{equipamentos.IDEquipamento}}</th>
+                            <td>{{equipamentos.IDGrupoM}}</td>
+                            <td>{{equipamentos.NumeroSerie}}</td>
+                            <td>{{equipamentos.Descr}}</td>
+                            <td>{{equipamentos.Marca}}</td>
+                            <td>{{equipamentos.Tipo}}</td>
+                            <td>{{equipamentos.DataCompra}}</td>
+                            <td>{{equipamentos.CodigoInterno}}</td>
+                            <td>{{equipamentos.EstadoEqui}}</td>
+                            <td>{{equipamentos.DataFimAtividade}}</td>
+                            <td>
+                              <!--<button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/edit-equip/', equipamento.IDEquipamento]">Edit</button>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
