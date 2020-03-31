@@ -114,7 +114,6 @@ namespace GMwebApi.Controllers
                 Marca = equipamentoDto.Marca,
                 Tipo = equipamentoDto.Tipo,
                 DataCompra = equipamentoDto.DataCompra,
-
                 CodigoInterno = equipamentoDto.CodigoInterno,
                 EstadoEqui = equipamentoDto.EstadoEqui
                 //DataFimAtividade = equipamentoDto.DataFimAtividade

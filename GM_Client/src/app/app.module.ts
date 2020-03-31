@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EquipListComponent } from './components/equipamento-list/equip-list.component';
 import { EquipAddComponent } from './components/equipamento-add/equip-add.component';
 import { GrupoMaquinaListComponent } from './components/grupomaquina-list/grupomaquina-list.component'
+import { EquipEditComponent } from './components/equipamento-edit/equip-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { GrupoMaquinaListComponent } from './components/grupomaquina-list/grupom
     EquipListComponent,
     EquipAddComponent, 
     GrupoMaquinaListComponent,
+    EquipEditComponent,
 
   ],
   imports: [

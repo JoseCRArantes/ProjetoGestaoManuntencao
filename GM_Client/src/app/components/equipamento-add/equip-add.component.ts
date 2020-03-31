@@ -21,6 +21,7 @@ export class EquipAddComponent implements OnInit {
     this.loadGrupoMaquinas();
   }
 
+
   constructor(
     public fb: FormBuilder,
     private ngZone: NgZone,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EquipamentoService } from '../../shared/equipamento.service';
+import { GrupoMaquinaService } from '../../shared/grupomaquina.service';
 
 @Component({
   selector: 'app-equip-list',
@@ -9,14 +10,17 @@ import { EquipamentoService } from '../../shared/equipamento.service';
 export class EquipListComponent implements OnInit {
 
   EquipList: any = [];
+  gruposMaquinaList: any = [];
 
 
   ngOnInit() {
     this.loadEquip();
+    this.loadGrupoMaquinas();
   }
 
   constructor(
-    public equipamentoService: EquipamentoService
+    public equipamentoService: EquipamentoService,
+    public grupoMaquinaService: GrupoMaquinaService
   ){ }
 
    // lista equipamentos 
@@ -25,6 +29,15 @@ export class EquipListComponent implements OnInit {
       this.EquipList = data;
     })
   }
+
+  //load dos grupos de máquinas.
+  loadGrupoMaquinas() {
+    return this.grupoMaquinaService.GetGruposMaquina().subscribe((data: {}) => {
+      this.gruposMaquinaList = data;
+    })
+  }
+
+
 
 
 }
