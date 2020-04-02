@@ -21,7 +21,6 @@ export class EquipAddComponent implements OnInit {
     this.loadGrupoMaquinas();
   }
 
-
   constructor(
     public fb: FormBuilder,
     private ngZone: NgZone,
@@ -29,6 +28,11 @@ export class EquipAddComponent implements OnInit {
     public equipamentoService: EquipamentoService, 
     public grupoMaquinaService: GrupoMaquinaService
   ){ }
+
+
+
+   
+  
 
   addEquipamento() {
     this.equipForm = this.fb.group({
@@ -41,6 +45,8 @@ export class EquipAddComponent implements OnInit {
       CodigoInterno: [''],
       EstadoEqui: [0],
       DataFimAtividade:['']
+
+      
     })
   }
 
@@ -56,5 +62,4 @@ export class EquipAddComponent implements OnInit {
       this.ngZone.run(() => this.router.navigateByUrl('/equip-list'))
     });
   }
-
 }

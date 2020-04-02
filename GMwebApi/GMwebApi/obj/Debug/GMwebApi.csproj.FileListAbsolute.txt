@@ -580,3 +580,14 @@ C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebAp
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csproj.CopyComplete
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.dll
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.pdb
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\JwtAuthForWebAPI.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\log4net.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\log4net.xml
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\System.IdentityModel.Tokens.Jwt.xml

@@ -340,6 +340,7 @@ namespace GMwebApi.Controllers
             return Ok();
         }
 
+       
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -426,6 +427,11 @@ namespace GMwebApi.Controllers
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
 
+
+
+
+            [HttpGet]
+            [Route("api/GetUserClaims")]
             public IList<Claim> GetClaims()
             {
                 IList<Claim> claims = new List<Claim>();

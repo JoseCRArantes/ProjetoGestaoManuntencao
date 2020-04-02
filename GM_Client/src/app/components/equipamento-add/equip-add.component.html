@@ -11,11 +11,11 @@
                     <input type="text" formControlName="IDGrupoM" class="form-control">
                 </div>-->   
                 
-                <select class="form-group">
-                    <label>Grupo de máquina</label>
-                    <option value="0">Selecione</option>
-                    <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoM">{{item.Descr}}</option>                  
-                </select> 
+                <select class="form-group" formControlName="IDGrupoM">
+                    <label>Grupo de máquina</label> 
+                    <option value="0">Selecione</option>   
+                    <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.Descr}}</option>                  
+                </select>
 
                 <div class="form-group">
                     <label>Número série</label>
