@@ -14,28 +14,11 @@ namespace GMwebApi.Models
     
     public partial class Utilizador
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Utilizador()
-        {
-            this.IntervencaoCurativa = new HashSet<IntervencaoCurativa>();
-            this.PedidoManutCurativa = new HashSet<PedidoManutCurativa>();
-            this.PedidoManutPreventiva = new HashSet<PedidoManutPreventiva>();
-        }
-    
         public int IDUser { get; set; }
         public int IDTipo { get; set; }
         public int NumeroUtilizador { get; set; }
         public string Nome { get; set; }
         public Nullable<int> EstadoAtividade { get; set; }
         public string DataInativacao { get; set; }
-    
-        public virtual Autenticacao Autenticacao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IntervencaoCurativa> IntervencaoCurativa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoManutCurativa> PedidoManutCurativa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoManutPreventiva> PedidoManutPreventiva { get; set; }
-        public virtual TipoUtilizador TipoUtilizador { get; set; }
     }
 }

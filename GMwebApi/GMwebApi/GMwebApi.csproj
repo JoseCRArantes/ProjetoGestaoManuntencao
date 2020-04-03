@@ -288,6 +288,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PedidoManutCurativasController.cs" />
     <Compile Include="Controllers\TipoUtilizadorsController.cs" />
+    <Compile Include="Controllers\UtilizadorsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\EquipamentoDto.cs" />
     <Compile Include="Global.asax.cs">

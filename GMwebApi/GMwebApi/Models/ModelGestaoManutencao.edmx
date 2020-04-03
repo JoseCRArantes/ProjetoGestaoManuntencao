@@ -712,11 +712,6 @@
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EstadoAtividade" Type="Int32" />
           <Property Name="DataInativacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Autenticacao" Relationship="Self.FKAutenticac472228" FromRole="Utilizador" ToRole="Autenticacao" />
-          <NavigationProperty Name="IntervencaoCurativa" Relationship="Self.FKIntervenca774679" FromRole="Utilizador" ToRole="IntervencaoCurativa" />
-          <NavigationProperty Name="PedidoManutCurativa" Relationship="Self.FKPedidoManu235659" FromRole="Utilizador" ToRole="PedidoManutCurativa" />
-          <NavigationProperty Name="PedidoManutPreventiva" Relationship="Self.FKPedidoManu31804" FromRole="Utilizador" ToRole="PedidoManutPreventiva" />
-          <NavigationProperty Name="TipoUtilizador" Relationship="Self.FKUtilizador314280" FromRole="Utilizador" ToRole="TipoUtilizador" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">

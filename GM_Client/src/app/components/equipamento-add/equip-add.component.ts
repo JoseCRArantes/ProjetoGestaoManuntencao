@@ -29,11 +29,6 @@ export class EquipAddComponent implements OnInit {
     public grupoMaquinaService: GrupoMaquinaService
   ){ }
 
-
-
-   
-  
-
   addEquipamento() {
     this.equipForm = this.fb.group({
       IDGrupoM : [0],
@@ -44,9 +39,7 @@ export class EquipAddComponent implements OnInit {
       DataCompra: [''],
       CodigoInterno: [''],
       EstadoEqui: [0],
-      DataFimAtividade:['']
-
-      
+      DataFimAtividade:['']   
     })
   }
 

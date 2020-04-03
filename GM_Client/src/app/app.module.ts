@@ -2,7 +2,8 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormBuilder, FormsModule, FormGroup } from '@angular/forms';
+ 
 import { AppRoutingModule } from './app-routing.model';
 import { AppComponent } from './app.component';
 
@@ -25,6 +26,7 @@ import { GrupoMaquinaListComponent } from './components/grupomaquina-list/grupom
 import { EquipEditComponent } from './components/equipamento-edit/equip-edit.component';
 import { RegisterComponent } from './components/register-add/register-add.component';
 import {AuthService} from './auth.service';
+import { LoginComponent } from './logincomponent';
 
 @NgModule({
   declarations: [
@@ -34,15 +36,19 @@ import {AuthService} from './auth.service';
     GrupoMaquinaListComponent,
     EquipEditComponent,
     RegisterComponent,
+    LoginComponent,
+    /*AuthService*/
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    FormsModule
   ],
-  providers: [EquipamentoService], /*Aqui ficar AuthService ou RegisterService */
+  
+  providers: [EquipamentoService, AuthService], /*Aqui ficar AuthService ou RegisterService */
   bootstrap: [AppComponent]
 })
 

@@ -2,10 +2,11 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {TokenParams} from './TokenAuth/TokenParamsModel';
 import { AuthService } from './auth.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
     selector:'my-login',
-    template: './logincomponent.html'
+    templateUrl: './logincomponent.html'
 })
 
 export class LoginComponent{
@@ -15,20 +16,14 @@ export class LoginComponent{
     password : string;
     constructor(private router : Router, private authService : AuthService)
     {
-
+        
     }
 
     DoLogin():void
     {
-        this.authService.login(this.username, this.password)
-        .subscribe(
+        console.log('teste');
+        this.authService.login(this.username, this.password);
 
-            data=>{
-                this.tokenParam = data;
-                this.authService.AccessToken = this.tokenParam.access_token;
-                this.router.navigate(['']);
-            }
-        )
     }
 
 }
