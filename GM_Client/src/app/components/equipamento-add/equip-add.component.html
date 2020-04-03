@@ -5,18 +5,12 @@
         <div class="col-md-12">
             <h3>Adicionar equipamento</h3>
             <div class="td">Grupo de Máquina</div>
-            <form [formGroup]="equipForm" (ngSubmit)="submitForm()" novalidate>
-                <!-- <div class="form-group">
-                    <label>GrupoMaquinas</label>
-                    <input type="text" formControlName="IDGrupoM" class="form-control">
-                </div>-->   
-                
+            <form [formGroup]="equipForm" (ngSubmit)="submitForm()" novalidate>   
                 <select class="form-group" formControlName="IDGrupoM">
                     <label>Grupo de máquina</label> 
                     <option value="0">Selecione</option>   
                     <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.Descr}}</option>                  
                 </select>
-
                 <div class="form-group">
                     <label>Número série</label>
                     <input type="text" formControlName="NumeroSerie" class="form-control">

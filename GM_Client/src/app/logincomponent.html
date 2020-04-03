@@ -1,0 +1,27 @@
+<div class="col-md-12">
+    <div class="inner">
+        <h3>Login</h3> 
+            <tr>
+                <td>
+                    <span style="color:black">Username</span>
+                </td>
+                <td>
+                    <input [(ngModel)]="username" type="textbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="color:black">Password</span>
+                </td>
+                <td>
+                    <input [(ngModel)]="password" type="password">
+                </td>
+            </tr>
+            <tr>
+                <input type="button" value="Login"
+                (click)="DoLogin()"/>
+            </tr>
+            
+        
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GrupoMaquinaService } from '../../shared/grupomaquina.service';
+import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
 
 @Component({
   selector: 'app-grupomaquina-list',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EquipamentoService } from '../../shared/equipamento.service';
-import { GrupoMaquinaService } from '../../shared/grupomaquina.service';
+import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
+import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
 
 @Component({
   selector: 'app-equip-list',
