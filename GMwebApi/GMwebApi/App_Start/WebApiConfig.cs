@@ -7,13 +7,15 @@ using System.Web.Http.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
+
 namespace GMwebApi
 {
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            
+            // EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
 
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
@@ -32,8 +34,7 @@ namespace GMwebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 
-                EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
-                config.EnableCors(cors);
+               
             
 
            

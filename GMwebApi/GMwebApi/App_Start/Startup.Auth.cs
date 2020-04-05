@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using GMwebApi.Providers;
 using GMwebApi.Models;
+using System.Web.Http.Cors;
 
 namespace GMwebApi
 {
@@ -22,6 +23,7 @@ namespace GMwebApi
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -30,6 +32,7 @@ namespace GMwebApi
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            
 
             // Configure the application for OAuth based flow
             PublicClientId = "self";
@@ -45,7 +48,8 @@ namespace GMwebApi
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
-
+            
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",

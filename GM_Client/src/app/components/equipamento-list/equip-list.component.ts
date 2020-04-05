@@ -36,8 +36,4 @@ export class EquipListComponent implements OnInit {
       this.gruposMaquinaList = data;
     })
   }
-
-
-
-
 }
