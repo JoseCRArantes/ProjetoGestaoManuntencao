@@ -168,7 +168,7 @@
     <Property Name="NumeroUtilizador" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="EstadoAtividade" Type="int" />
-    <Property Name="DataInativacao" Type="datetime" />
+    <Property Name="DataInativacao" Type="date" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">

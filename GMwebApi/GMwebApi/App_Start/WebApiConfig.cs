@@ -14,19 +14,20 @@ namespace GMwebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
             //config.EnableCors(cors);
 
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
-            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+            //var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            //config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 
 
             config.Routes.MapHttpRoute(
@@ -34,10 +35,10 @@ namespace GMwebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 
-               
-            
 
-           
+            //config.EnableCors(cors);
+
+
         }
     }
 }

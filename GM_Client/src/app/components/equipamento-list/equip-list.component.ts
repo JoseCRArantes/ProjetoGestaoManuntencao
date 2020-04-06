@@ -32,8 +32,9 @@ export class EquipListComponent implements OnInit {
 
   //load dos grupos de máquinas.
   loadGrupoMaquinas() {
-    return this.grupoMaquinaService.GetGruposMaquina().subscribe((data: {}) => {
-      this.gruposMaquinaList = data;
-    })
+   // return this.grupoMaquinaService.GetGruposMaquina().subscribe((data: {}) => {
+      //this.gruposMaquinaList = data;
+      return {};
+    //})
   }
 }

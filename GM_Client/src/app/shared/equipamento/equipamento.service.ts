@@ -9,8 +9,6 @@ import { retry, catchError } from 'rxjs/operators';
 })
 
 export class EquipamentoService {
-
-
   baseurl = 'http://localhost:44334/api';
 
   constructor(private http: HttpClient) { }
@@ -18,8 +16,10 @@ export class EquipamentoService {
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + localStorage.getItem('token') 
+   }), 
+   withCredentials: true
   }
 
   // POST
@@ -58,14 +58,13 @@ export class EquipamentoService {
     )
   }
 
-  // Error handling
   errorHandl(error) {
      let errorMessage = '';
      if(error.error instanceof ErrorEvent) {
-       // Get client-side error
+       // Get erro lado cliente
        errorMessage = error.error.message;
      } else {
-       // Get server-side error
+       // Get erro lado servidor
        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
      }
      console.log(errorMessage);

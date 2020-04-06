@@ -24,39 +24,32 @@ import * as moment from "moment";
                    private authService: AuthService, 
                    private router: Router) {
   
-          this.form = this.fb.group({
+             this.form = this.fb.group({
               username: ['', Validators.required],
-              password: ['',Validators.required]
-          });
+              password: ['',Validators.required]});
       }
 
-      
-      private setSession(authResult) {
-        const expiresAt = moment().add(authResult.expiresIn,'second');
-
-        localStorage.setItem('id_token', this.authService.idToken);
-        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-    }   
-    
-     /* DoLogin()
-    {
-        this.authService.login(this.username, this.password)
-        .subscribe(
-            data =>{
-                this.tokenParam = data;
-                this.authService.AccessToken = this.tokenParam.access_token;
-            }
-        );
-    }*/
-  
       login() {
-          const val = this.form.value;
-  
-          if (val.username && val.password) {
-              this.authService.login(val.username, val.password)
-            /*localStorage.setItem('token', this.authService )*/
-            }
+        const val = this.form.value;
 
+        if (val.username && val.password) {
+            this.authService.login(val.username, val.password)
+            /*.
+            subscribe(
+                data =>{
+                  
+                    this.tokenParam = data;
+                    this.authService.AccessToken = this.tokenParam.access_token;
+                }
+
+          localStorage.setItem('access_token', this.authService )*/
           }
-      }
+
+        }
+      
+
+   
+  
+      
+}
   

@@ -16,9 +16,11 @@ using Microsoft.Owin.Security.OAuth;
 using GMwebApi.Models;
 using GMwebApi.Providers;
 using GMwebApi.Results;
+using System.Web.Http.Cors;
 
 namespace GMwebApi.Controllers
 {
+
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

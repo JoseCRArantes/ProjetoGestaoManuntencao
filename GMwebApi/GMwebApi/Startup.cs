@@ -18,11 +18,14 @@ namespace GMwebApi
         public void Configuration(IAppBuilder app)
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            
+            //app.UseCors(builder => builder.WithOrigins("*"));
+
             ConfigureAuth(app);
+
 
             #region Old CORS
             //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            
             #endregion
         }
     }
