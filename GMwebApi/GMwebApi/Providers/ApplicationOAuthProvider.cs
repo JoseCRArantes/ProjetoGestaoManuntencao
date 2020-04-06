@@ -35,9 +35,10 @@ namespace GMwebApi.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", "Username ou password incorretos.");
                 return;
             }
+            //user name or password is incorrect
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);

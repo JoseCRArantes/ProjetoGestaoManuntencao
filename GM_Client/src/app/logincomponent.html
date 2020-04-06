@@ -1,25 +1,25 @@
-<div class="col-md-12">
-    <div class="inner">
-        <h3>Login</h3> 
-            <tr>
-                <td>
-                    <span style="color:black">Username</span>
-                </td>
-                <td>
-                    <input [(ngModel)]="username" type="textbox">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span style="color:black">Password</span>
-                </td>
-                <td>
-                    <input [(ngModel)]="password" type="password">
-                </td>
-            </tr>
-            <tr>
-                <input type="button" value="Login"
-                (click)="DoLogin()"/>     
-            </tr>      
+<div class="container wrapper wrapper2">
+    <div class="row">
+
+
+<form [formGroup]="form">
+    <fieldset>
+        <legend>Autenticação de utilizador </legend>
+        <div class="form-field">
+            <td>Email</td>
+            <input name="username" formControlName="username">
+        </div>
+        <div class="form-field">
+            <td>Password:</td>
+            <input name="password" formControlName="password" 
+                   type="password">
+        </div>
+    </fieldset>
+    <div class="form-buttons">
+        <button class="btn btn-primary"
+                (click)="login()">Login</button>
     </div>
+</form>
+
+</div>
 </div>

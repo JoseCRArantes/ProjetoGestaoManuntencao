@@ -25,7 +25,7 @@ import { EquipAddComponent }         from './components/equipamento-add/equip-ad
 import { GrupoMaquinaListComponent } from './components/grupomaquina-list/grupomaquina-list.component';
 import { EquipEditComponent }        from './components/equipamento-edit/equip-edit.component';
 import { RegisterComponent }         from './components/register-add/register-add.component';
-import { AuthService}                from './auth.service';
+import { AuthService}                from './TokenAuth/auth.service';
 import { LoginComponent }            from './logincomponent';
 
 @NgModule({

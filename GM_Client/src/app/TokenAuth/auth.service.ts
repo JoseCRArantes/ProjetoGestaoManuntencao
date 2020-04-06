@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {EquipamentoService} from './shared/equipamento/equipamento.service';
+import {EquipamentoService} from '../shared/equipamento/equipamento.service';
 /*import {Headers, Http, HttpClienteModule} from '@angular/common/http';*/
 
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
-import { Equipamento } from './shared/equipamento/equipamentomodel';
-import { EquipListComponent } from './components/equipamento-list/equip-list.component';
+import { Equipamento } from '../shared/equipamento/equipamentomodel';
+import { EquipListComponent } from '../components/equipamento-list/equip-list.component';
 
 @Injectable()
 export class AuthService{

@@ -19,6 +19,6 @@ namespace GMwebApi.Models
         public int NumeroUtilizador { get; set; }
         public string Nome { get; set; }
         public Nullable<int> EstadoAtividade { get; set; }
-        public string DataInativacao { get; set; }
+        public DateTime DataInativacao { get; set; }
     }
 }

@@ -1,29 +1,44 @@
-import {Component} from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {TokenParams} from './TokenAuth/TokenParamsModel';
-import { AuthService } from './auth.service';
+import { AuthService } from './TokenAuth/auth.service';
 import {NgForm} from '@angular/forms';
 import {Observable} from 'rxjs';
+import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+
+import * as moment from "moment";
 
 @Component({
     selector:'my-login',
     templateUrl: './logincomponent.html'
-})
+  })
 
-export class LoginComponent{
+  export class LoginComponent {
+      
+    form:FormGroup;
+      tokenParam:TokenParams;
+  
+      constructor(private fb:FormBuilder, 
+                   private authService: AuthService, 
+                   private router: Router) {
+  
+          this.form = this.fb.group({
+              username: ['', Validators.required],
+              password: ['',Validators.required]
+          });
+      }
 
-    tokenParam:TokenParams;
-    username : string;
-    password : string;
+      
+      private setSession(authResult) {
+        const expiresAt = moment().add(authResult.expiresIn,'second');
 
-    constructor(private router : Router,
-         private authService : AuthService)
-    {
-        
-    }
-
-    //Método que chama authToken, e atribui os dados ao objeto TokenParamsModelo
-    DoLogin():void
+        localStorage.setItem('id_token', this.authService.idToken);
+        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    }   
+    
+     /* DoLogin()
     {
         this.authService.login(this.username, this.password)
         .subscribe(
@@ -32,5 +47,16 @@ export class LoginComponent{
                 this.authService.AccessToken = this.tokenParam.access_token;
             }
         );
-    }
-}
+    }*/
+  
+      login() {
+          const val = this.form.value;
+  
+          if (val.username && val.password) {
+              this.authService.login(val.username, val.password)
+            /*localStorage.setItem('token', this.authService )*/
+            }
+
+          }
+      }
+  
