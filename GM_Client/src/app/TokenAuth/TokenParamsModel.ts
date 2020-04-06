@@ -3,4 +3,7 @@ export class TokenParams{
     token_type: string;
     expires_in: number;
     userName: string;
+    ".issued": string;
+    ".expires": string;
+
 }

@@ -16,7 +16,7 @@ export class AuthService{
     constructor(private http:HttpClient)
     {  }
     private TokenAPI = "http://localhost:44334/Token";
-    private TokenLogOut = "http://localhost:44334/api/Account/Logout";
+    
     equipamentoService: EquipamentoService;
  
     AccessToken: string = "";
