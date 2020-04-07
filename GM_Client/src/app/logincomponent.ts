@@ -36,8 +36,7 @@ import * as moment from "moment";
             console.log('fez login, a seguir imprime o token');
             console.log(localStorage.getItem('token'));
             console.log('token imprimido acima');
-       
-
+      
         }
 
         eliminatoken(){

@@ -30,7 +30,7 @@ export class GrupoMaquinaService {
   withCredentials: true
   }
 
-  // GET por ID
+  // GET por IDS
   GetOneGrupoMaquina(id): Observable<GrupoMaquina> {
     return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas/' + id)
      .pipe(
