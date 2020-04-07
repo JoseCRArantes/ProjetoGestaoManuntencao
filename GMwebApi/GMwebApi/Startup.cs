@@ -27,6 +27,7 @@ namespace GMwebApi
             //app.UseCors(builder => builder.WithOrigins("*"));
             #region Old CORS
             //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            
 
             #endregion
         }
