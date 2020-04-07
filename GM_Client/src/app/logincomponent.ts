@@ -32,24 +32,17 @@ import * as moment from "moment";
       login() {
         const val = this.form.value;
 
-        if (val.username && val.password) {
-            this.authService.login(val.username, val.password)
-            /*.
-            subscribe(
-                data =>{
-                  
-                    this.tokenParam = data;
-                    this.authService.AccessToken = this.tokenParam.access_token;
-                }
-
-          localStorage.setItem('access_token', this.authService )*/
-          }
+            this.authService.login(val.username, val.password);
+            console.log('fez login, a seguir imprime o token');
+            console.log(localStorage.getItem('token'));
+            console.log('token imprimido acima');
+       
 
         }
-      
 
-   
+        eliminatoken(){
+          localStorage.removeItem('token');
+        }
   
-      
 }
   

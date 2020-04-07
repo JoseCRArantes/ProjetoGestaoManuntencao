@@ -19,7 +19,7 @@ export class AuthService{
     
     equipamentoService: EquipamentoService;
  
-    AccessToken: string = "";
+    //AccessToken: string = "";
 
     login(Username:string, Password:string)
     { 
@@ -31,7 +31,8 @@ export class AuthService{
     
       return this.http.post<TokenParams>(this.TokenAPI, data, options).subscribe(
         res=>{
-            //console.log(res);
+            console.log(res);
+            console.log('vai imprimir o token, método que pede o token');
             localStorage.setItem('token', res.access_token);
             //const headers = {'Authorization': 'Bearer ' + res.access_token}
             //console.log('guardou');
@@ -41,5 +42,10 @@ export class AuthService{
             console.log(err.message);
         });
     }
+
+   
+
+
+    
 
 }

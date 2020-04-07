@@ -16,16 +16,24 @@ export class GrupoMaquinaService {
   constructor(private http: HttpClient) { }
 
   // Http Headers
-  httpOptions = {
+ /* httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   }
+*/
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+   }), 
+  withCredentials: true
+  }
 
   // GET por ID
   GetOneGrupoMaquina(id): Observable<GrupoMaquina> {
-    return this.http.get<GrupoMaquina>(this.baseurl + '/Equipamentoes/' + id)
-    .pipe(
+    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas/' + id)
+     .pipe(
       retry(1),
       catchError(this.errorHandl)
     )
@@ -39,6 +47,8 @@ export class GrupoMaquinaService {
       catchError(this.errorHandl)
     )
   }
+
+  
 
 
   // Error handling

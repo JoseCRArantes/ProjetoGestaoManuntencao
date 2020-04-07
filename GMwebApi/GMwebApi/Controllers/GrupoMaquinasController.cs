@@ -9,8 +9,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Mvc;
+using System.Web.Http.Cors;
+
+
 using GMwebApi.Models;
+
 
 namespace GMwebApi.Controllers
 {
@@ -23,7 +26,7 @@ namespace GMwebApi.Controllers
 
 
         // GET: api/GrupoMaquinas
-
+        [Authorize]
         public IQueryable<GrupoMaquina> GetGrupoMaquina()
         {
             return db.GrupoMaquina;

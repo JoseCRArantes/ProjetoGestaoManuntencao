@@ -18,6 +18,7 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities db = new BDGestaoManutencaoEntities();
 
         // GET: api/PedidoManutCurativas
+
         public IQueryable<PedidoManutCurativa> GetPedidoManutCurativa()
         {
             return db.PedidoManutCurativa;
