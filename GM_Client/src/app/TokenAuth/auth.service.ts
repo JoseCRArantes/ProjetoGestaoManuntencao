@@ -17,7 +17,7 @@ export class AuthService{
     {  }
     private TokenAPI = "http://localhost:44334/Token";
     
-    equipamentoService: EquipamentoService;
+    //equipamentoService: EquipamentoService;
  
     //AccessToken: string = "";
 
