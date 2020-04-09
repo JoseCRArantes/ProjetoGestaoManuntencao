@@ -41,7 +41,7 @@ export class GrupoMaquinaService {
 
   // GET all 
   GetGruposMaquina(): Observable<GrupoMaquina> {
-    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas')
+    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)

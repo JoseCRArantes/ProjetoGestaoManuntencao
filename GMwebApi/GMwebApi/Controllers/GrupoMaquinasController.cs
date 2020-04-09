@@ -19,7 +19,7 @@ namespace GMwebApi.Controllers
 {
     public class GrupoMaquinasController : ApiController
     {
-        private BDGestaoManutencaoEntities db = new BDGestaoManutencaoEntities();
+        private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         public object ViewBag { get; private set; }
 

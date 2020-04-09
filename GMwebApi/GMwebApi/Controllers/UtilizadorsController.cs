@@ -13,44 +13,44 @@ using GMwebApi.Models;
 
 namespace GMwebApi.Controllers
 {
-    public class TipoUtilizadorsController : ApiController
+    public class UtilizadorsController : ApiController
     {
-        private BDGestaoManutencaoEntities db = new BDGestaoManutencaoEntities();
+        private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
-        // GET: api/TipoUtilizadors
-        public IQueryable<TipoUtilizador> GetTipoUtilizador()
+        // GET: api/Utilizadors
+        public IQueryable<Utilizador> GetUtilizador()
         {
-            return db.TipoUtilizador;
+            return db.Utilizador;
         }
 
-        // GET: api/TipoUtilizadors/5
-        [ResponseType(typeof(TipoUtilizador))]
-        public async Task<IHttpActionResult> GetTipoUtilizador(int id)
+        // GET: api/Utilizadors/5
+        [ResponseType(typeof(Utilizador))]
+        public async Task<IHttpActionResult> GetUtilizador(string id)
         {
-            TipoUtilizador tipoUtilizador = await db.TipoUtilizador.FindAsync(id);
-            if (tipoUtilizador == null)
+            Utilizador utilizador = await db.Utilizador.FindAsync(id);
+            if (utilizador == null)
             {
                 return NotFound();
             }
 
-            return Ok(tipoUtilizador);
+            return Ok(utilizador);
         }
 
-        // PUT: api/TipoUtilizadors/5
+        // PUT: api/Utilizadors/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTipoUtilizador(int id, TipoUtilizador tipoUtilizador)
+        public async Task<IHttpActionResult> PutUtilizador(string id, Utilizador utilizador)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != tipoUtilizador.IDTipo)
+            if (id != utilizador.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(tipoUtilizador).State = EntityState.Modified;
+            db.Entry(utilizador).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace GMwebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TipoUtilizadorExists(id))
+                if (!UtilizadorExists(id))
                 {
                     return NotFound();
                 }
@@ -71,16 +71,16 @@ namespace GMwebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/TipoUtilizadors
-        [ResponseType(typeof(TipoUtilizador))]
-        public async Task<IHttpActionResult> PostTipoUtilizador(TipoUtilizador tipoUtilizador)
+        // POST: api/Utilizadors
+        [ResponseType(typeof(Utilizador))]
+        public async Task<IHttpActionResult> PostUtilizador(Utilizador utilizador)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.TipoUtilizador.Add(tipoUtilizador);
+            db.Utilizador.Add(utilizador);
 
             try
             {
@@ -88,7 +88,7 @@ namespace GMwebApi.Controllers
             }
             catch (DbUpdateException)
             {
-                if (TipoUtilizadorExists(tipoUtilizador.IDTipo))
+                if (UtilizadorExists(utilizador.Id))
                 {
                     return Conflict();
                 }
@@ -98,23 +98,23 @@ namespace GMwebApi.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = tipoUtilizador.IDTipo }, tipoUtilizador);
+            return CreatedAtRoute("DefaultApi", new { id = utilizador.Id }, utilizador);
         }
 
-        // DELETE: api/TipoUtilizadors/5
-        [ResponseType(typeof(TipoUtilizador))]
-        public async Task<IHttpActionResult> DeleteTipoUtilizador(int id)
+        // DELETE: api/Utilizadors/5
+        [ResponseType(typeof(Utilizador))]
+        public async Task<IHttpActionResult> DeleteUtilizador(string id)
         {
-            TipoUtilizador tipoUtilizador = await db.TipoUtilizador.FindAsync(id);
-            if (tipoUtilizador == null)
+            Utilizador utilizador = await db.Utilizador.FindAsync(id);
+            if (utilizador == null)
             {
                 return NotFound();
             }
 
-            db.TipoUtilizador.Remove(tipoUtilizador);
+            db.Utilizador.Remove(utilizador);
             await db.SaveChangesAsync();
 
-            return Ok(tipoUtilizador);
+            return Ok(utilizador);
         }
 
         protected override void Dispose(bool disposing)
@@ -126,9 +126,9 @@ namespace GMwebApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TipoUtilizadorExists(int id)
+        private bool UtilizadorExists(string id)
         {
-            return db.TipoUtilizador.Count(e => e.IDTipo == id) > 0;
+            return db.Utilizador.Count(e => e.Id == id) > 0;
         }
     }
 }

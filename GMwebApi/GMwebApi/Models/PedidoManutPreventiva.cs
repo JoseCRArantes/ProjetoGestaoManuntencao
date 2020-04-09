@@ -22,7 +22,7 @@ namespace GMwebApi.Models
     
         public int ID { get; set; }
         public int IDEquipamento { get; set; }
-        public int UtilizadorIDUser { get; set; }
+        public string UtilizadorIDUser { get; set; }
         public int FichaManutencaoID { get; set; }
         public string DataLimiteManutencaoPrev { get; set; }
         public string DataDoPedido { get; set; }

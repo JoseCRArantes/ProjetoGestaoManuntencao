@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BDGestaoManutencaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BDGestaoManutencaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,14 +56,6 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="Autenticacao">
-          <Key>
-            <PropertyRef Name="UtilizadorIDUser" />
-          </Key>
-          <Property Name="UtilizadorIDUser" Type="int" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Username" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Equipamento">
           <Key>
             <PropertyRef Name="IDEquipamento" />
@@ -110,7 +102,7 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="IDPedido" Type="int" Nullable="false" />
           <Property Name="IDEquipamento" Type="int" Nullable="false" />
-          <Property Name="UtilizadorIDUser" Type="int" Nullable="false" />
+          <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="255" />
           <Property Name="DataInicioIntervencao" Type="varchar" MaxLength="50" />
           <Property Name="DataFimIntervencao" Type="varchar" MaxLength="50" />
@@ -129,7 +121,7 @@
             <PropertyRef Name="IDPedido" />
           </Key>
           <Property Name="IDPedido" Type="int" Nullable="false" />
-          <Property Name="UtilizadorIDUser" Type="int" Nullable="false" />
+          <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IDEquipamento" Type="int" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="100" />
           <Property Name="IDEstadoIntervencao" Type="int" />
@@ -141,7 +133,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="IDEquipamento" Type="int" Nullable="false" />
-          <Property Name="UtilizadorIDUser" Type="int" Nullable="false" />
+          <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FichaManutencaoID" Type="int" Nullable="false" />
           <Property Name="DataLimiteManutencaoPrev" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DataDoPedido" Type="varchar" MaxLength="50" Nullable="false" />
@@ -166,13 +158,12 @@
         </EntityType>
         <EntityType Name="Utilizador">
           <Key>
-            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IDTipo" Type="int" Nullable="false" />
           <Property Name="NumeroUtilizador" Type="int" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="EstadoAtividade" Type="int" />
           <Property Name="DataInativacao" Type="date" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -243,15 +234,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FKAutenticac472228">
-          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
-          <End Role="Autenticacao" Type="Self.Autenticacao" Multiplicity="0..1" />
+        <Association Name="FK_Utilizador_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Autenticacao">
-              <PropertyRef Name="UtilizadorIDUser" />
+            <Dependent Role="Utilizador">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -308,7 +299,7 @@
           <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="IntervencaoCurativa">
               <PropertyRef Name="UtilizadorIDUser" />
@@ -332,7 +323,7 @@
           <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PedidoManutCurativa">
               <PropertyRef Name="UtilizadorIDUser" />
@@ -356,7 +347,7 @@
           <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PedidoManutPreventiva">
               <PropertyRef Name="UtilizadorIDUser" />
@@ -399,51 +390,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="InsertUtilizador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IDTipo" Type="int" Mode="In" />
-          <Parameter Name="NumeroUtilizador" Type="int" Mode="In" />
-          <Parameter Name="Nome" Type="varchar" Mode="In" />
-          <Parameter Name="EstadoAtividade" Type="int" Mode="In" />
-          <Parameter Name="DataInativacao" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BDGestaoManutencaoModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Autenticacao" EntityType="Self.Autenticacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipamento" EntityType="Self.Equipamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoIntervencao" EntityType="Self.EstadoIntervencao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FichaManutencao" EntityType="Self.FichaManutencao" Schema="dbo" store:Type="Tables" />
@@ -475,9 +427,9 @@
             <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
             <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
           </AssociationSet>
-          <AssociationSet Name="FKAutenticac472228" Association="Self.FKAutenticac472228">
+          <AssociationSet Name="FK_Utilizador_AspNetUsers" Association="Self.FK_Utilizador_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Utilizador" EntitySet="Utilizador" />
-            <End Role="Autenticacao" EntitySet="Autenticacao" />
           </AssociationSet>
           <AssociationSet Name="FKEquipament289357" Association="Self.FKEquipament289357">
             <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />
@@ -528,7 +480,8 @@
             <End Role="Utilizador" EntitySet="Utilizador" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BDGestaoManutencaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -579,22 +532,14 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Utilizador" Relationship="Self.FK_Utilizador_AspNetUsers" FromRole="AspNetUsers" ToRole="Utilizador" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="Autenticacao">
-          <Key>
-            <PropertyRef Name="UtilizadorIDUser" />
-          </Key>
-          <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Username" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Utilizador" Relationship="Self.FKAutenticac472228" FromRole="Autenticacao" ToRole="Utilizador" />
         </EntityType>
         <EntityType Name="Equipamento">
           <Key>
             <PropertyRef Name="IDEquipamento" />
           </Key>
-          <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
+          <Property Name="IDEquipamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDGrupoM" Type="Int32" Nullable="false" />
           <Property Name="NumeroSerie" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -628,7 +573,7 @@
           <Key>
             <PropertyRef Name="IDGrupoMaquinas" />
           </Key>
-          <Property Name="IDGrupoMaquinas" Type="Int32" Nullable="false" />
+          <Property Name="IDGrupoMaquinas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CodigoInterno" Type="Int32" />
           <Property Name="Descr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -639,7 +584,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="IDPedido" Type="Int32" Nullable="false" />
           <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
-          <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+          <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="DataInicioIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DataFimIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -662,11 +607,15 @@
             <PropertyRef Name="IDPedido" />
           </Key>
           <Property Name="IDPedido" Type="Int32" Nullable="false" />
-          <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+          <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IDEstadoIntervencao" Type="Int32" />
           <Property Name="DataPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Equipamento" Relationship="Self.FKPedidoManu3098" FromRole="PedidoManutCurativa" ToRole="Equipamento" />
+          <NavigationProperty Name="EstadoIntervencao" Relationship="Self.FK_PedidoManutCurativa_EstadoIntervencao" FromRole="PedidoManutCurativa" ToRole="EstadoIntervencao" />
+          <NavigationProperty Name="IntervencaoCurativa" Relationship="Self.FKIntervenca350631" FromRole="PedidoManutCurativa" ToRole="IntervencaoCurativa" />
+          <NavigationProperty Name="Utilizador" Relationship="Self.FKPedidoManu235659" FromRole="PedidoManutCurativa" ToRole="Utilizador" />
         </EntityType>
         <EntityType Name="PedidoManutPreventiva">
           <Key>
@@ -674,7 +623,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
-          <Property Name="UtilizadorIDUser" Type="Int32" Nullable="false" />
+          <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FichaManutencaoID" Type="Int32" Nullable="false" />
           <Property Name="DataLimiteManutencaoPrev" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DataDoPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -697,21 +646,19 @@
           <Key>
             <PropertyRef Name="IDTipo" />
           </Key>
-          <Property Name="IDTipo" Type="Int32" Nullable="false" />
+          <Property Name="IDTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoDescr" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SeccaoTrabalho" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Utilizador" Relationship="Self.FKUtilizador314280" FromRole="TipoUtilizador" ToRole="Utilizador" />
         </EntityType>
         <EntityType Name="Utilizador">
           <Key>
-            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IDTipo" Type="Int32" Nullable="false" />
           <Property Name="NumeroUtilizador" Type="Int32" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EstadoAtividade" Type="Int32" />
-          <Property Name="DataInativacao" Type="DateTime" />
+          <Property Name="DataInativacao" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -741,15 +688,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FKAutenticac472228">
-          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
-          <End Role="Autenticacao" Type="Self.Autenticacao" Multiplicity="0..1" />
+        <Association Name="FK_Utilizador_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Autenticacao">
-              <PropertyRef Name="UtilizadorIDUser" />
+            <Dependent Role="Utilizador">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -854,7 +801,7 @@
           <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="IntervencaoCurativa">
               <PropertyRef Name="UtilizadorIDUser" />
@@ -878,7 +825,7 @@
           <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PedidoManutCurativa">
               <PropertyRef Name="UtilizadorIDUser" />
@@ -890,7 +837,7 @@
           <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilizador">
-              <PropertyRef Name="IDUser" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PedidoManutPreventiva">
               <PropertyRef Name="UtilizadorIDUser" />
@@ -913,12 +860,11 @@
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BDGestaoManutencaoEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BDGestaoManutencaoEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="Autenticacao" EntityType="Self.Autenticacao" />
           <EntitySet Name="Equipamento" EntityType="Self.Equipamento" />
           <EntitySet Name="EstadoIntervencao" EntityType="Self.EstadoIntervencao" />
           <EntitySet Name="FichaManutencao" EntityType="Self.FichaManutencao" />
@@ -938,9 +884,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FKAutenticac472228" Association="Self.FKAutenticac472228">
+          <AssociationSet Name="FK_Utilizador_AspNetUsers" Association="Self.FK_Utilizador_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Utilizador" EntitySet="Utilizador" />
-            <End Role="Autenticacao" EntitySet="Autenticacao" />
           </AssociationSet>
           <AssociationSet Name="FKEquipament289357" Association="Self.FKEquipament289357">
             <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />
@@ -998,91 +944,13 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <FunctionImport Name="InsertEq">
-            <Parameter Name="IDGrupoM" Mode="In" Type="Int32" />
-            <Parameter Name="NumeroSerie" Mode="In" Type="String" />
-            <Parameter Name="Descr" Mode="In" Type="String" />
-            <Parameter Name="Marca" Mode="In" Type="String" />
-            <Parameter Name="Tipo" Mode="In" Type="String" />
-            <Parameter Name="DataCompra" Mode="In" Type="String" />
-            <Parameter Name="CodigoInterno" Mode="In" Type="String" />
-            <Parameter Name="EstadoEqui" Mode="In" Type="Int32" />
-            <Parameter Name="DataFimAtividade" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertGMaquina">
-            <Parameter Name="CodigoInterno" Mode="In" Type="Int32" />
-            <Parameter Name="Descr" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertIntervencaoCurativa">
-            <Parameter Name="IDPedido" Mode="In" Type="Int32" />
-            <Parameter Name="IDEquipamento" Mode="In" Type="Int32" />
-            <Parameter Name="UtilizadorIDUser" Mode="In" Type="Int32" />
-            <Parameter Name="Descricao" Mode="In" Type="String" />
-            <Parameter Name="DataInicioIntervencao" Mode="In" Type="String" />
-            <Parameter Name="DataFimIntervencao" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertPedidoCurativo">
-            <Parameter Name="UtilizadorIDUser" Mode="In" Type="Int32" />
-            <Parameter Name="IDEquipamento" Mode="In" Type="Int32" />
-            <Parameter Name="Descricao" Mode="In" Type="String" />
-            <Parameter Name="IDEstadoIntervencao" Mode="In" Type="Int32" />
-            <Parameter Name="DataPedido" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertUtilizador">
-            <Parameter Name="IDTipo" Mode="In" Type="Int32" />
-            <Parameter Name="NumeroUtilizador" Mode="In" Type="Int32" />
-            <Parameter Name="Nome" Mode="In" Type="String" />
-            <Parameter Name="EstadoAtividade" Mode="In" Type="Int32" />
-            <Parameter Name="DataInativacao" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BDGestaoManutencaoModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BDGestaoManutencaoModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BDGestaoManutencaoModelStoreContainer" CdmEntityContainer="BDGestaoManutencaoEntities">
+        <EntityContainerMapping StorageEntityContainer="BDGestaoManutencaoModelStoreContainer" CdmEntityContainer="BDGestaoManutencaoEntities1">
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="BDGestaoManutencaoModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -1125,15 +993,6 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Autenticacao">
-            <EntityTypeMapping TypeName="BDGestaoManutencaoModel.Autenticacao">
-              <MappingFragment StoreEntitySet="Autenticacao">
-                <ScalarProperty Name="UtilizadorIDUser" ColumnName="UtilizadorIDUser" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1250,11 +1109,10 @@
           <EntitySetMapping Name="Utilizador">
             <EntityTypeMapping TypeName="BDGestaoManutencaoModel.Utilizador">
               <MappingFragment StoreEntitySet="Utilizador">
-                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IDTipo" ColumnName="IDTipo" />
                 <ScalarProperty Name="NumeroUtilizador" ColumnName="NumeroUtilizador" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="EstadoAtividade" ColumnName="EstadoAtividade" />
                 <ScalarProperty Name="DataInativacao" ColumnName="DataInativacao" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1267,31 +1125,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="InsertUtilizador" FunctionName="BDGestaoManutencaoModel.Store.InsertUtilizador" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BDGestaoManutencaoModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BDGestaoManutencaoModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BDGestaoManutencaoModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BDGestaoManutencaoModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BDGestaoManutencaoModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="BDGestaoManutencaoModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BDGestaoManutencaoModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BDGestaoManutencaoModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BDGestaoManutencaoModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

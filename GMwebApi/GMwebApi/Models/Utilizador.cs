@@ -14,11 +14,10 @@ namespace GMwebApi.Models
     
     public partial class Utilizador
     {
-        public int IDUser { get; set; }
+        public string Id { get; set; }
         public int IDTipo { get; set; }
         public int NumeroUtilizador { get; set; }
         public string Nome { get; set; }
-        public Nullable<int> EstadoAtividade { get; set; }
         public Nullable<System.DateTime> DataInativacao { get; set; }
     }
 }

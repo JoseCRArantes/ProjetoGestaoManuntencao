@@ -17,7 +17,7 @@ namespace GMwebApi.Controllers
 {
     public class EquipamentoesController : ApiController
     {
-        private BDGestaoManutencaoEntities db = new BDGestaoManutencaoEntities();
+        private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/Equipamentoes
         [Authorize]
@@ -28,6 +28,7 @@ namespace GMwebApi.Controllers
 
         // GET: api/Equipamentoes/5
         [ResponseType(typeof(Equipamento))]
+        [Authorize]
         public async Task<IHttpActionResult> GetEquipamento(int id)
         {
             Equipamento equipamento = await db.Equipamento.FindAsync(id);
@@ -40,6 +41,7 @@ namespace GMwebApi.Controllers
         }
 
         // PUT: api/Equipamentoes/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEquipamento(int id, Equipamento equipamento)
         {
@@ -75,7 +77,7 @@ namespace GMwebApi.Controllers
         }
 
         // POST: api/Equipamentoes
-        
+        [Authorize]
         [ResponseType(typeof(Equipamento))]
         public async Task<IHttpActionResult> PostEquipamento(EquipamentoDto equipamentoDto)
         {

@@ -14,11 +14,23 @@ namespace GMwebApi.Models
     
     public partial class PedidoManutCurativa
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PedidoManutCurativa()
+        {
+            this.IntervencaoCurativa = new HashSet<IntervencaoCurativa>();
+        }
+    
         public int IDPedido { get; set; }
-        public int UtilizadorIDUser { get; set; }
+        public string UtilizadorIDUser { get; set; }
         public int IDEquipamento { get; set; }
         public string Descricao { get; set; }
         public Nullable<int> IDEstadoIntervencao { get; set; }
         public string DataPedido { get; set; }
+    
+        public virtual Equipamento Equipamento { get; set; }
+        public virtual EstadoIntervencao EstadoIntervencao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IntervencaoCurativa> IntervencaoCurativa { get; set; }
+        public virtual Utilizador Utilizador { get; set; }
     }
 }

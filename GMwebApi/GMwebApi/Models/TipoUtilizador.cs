@@ -14,17 +14,8 @@ namespace GMwebApi.Models
     
     public partial class TipoUtilizador
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TipoUtilizador()
-        {
-            this.Utilizador = new HashSet<Utilizador>();
-        }
-    
         public int IDTipo { get; set; }
         public string TipoDescr { get; set; }
         public string SeccaoTrabalho { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Utilizador> Utilizador { get; set; }
     }
 }

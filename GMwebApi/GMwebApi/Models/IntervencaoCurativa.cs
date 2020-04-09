@@ -17,7 +17,7 @@ namespace GMwebApi.Models
         public int ID { get; set; }
         public int IDPedido { get; set; }
         public int IDEquipamento { get; set; }
-        public int UtilizadorIDUser { get; set; }
+        public string UtilizadorIDUser { get; set; }
         public string Descricao { get; set; }
         public string DataInicioIntervencao { get; set; }
         public string DataFimIntervencao { get; set; }

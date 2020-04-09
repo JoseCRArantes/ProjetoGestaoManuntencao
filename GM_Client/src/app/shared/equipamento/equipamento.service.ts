@@ -33,7 +33,7 @@ export class EquipamentoService {
 
   // GET
   GetOneEquip(id): Observable<Equipamento> {
-    return this.http.get<Equipamento>(this.baseurl + '/Equipamentoes/' + id)
+    return this.http.get<Equipamento>(this.baseurl + '/Equipamentoes/' + id, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -42,7 +42,7 @@ export class EquipamentoService {
 
   // GET
   GetEquipamentos(): Observable<Equipamento> {
-    return this.http.get<Equipamento>(this.baseurl + '/Equipamentoes')
+    return this.http.get<Equipamento>(this.baseurl + '/Equipamentoes', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)

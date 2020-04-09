@@ -289,8 +289,7 @@
     <Compile Include="Controllers\EquipamentoesController.cs" />
     <Compile Include="Controllers\GrupoMaquinasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PedidoManutCurativasController.cs" />
-    <Compile Include="Controllers\TipoUtilizadorsController.cs" />
+    <Compile Include="Controllers\UtilizadorsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\EquipamentoDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -299,74 +298,65 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRoles.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaims.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogins.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUsers.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Autenticacao.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Equipamento.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstadoIntervencao.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FichaManutencao.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GrupoMaquina.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IntervencaoCurativa.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IntervencaoPreventiva.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelGestaoManutencao.Context.cs">
+    <Compile Include="Models\ModeloGestaoManuntencao.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGestaoManutencao.Context.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelGestaoManutencao.cs">
+    <Compile Include="Models\ModeloGestaoManuntencao.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelGestaoManutencao.Designer.cs">
+    <Compile Include="Models\ModeloGestaoManuntencao.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGestaoManutencao.edmx</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\PedidoManutCurativa.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PedidoManutPreventiva.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoUtilizador.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilizador.cs">
-      <DependentUpon>ModelGestaoManutencao.tt</DependentUpon>
+      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -382,15 +372,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\ModelGestaoManutencao.Context.tt">
+    <Content Include="Models\ModeloGestaoManuntencao.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGestaoManutencao.edmx</DependentUpon>
-      <LastGenOutput>ModelGestaoManutencao.Context.cs</LastGenOutput>
+      <DependentUpon>ModeloGestaoManuntencao.edmx</DependentUpon>
+      <LastGenOutput>ModeloGestaoManuntencao.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelGestaoManutencao.tt">
+    <Content Include="Models\ModeloGestaoManuntencao.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGestaoManutencao.edmx</DependentUpon>
-      <LastGenOutput>ModelGestaoManutencao.cs</LastGenOutput>
+      <DependentUpon>ModeloGestaoManuntencao.edmx</DependentUpon>
+      <LastGenOutput>ModeloGestaoManuntencao.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -413,12 +403,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\ModelGestaoManutencao.edmx">
+    <EntityDeploy Include="Models\ModeloGestaoManuntencao.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelGestaoManutencao.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModeloGestaoManuntencao.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelGestaoManutencao.edmx.diagram">
-      <DependentUpon>ModelGestaoManutencao.edmx</DependentUpon>
+    <Content Include="Models\ModeloGestaoManuntencao.edmx.diagram">
+      <DependentUpon>ModeloGestaoManuntencao.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
