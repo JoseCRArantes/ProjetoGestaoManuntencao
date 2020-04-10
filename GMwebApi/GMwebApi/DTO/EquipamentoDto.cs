@@ -15,6 +15,7 @@ namespace GMwebApi.DTO
         public DateTime DataCompra { get; set; }
         public string CodigoInterno { get; set; }
         public Nullable<int> EstadoEqui { get; set; }
+
         //public DateTime DataFimAtividade { get; set; }
     }
 }

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GMwebApi.Models;
+using GMwebApi.DTO;
+
 
 namespace GMwebApi.Controllers
 {
@@ -18,12 +20,14 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/Utilizadors
+        [Authorize]
         public IQueryable<Utilizador> GetUtilizador()
         {
             return db.Utilizador;
         }
 
         // GET: api/Utilizadors/5
+        [Authorize]
         [ResponseType(typeof(Utilizador))]
         public async Task<IHttpActionResult> GetUtilizador(string id)
         {
@@ -37,6 +41,7 @@ namespace GMwebApi.Controllers
         }
 
         // PUT: api/Utilizadors/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutUtilizador(string id, Utilizador utilizador)
         {
@@ -71,15 +76,34 @@ namespace GMwebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Transformação de Utilizador para tipo UtilizadorDto
+        /// </summary>
+        /// <param name="utilizadorDto"></param>
+        /// <returns></returns>
+        private Utilizador UtilizadorDtoToUtilizador(UtilizadorDto utilizadorDto)
+        {
+            return new Utilizador()
+            {
+                Id = utilizadorDto.Id,
+                IDTipo = utilizadorDto.IDTipo,
+                NumeroUtilizador = utilizadorDto.NumeroUtilizador,
+                Nome = utilizadorDto.Nome
+               // DataInativacao { get; set; }
+            };
+        }
+
         // POST: api/Utilizadors
+        [Authorize]
         [ResponseType(typeof(Utilizador))]
-        public async Task<IHttpActionResult> PostUtilizador(Utilizador utilizador)
+        public async Task<IHttpActionResult> PostUtilizador(UtilizadorDto utilizadorDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            Utilizador utilizador = UtilizadorDtoToUtilizador(utilizadorDto);
             db.Utilizador.Add(utilizador);
 
             try
@@ -102,6 +126,7 @@ namespace GMwebApi.Controllers
         }
 
         // DELETE: api/Utilizadors/5
+        [Authorize]
         [ResponseType(typeof(Utilizador))]
         public async Task<IHttpActionResult> DeleteUtilizador(string id)
         {

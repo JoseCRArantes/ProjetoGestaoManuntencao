@@ -27,6 +27,8 @@ import { EquipEditComponent }        from './components/equipamento-edit/equip-e
 import { RegisterComponent }         from './components/register-add/register-add.component';
 import { AuthService}                from './TokenAuth/auth.service';
 import { LoginComponent }            from './logincomponent';
+import { UtilizadorAddComponent } from './components/utilizador-add/utilizador-add.component';
+import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,9 @@ import { LoginComponent }            from './logincomponent';
     EquipEditComponent,
     RegisterComponent,
     LoginComponent,
+    UtilizadorAddComponent,
+    TipoUtilizadorListComponent,
+    
     /*AuthService*/
 
   ],

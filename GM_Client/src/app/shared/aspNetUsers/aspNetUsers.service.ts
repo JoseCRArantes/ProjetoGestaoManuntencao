@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { GrupoMaquina } from './grupomaquinamodel';
+import { AspNetUsers } from './aspNetUsers.model';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -8,57 +8,36 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class GrupoMaquinaService {
-
-
+export class AspNetUsersService {
   baseurl = 'http://localhost:44334/api';
 
   constructor(private http: HttpClient) { }
 
   // Http Headers
- /* httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-*/
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json', 
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
+      'Authorization': 'Bearer ' + localStorage.getItem('token') 
    }), 
-  withCredentials: true
+   withCredentials: true
   }
 
-  // GET por IDS
-  GetOneGrupoMaquina(id): Observable<GrupoMaquina> {
-    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas/' + id, this.httpOptions)
-     .pipe(
-      retry(1),
-      catchError(this.errorHandl)
-    )
-  }
-
-  // GET all 
-  GetGruposMaquina(): Observable<GrupoMaquina> {
-    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas', this.httpOptions)
+  // GET
+  GetAspNetUsers(): Observable<AspNetUsers> {
+    return this.http.get<AspNetUsers>(this.baseurl + '/AspNetUsers', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
     )
   }
 
-  
-
-
-  // Error handling
   errorHandl(error) {
      let errorMessage = '';
      if(error.error instanceof ErrorEvent) {
-       // Get client-side error
+       // Get erro lado cliente
        errorMessage = error.error.message;
      } else {
-       // Get server-side error
+       // Get erro lado servidor
        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
      }
      console.log(errorMessage);

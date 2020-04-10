@@ -1,13 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {EquipamentoService} from '../shared/equipamento/equipamento.service';
-/*import {Headers, Http, HttpClienteModule} from '@angular/common/http';*/
-import {map} from 'rxjs/operators';
-
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
-import { Equipamento } from '../shared/equipamento/equipamentomodel';
-import { EquipListComponent } from '../components/equipamento-list/equip-list.component';
 import { TokenParams } from './TokenParamsModel';
+
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthService{
@@ -16,10 +12,6 @@ export class AuthService{
     constructor(private http:HttpClient)
     {  }
     private TokenAPI = "http://localhost:44334/Token";
-    
-    //equipamentoService: EquipamentoService;
- 
-    //AccessToken: string = "";
 
     login(Username:string, Password:string)
     { 
@@ -32,16 +24,20 @@ export class AuthService{
       return this.http.post<TokenParams>(this.TokenAPI, data, options).subscribe(
         res=>{
             console.log(res);
-            console.log('vai imprimir o token, método que pede o token');
             localStorage.setItem('token', res.access_token);
-            //const headers = {'Authorization': 'Bearer ' + res.access_token}
-            //console.log('guardou');
-             console.log(localStorage.getItem('token'));
+            // O localStorage abaixo, irá guardar o username que tem sessão iniciada, 
+            //sendo necessário para várias coisas, uma delas:
+            //para verificar se o utilizador com sessao iniciada,
+            //tem a ficha de utilizador criada.
+            localStorage.setItem('username', res.userName);
+            console.log(localStorage.getItem('username'));
         },
         err=>{
             console.log(err.message);
         });
     }
+
+    
 
    
 

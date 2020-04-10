@@ -7,6 +7,7 @@ import { EquipAddComponent} from './components/equipamento-add/equip-add.compone
 import { EquipEditComponent } from './components/equipamento-edit/equip-edit.component';
 import {RegisterComponent } from './components/register-add/register-add.component';
 import { LoginComponent} from './logincomponent'
+import {UtilizadorAddComponent} from './components/utilizador-add/utilizador-add.component';
 
 const routes: Routes = [
   { path: 'edit-equip/:id', component: EquipEditComponent },
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: 'add-equip', component: EquipAddComponent },
   { path: 'grupomaquina-list', component: GrupoMaquinaListComponent },
   { path: 'add-register', component: RegisterComponent},
-  { path: 'my-login', component: LoginComponent }
+  { path: 'my-login', component: LoginComponent },
+  { path: 'utilizador-add', component: UtilizadorAddComponent }
+
 ];
 
 @NgModule({

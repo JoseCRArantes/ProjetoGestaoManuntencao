@@ -80,6 +80,8 @@ namespace GMwebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        
+
         // POST: api/GrupoMaquinas
         [ResponseType(typeof(GrupoMaquina))]
         public async Task<IHttpActionResult> PostGrupoMaquina(GrupoMaquina grupoMaquina)

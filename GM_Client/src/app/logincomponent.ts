@@ -41,6 +41,7 @@ import * as moment from "moment";
 
         eliminatoken(){
           localStorage.removeItem('token');
+          location.reload();
         }
   
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { GrupoMaquina } from './grupomaquinamodel';
+import { TipoUtilizador } from './tipoUtilizador.model';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -8,8 +8,7 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class GrupoMaquinaService {
-
+export class TipoUtilizadorService {
 
   baseurl = 'http://localhost:44334/api';
 
@@ -31,8 +30,8 @@ export class GrupoMaquinaService {
   }
 
   // GET por IDS
-  GetOneGrupoMaquina(id): Observable<GrupoMaquina> {
-    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas/' + id, this.httpOptions)
+  GetOneTipoUtilizador(IDTipo): Observable<TipoUtilizador> {
+    return this.http.get<TipoUtilizador>(this.baseurl + '/TipoUtilizadors/' + IDTipo, this.httpOptions)
      .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -40,16 +39,13 @@ export class GrupoMaquinaService {
   }
 
   // GET all 
-  GetGruposMaquina(): Observable<GrupoMaquina> {
-    return this.http.get<GrupoMaquina>(this.baseurl + '/GrupoMaquinas', this.httpOptions)
+  GetTiposUtilizador(): Observable<TipoUtilizador> {
+    return this.http.get<TipoUtilizador>(this.baseurl + '/TipoUtilizadors', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
     )
   }
-
-  
-
 
   // Error handling
   errorHandl(error) {
