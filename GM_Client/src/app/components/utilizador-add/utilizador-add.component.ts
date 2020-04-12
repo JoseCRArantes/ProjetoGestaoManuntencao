@@ -29,9 +29,10 @@ export class UtilizadorAddComponent implements OnInit {
 
   }
 
+  // Id : [''],
   addUtilizador() {
     this.utilForm = this.fb.group({
-      Id : [''],
+      Id : localStorage.getItem('idusername'),
       IDTipo : [0],
       NumeroUtilizador: [0],
       Nome: [''],

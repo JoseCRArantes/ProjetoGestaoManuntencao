@@ -26,9 +26,10 @@ import { GrupoMaquinaListComponent } from './components/grupomaquina-list/grupom
 import { EquipEditComponent }        from './components/equipamento-edit/equip-edit.component';
 import { RegisterComponent }         from './components/register-add/register-add.component';
 import { AuthService}                from './TokenAuth/auth.service';
-import { LoginComponent }            from './logincomponent';
+import { LoginComponent }            from './Login-logout/logincomponent';
 import { UtilizadorAddComponent } from './components/utilizador-add/utilizador-add.component';
 import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
+//import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/t
     LoginComponent,
     UtilizadorAddComponent,
     TipoUtilizadorListComponent,
+   // AspNetUsersLoadComponent,
     
     /*AuthService*/
 

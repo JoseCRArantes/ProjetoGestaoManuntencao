@@ -14,15 +14,24 @@ export class AspNetUsersService {
   constructor(private http: HttpClient) { }
 
   // Http Headers
-  httpOptions = {
+    httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+
+  /*httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json', 
       'Authorization': 'Bearer ' + localStorage.getItem('token') 
    }), 
    withCredentials: true
-  }
+  }*/
+
+
 
   // GET
+ 
   GetAspNetUsers(): Observable<AspNetUsers> {
     return this.http.get<AspNetUsers>(this.baseurl + '/AspNetUsers', this.httpOptions)
     .pipe(

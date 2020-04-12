@@ -20,7 +20,7 @@ namespace GMwebApi.Controllers
 
         //Retorna apenas os atributos do objeto essenciais
         // GET: api/AspNetUsers
-        [Authorize]
+        //[Authorize]
         public IQueryable<AspNetUsersDto> GetAspNetUsers()
         {
             return db.AspNetUsers.ToList().Select(
