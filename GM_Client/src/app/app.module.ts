@@ -29,6 +29,9 @@ import { AuthService}                from './TokenAuth/auth.service';
 import { LoginComponent }            from './Login-logout/logincomponent';
 import { UtilizadorAddComponent } from './components/utilizador-add/utilizador-add.component';
 import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
+import { UtilizadorListComponent } from './components/utilizador-list/utilizador-list.component';
+import { UtilizadorEditComponent } from './components/utilizador-edit/utilizador-edit.component';
+
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
 @NgModule({
@@ -42,10 +45,8 @@ import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/t
     LoginComponent,
     UtilizadorAddComponent,
     TipoUtilizadorListComponent,
-   // AspNetUsersLoadComponent,
-    
-    /*AuthService*/
-
+    UtilizadorListComponent,
+    UtilizadorEditComponent,
   ],
   imports: [
     BrowserModule,

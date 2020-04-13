@@ -2,6 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
+
 
 @Component({
   selector: 'app-edit-equip',
@@ -10,11 +12,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class EquipEditComponent implements OnInit {
-  EquipList: any = [];
+
+  gruposMaquinaList: any = [];
   updateEquipForm: FormGroup;
   
   ngOnInit() {
-    this.updateForm()
+    this.updateForm();
+    this.loadGrupoMaquinas();
   }
 
   constructor(
@@ -22,7 +26,8 @@ export class EquipEditComponent implements OnInit {
     public equipService: EquipamentoService,
     public fb: FormBuilder,
     private ngZone: NgZone,
-    private router: Router
+    private router: Router, 
+    public grupoMaquinaService : GrupoMaquinaService
   ) { 
     var id = this.actRoute.snapshot.paramMap.get('id');
     this.equipService.GetOneEquip(id).subscribe((data) => {
@@ -54,6 +59,12 @@ export class EquipEditComponent implements OnInit {
     EstadoEqui: [0],
     DataFimAtividade: [Date]
     })    
+  }
+
+  loadGrupoMaquinas() {
+    return this.grupoMaquinaService.GetGruposMaquina().subscribe((data: {}) => {
+      this.gruposMaquinaList = data;
+    })
   }
 
   submitForm(){ 

@@ -1,0 +1,9 @@
+#main {
+    width: 200px;
+    border: 1px dotted black;
+  }
+  h3 {
+    margin: 0;
+      display: inline-block;
+  }
+  

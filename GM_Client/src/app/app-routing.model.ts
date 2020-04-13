@@ -8,6 +8,8 @@ import { EquipEditComponent } from './components/equipamento-edit/equip-edit.com
 import {RegisterComponent } from './components/register-add/register-add.component';
 import { LoginComponent} from './Login-logout/logincomponent'
 import {UtilizadorAddComponent} from './components/utilizador-add/utilizador-add.component';
+import {UtilizadorListComponent} from './components/utilizador-list/utilizador-list.component';
+import {UtilizadorEditComponent} from './components/utilizador-edit/utilizador-edit.component';
 
 const routes: Routes = [
   { path: 'edit-equip/:id', component: EquipEditComponent },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'grupomaquina-list', component: GrupoMaquinaListComponent },
   { path: 'add-register', component: RegisterComponent},
   { path: 'my-login', component: LoginComponent },
-  { path: 'utilizador-add', component: UtilizadorAddComponent }
+  { path: 'utilizador-add', component: UtilizadorAddComponent },
+  { path: 'utilizador-list', component: UtilizadorListComponent },
+  { path: 'utilizador-edit/:id', component: UtilizadorEditComponent }
 
 ];
 
