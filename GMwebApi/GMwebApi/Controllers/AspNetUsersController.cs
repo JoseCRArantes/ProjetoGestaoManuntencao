@@ -11,6 +11,10 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using GMwebApi.Models;
 using GMwebApi.DTO;
+using System.Web;
+using System.Web.Security;
+using System.Threading;
+using System.Data.Entity.Validation;
 
 namespace GMwebApi.Controllers
 {
@@ -20,16 +24,22 @@ namespace GMwebApi.Controllers
 
         //Retorna apenas os atributos do objeto essenciais
         // GET: api/AspNetUsers
-        //[Authorize]
+        [Authorize]
         public IQueryable<AspNetUsersDto> GetAspNetUsers()
         {
             return db.AspNetUsers.ToList().Select(
                 a => new AspNetUsersDto
                 {
-                    Id = a.Id,
-                    UserName = a.UserName
+                    //UserName = a.UserName,
+                    IDTipo = (int)a.IDTipo,
+                    NumeroUtilizador = (int)a.NumeroUtilizador,
+                    Nome = a.Nome,
+                    //DataInativacao = (DateTime)a.DataInativacao.GetValueOrDefault()
                 }).AsQueryable();
         }
+
+
+
 
         // GET: api/AspNetUsers/5
         //[ResponseType(typeof(AspNetUsers))]
@@ -44,7 +54,7 @@ namespace GMwebApi.Controllers
         //    return Ok(aspNetUsers);
         //}
 
-        // PUT: api/AspNetUsers/5
+        //PUT: api/AspNetUsers/5
         //[ResponseType(typeof(void))]
         //public async Task<IHttpActionResult> PutAspNetUsers(string id, AspNetUsers aspNetUsers)
         //{
@@ -79,16 +89,97 @@ namespace GMwebApi.Controllers
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
 
-        // POST: api/AspNetUsers
+
+        private AspNetUsers AspNetUsersDtoToAspNetUsers(AspNetUsersDto aspNetUsersDto)
+        {
+            return new AspNetUsers()
+            {
+                Id = "",
+                IDTipo = aspNetUsersDto.IDTipo,
+                NumeroUtilizador = aspNetUsersDto.NumeroUtilizador,
+                Nome = aspNetUsersDto.Nome
+
+            };
+        }
+
+
+        //PUT: api/AspNetUsers/5
+        [Authorize]
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutAspNetUsers(AspNetUsersDto aspNetUsersDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //AspNetUsers aspNetUsers = AspNetUsersDtoToAspNetUsers(aspNetUsersDto);
+
+            //string id = "";
+            //foreach (AspNetUsers n in db.AspNetUsers)
+            //{
+            //    if (aspNetUsersDto.Nome == n.Nome)
+            //    {
+            //       id = n.Id;
+            //    }
+            //}
+            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.Nome == aspNetUsersDto.Nome);
+
+            aspNetUsers.IDTipo = aspNetUsersDto.IDTipo;
+            aspNetUsers.Nome = aspNetUsersDto.Nome;
+            aspNetUsers.NumeroUtilizador = aspNetUsersDto.NumeroUtilizador;
+
+           // aspNetUsers.
+
+            //if (id != aspNetUsers.Id)
+            //{
+            //    return BadRequest();
+            //}
+            try
+            {
+                db.Entry(aspNetUsers).State = EntityState.Modified;
+            }
+
+            catch(DbEntityValidationException e) {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AspNetUsersExists(aspNetUsers.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+
+        //: api/AspNetUsers
+        //POST 
         //[ResponseType(typeof(AspNetUsers))]
-        //public async Task<IHttpActionResult> PostAspNetUsers(AspNetUsers aspNetUsers)
+        //public async Task<IHttpActionResult> PostAspNetUsers(AspNetUsersDto aspNetUsersDto)
         //{
+
         //    if (!ModelState.IsValid)
         //    {
         //        return BadRequest(ModelState);
         //    }
 
-        //    db.AspNetUsers.Add(aspNetUsers);
+        //    AspNetUsers aspNet = AspNetToAspNetDTO(aspNetUsersDto);
+        //    db.AspNetUsers.Add(aspNet);
+
+        //    //db.AspNetUsers.Add(aspNetUsers);
+
 
         //    try
         //    {

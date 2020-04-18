@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { RegisterService } from '../../shared/register/register.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
 
 
 @Component({
@@ -12,27 +13,36 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
   equipForm: FormGroup;
-  EquipArr: any = [];
-  gruposMaquinaList: any = [];
+  tipoUtilizadorList: any = [];
 
 
   ngOnInit() {
-    this.addRegister()
-    
+    this.addRegister();
+    this.loadTiposUtilizador();
   }
 
   constructor(
     public fb: FormBuilder,
     private ngZone: NgZone,
     private router: Router,
-    public registerService: RegisterService
+    public registerService: RegisterService, 
+    public tipoUtilizadorService: TipoUtilizadorService
   ){ }
 
   addRegister() {
     this.equipForm = this.fb.group({
       Email : [''],
       Password : [''],
-      ConfirmPassword: ['']
+      ConfirmPassword: [''], 
+      IDTipo : [0],
+      NumeroUtilizador : [0],
+      Nome : ['']
+    })
+  }
+
+  loadTiposUtilizador() {
+    return this.tipoUtilizadorService.GetTiposUtilizador().subscribe((data: {}) => {
+      this.tipoUtilizadorList = data;
     })
   }
 

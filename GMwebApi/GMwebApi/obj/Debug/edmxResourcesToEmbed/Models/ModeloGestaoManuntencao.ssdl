@@ -50,6 +50,10 @@
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="IDTipo" Type="int" />
+    <Property Name="NumeroUtilizador" Type="int" />
+    <Property Name="Nome" Type="varchar" MaxLength="100" />
+    <Property Name="DataInativacao" Type="date" />
   </EntityType>
   <EntityType Name="Equipamento">
     <Key>
@@ -115,12 +119,12 @@
     <Key>
       <PropertyRef Name="IDPedido" />
     </Key>
-    <Property Name="IDPedido" Type="int" Nullable="false" />
+    <Property Name="IDPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="IDEquipamento" Type="int" Nullable="false" />
     <Property Name="Descricao" Type="varchar" MaxLength="100" />
     <Property Name="IDEstadoIntervencao" Type="int" />
-    <Property Name="DataPedido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DataPedido" Type="datetime" />
   </EntityType>
   <EntityType Name="PedidoManutPreventiva">
     <Key>
@@ -151,16 +155,18 @@
     <Property Name="TipoDescr" Type="varchar" MaxLength="30" />
     <Property Name="SeccaoTrabalho" Type="varchar" MaxLength="30" />
   </EntityType>
-  <EntityType Name="Utilizador">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="IDTipo" Type="int" Nullable="false" />
-    <Property Name="NumeroUtilizador" Type="int" Nullable="false" />
-    <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="DataInativacao" Type="date" />
-  </EntityType>
+  <Association Name="FK_AspNetUsers_TipoUtilizador">
+    <End Role="TipoUtilizador" Type="Self.TipoUtilizador" Multiplicity="0..1" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoUtilizador">
+        <PropertyRef Name="IDTipo" />
+      </Principal>
+      <Dependent Role="AspNetUsers">
+        <PropertyRef Name="IDTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -217,6 +223,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_IntervencaoCurativa_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IntervencaoCurativa">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoManutCurativa_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoManutCurativa">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PedidoManutCurativa_EstadoIntervencao">
     <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="0..1" />
     <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
@@ -229,15 +259,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Utilizador_AspNetUsers">
+  <Association Name="FK_PedidoManutPreventiva_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="0..1" />
+    <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUsers">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Utilizador">
-        <PropertyRef Name="Id" />
+      <Dependent Role="PedidoManutPreventiva">
+        <PropertyRef Name="UtilizadorIDUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -289,18 +319,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FKIntervenca774679">
-    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
-    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Utilizador">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="IntervencaoCurativa">
-        <PropertyRef Name="UtilizadorIDUser" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FKIntervenca782768">
     <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="1" />
     <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
@@ -313,18 +331,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FKPedidoManu235659">
-    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
-    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Utilizador">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PedidoManutCurativa">
-        <PropertyRef Name="UtilizadorIDUser" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FKPedidoManu3098">
     <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
     <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
@@ -334,18 +340,6 @@
       </Principal>
       <Dependent Role="PedidoManutCurativa">
         <PropertyRef Name="IDEquipamento" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FKPedidoManu31804">
-    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
-    <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Utilizador">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PedidoManutPreventiva">
-        <PropertyRef Name="UtilizadorIDUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -373,18 +367,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FKUtilizador314280">
-    <End Role="TipoUtilizador" Type="Self.TipoUtilizador" Multiplicity="1" />
-    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TipoUtilizador">
-        <PropertyRef Name="IDTipo" />
-      </Principal>
-      <Dependent Role="Utilizador">
-        <PropertyRef Name="IDTipo" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="BDGestaoManutencaoModelStoreContainer">
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -401,7 +383,10 @@
     <EntitySet Name="PedidoManutPreventiva" EntityType="Self.PedidoManutPreventiva" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoUtilizador" EntityType="Self.TipoUtilizador" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Utilizador" EntityType="Self.Utilizador" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AspNetUsers_TipoUtilizador" Association="Self.FK_AspNetUsers_TipoUtilizador">
+      <End Role="TipoUtilizador" EntitySet="TipoUtilizador" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -418,13 +403,21 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
+    <AssociationSet Name="FK_IntervencaoCurativa_AspNetUsers" Association="Self.FK_IntervencaoCurativa_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoManutCurativa_AspNetUsers" Association="Self.FK_PedidoManutCurativa_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
+    </AssociationSet>
     <AssociationSet Name="FK_PedidoManutCurativa_EstadoIntervencao" Association="Self.FK_PedidoManutCurativa_EstadoIntervencao">
       <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
       <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
     </AssociationSet>
-    <AssociationSet Name="FK_Utilizador_AspNetUsers" Association="Self.FK_Utilizador_AspNetUsers">
+    <AssociationSet Name="FK_PedidoManutPreventiva_AspNetUsers" Association="Self.FK_PedidoManutPreventiva_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
     </AssociationSet>
     <AssociationSet Name="FKEquipament289357" Association="Self.FKEquipament289357">
       <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />
@@ -442,25 +435,13 @@
       <End Role="Equipamento" EntitySet="Equipamento" />
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
     </AssociationSet>
-    <AssociationSet Name="FKIntervenca774679" Association="Self.FKIntervenca774679">
-      <End Role="Utilizador" EntitySet="Utilizador" />
-      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
-    </AssociationSet>
     <AssociationSet Name="FKIntervenca782768" Association="Self.FKIntervenca782768">
       <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
       <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
     </AssociationSet>
-    <AssociationSet Name="FKPedidoManu235659" Association="Self.FKPedidoManu235659">
-      <End Role="Utilizador" EntitySet="Utilizador" />
-      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
-    </AssociationSet>
     <AssociationSet Name="FKPedidoManu3098" Association="Self.FKPedidoManu3098">
       <End Role="Equipamento" EntitySet="Equipamento" />
       <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
-    </AssociationSet>
-    <AssociationSet Name="FKPedidoManu31804" Association="Self.FKPedidoManu31804">
-      <End Role="Utilizador" EntitySet="Utilizador" />
-      <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
     </AssociationSet>
     <AssociationSet Name="FKPedidoManu399343" Association="Self.FKPedidoManu399343">
       <End Role="FichaManutencao" EntitySet="FichaManutencao" />
@@ -469,10 +450,6 @@
     <AssociationSet Name="FKPedidoManu701029" Association="Self.FKPedidoManu701029">
       <End Role="Equipamento" EntitySet="Equipamento" />
       <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
-    </AssociationSet>
-    <AssociationSet Name="FKUtilizador314280" Association="Self.FKUtilizador314280">
-      <End Role="TipoUtilizador" EntitySet="TipoUtilizador" />
-      <End Role="Utilizador" EntitySet="Utilizador" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

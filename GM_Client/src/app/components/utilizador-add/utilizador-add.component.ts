@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
+//import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtilizadorService } from '../../shared/utilizador/Utilizador.service';
@@ -12,25 +12,25 @@ import { UtilizadorService } from '../../shared/utilizador/Utilizador.service';
 })
 export class UtilizadorAddComponent implements OnInit {
 
-  utilForm: FormGroup;
-  tipoUtilizadorList: any = [];
+  /*utilForm: FormGroup;
+  tipoUtilizadorList: any = []*/
 
-  constructor(
+  constructor(/*
     public fb: FormBuilder,
     private ngZone: NgZone,
     private router: Router, 
     public tipoUtilizadorService: TipoUtilizadorService,
-    public utilizadorService: UtilizadorService
+    public utilizadorService: UtilizadorService*/
   ) { }
 
   ngOnInit() {
-    this.addUtilizador(),
-    this.loadTiposUtilizador();
+    /*this.addUtilizador(),
+    this.loadTiposUtilizador();*/
 
   }
 
   // Id : [''],
-  addUtilizador() {
+  /*addUtilizador() {
     this.utilForm = this.fb.group({
       Id : localStorage.getItem('idusername'),
       IDTipo : [0],
@@ -51,6 +51,6 @@ export class UtilizadorAddComponent implements OnInit {
       console.log('Utilizador adicionado!')
       this.ngZone.run(() => this.router.navigateByUrl('/'))
     });
-  }
+  }*/
 }
 

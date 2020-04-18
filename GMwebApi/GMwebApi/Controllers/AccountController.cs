@@ -18,8 +18,10 @@ using GMwebApi.Providers;
 using GMwebApi.Results;
 using System.Web.Http.Cors;
 
+
 namespace GMwebApi.Controllers
 {
+
 
     [Authorize]
     [RoutePrefix("api/Account")]
@@ -27,6 +29,7 @@ namespace GMwebApi.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+
 
         public AccountController()
         {
@@ -64,8 +67,9 @@ namespace GMwebApi.Controllers
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null, 
             };
+
         }
 
         // POST api/Account/Logout
@@ -75,6 +79,21 @@ namespace GMwebApi.Controllers
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
+
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+        // ####################################################################################
+
+
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
@@ -112,9 +131,14 @@ namespace GMwebApi.Controllers
                 LocalLoginProvider = LocalLoginProvider,
                 Email = user.UserName,
                 Logins = logins,
+                Id = user.Id,
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
+                
             };
         }
+
+
+
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
@@ -330,7 +354,11 @@ namespace GMwebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() {
+                UserName = model.Email, Email = model.Email, IDTipo = model.IDTipo,
+                NumeroUtilizador = model.NumeroUtilizador, Nome = model.Nome
+                //DataInativacao = model.DataInativacao 
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

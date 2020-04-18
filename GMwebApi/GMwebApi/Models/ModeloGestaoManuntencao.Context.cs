@@ -39,6 +39,5 @@ namespace GMwebApi.Models
         public virtual DbSet<PedidoManutPreventiva> PedidoManutPreventiva { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoUtilizador> TipoUtilizador { get; set; }
-        public virtual DbSet<Utilizador> Utilizador { get; set; }
     }
 }

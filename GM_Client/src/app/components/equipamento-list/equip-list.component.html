@@ -39,7 +39,7 @@
                             <td>{{equipamentos.CodigoInterno}}</td>
                             <td *ngIf="equipamentos.EstadoEqui==1" >Ativo</td>
                             <td *ngIf="equipamentos.EstadoEqui==0" >Desativo</td>
-                            <td>{{equipamentos.DataFimAtividade}}</td>
+                            <td>{{equipamentos.DataFimAtividade | date:'dd-MM-yyyy'}}</td>
                             <td>
                                <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/edit-equip/', equipamentos.IDEquipamento]">Editar</button>
                             </td>

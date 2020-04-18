@@ -32,6 +32,8 @@ namespace GMwebApi.Models
         public string ConfirmPassword { get; set; }
     }
 
+    //NOVOS CAMPOS AQUI ADICIONADOS.
+
     public class RegisterBindingModel
     {
         [Required]
@@ -48,6 +50,14 @@ namespace GMwebApi.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public int IDTipo { get; set; }
+
+        public int NumeroUtilizador { get; set; }
+
+        public string Nome { get; set; }
+
+       // public Nullable<DateTime> DataInativacao { get; set; }
     }
 
     public class RegisterExternalBindingModel

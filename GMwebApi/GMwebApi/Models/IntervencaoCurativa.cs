@@ -24,6 +24,6 @@ namespace GMwebApi.Models
     
         public virtual Equipamento Equipamento { get; set; }
         public virtual PedidoManutCurativa PedidoManutCurativa { get; set; }
-        public virtual Utilizador Utilizador { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

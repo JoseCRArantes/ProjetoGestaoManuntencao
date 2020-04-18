@@ -20,6 +20,9 @@ namespace GMwebApi.Models
 
         public string Email { get; set; }
 
+        public string Id { get; set; }
+
+
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }

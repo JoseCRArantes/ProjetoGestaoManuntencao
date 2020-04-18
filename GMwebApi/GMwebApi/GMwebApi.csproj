@@ -288,14 +288,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\EquipamentoesController.cs" />
+    <Compile Include="Controllers\EstadoIntervencaosController.cs" />
     <Compile Include="Controllers\GrupoMaquinasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PedidoManutCurativasController.cs" />
     <Compile Include="Controllers\TipoUtilizadorsController.cs" />
-    <Compile Include="Controllers\UtilizadorsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\AspNetUsersDto.cs" />
     <Compile Include="DTO\EquipamentoDto.cs" />
-    <Compile Include="DTO\UtilizadorDto.cs" />
+    <Compile Include="DTO\PedidoManutCurativaDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -357,9 +358,6 @@
       <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoUtilizador.cs">
-      <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Utilizador.cs">
       <DependentUpon>ModeloGestaoManuntencao.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

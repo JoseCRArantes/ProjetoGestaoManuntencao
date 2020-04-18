@@ -10,24 +10,26 @@
                         <tr>
                             <!-- <th scope="col">#</th> -->
                             <th scope="col">Nome</th>
-                            <th scope="col">Nº de utilizador</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Nº de funcionário</th>
                             <th scope="col">Tipo de utilizador</th>
-                            <th scope="col">Data de inatividade</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <tr *ngFor="let utilizador of utilizadorList">
+                        <tr *ngFor="let utilizador of aspNetUsersList">
                             <!-- <th scope="row">{{utilizador.Id}}</th> -->
                             <td>{{utilizador.Nome}}</td>
+                            <td>{{utilizador.UserName}}</td>
                             <td>{{utilizador.NumeroUtilizador}}</td>                         
                             <ng-container *ngFor="let tu of tipoUtilizadorList">
                                 <td *ngIf="tu.IDTipo==utilizador.IDTipo">{{tu.TipoDescr}}</td>
                             </ng-container>
-                            <td>{{utilizador.DataInativacao}}</td>
-                            <td>
+                            
+                            <!--<td>
                                <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/utilizador-edit/', utilizador.Id]">Editar</button>
-                            </td>
+                            </td>-->
                         </tr>
                     </tbody>
                 </table>

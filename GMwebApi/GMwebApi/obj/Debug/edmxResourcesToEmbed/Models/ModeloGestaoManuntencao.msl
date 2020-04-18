@@ -31,6 +31,10 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="BDGestaoManutencaoModel.AspNetUsers">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="DataInativacao" ColumnName="DataInativacao" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="NumeroUtilizador" ColumnName="NumeroUtilizador" />
+          <ScalarProperty Name="IDTipo" ColumnName="IDTipo" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
@@ -153,17 +157,6 @@
           <ScalarProperty Name="IDTipo" ColumnName="IDTipo" />
           <ScalarProperty Name="TipoDescr" ColumnName="TipoDescr" />
           <ScalarProperty Name="SeccaoTrabalho" ColumnName="SeccaoTrabalho" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Utilizador">
-      <EntityTypeMapping TypeName="BDGestaoManutencaoModel.Utilizador">
-        <MappingFragment StoreEntitySet="Utilizador">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="IDTipo" ColumnName="IDTipo" />
-          <ScalarProperty Name="NumeroUtilizador" ColumnName="NumeroUtilizador" />
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="DataInativacao" ColumnName="DataInativacao" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

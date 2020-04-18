@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -17,6 +18,13 @@ namespace GMwebApi.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public int IDTipo { get; set; }
+
+        public int NumeroUtilizador { get; set; }
+
+        public string Nome { get; set; }
+
+        public Nullable<DateTime> DataInativacao { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

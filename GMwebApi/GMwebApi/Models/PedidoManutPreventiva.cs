@@ -31,6 +31,6 @@ namespace GMwebApi.Models
         public virtual FichaManutencao FichaManutencao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IntervencaoPreventiva> IntervencaoPreventiva { get; set; }
-        public virtual Utilizador Utilizador { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

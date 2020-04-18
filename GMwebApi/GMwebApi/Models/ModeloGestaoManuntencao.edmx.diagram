@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="21ae3a1d0460488e8291c76e89c99562" Name="Diagram1">
+      <Diagram DiagramId="21ae3a1d0460488e8291c76e89c99562" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="BDGestaoManutencaoModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BDGestaoManutencaoModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BDGestaoManutencaoModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
@@ -19,10 +19,8 @@
         <EntityTypeShape EntityType="BDGestaoManutencaoModel.PedidoManutPreventiva" Width="1.5" PointX="10.5" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BDGestaoManutencaoModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BDGestaoManutencaoModel.TipoUtilizador" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDGestaoManutencaoModel.Utilizador" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="BDGestaoManutencaoModel.FK_Utilizador_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FKEquipament289357" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FKIntervenca464077" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FKPedidoManu3098" ManuallyRouted="false" />
@@ -31,12 +29,12 @@
         <AssociationConnector Association="BDGestaoManutencaoModel.FKFichaManut955630" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FKPedidoManu399343" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FKIntervenca350631" ManuallyRouted="false" />
-        <AssociationConnector Association="BDGestaoManutencaoModel.FKIntervenca774679" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.FKIntervenca782768" ManuallyRouted="false" />
-        <AssociationConnector Association="BDGestaoManutencaoModel.FKPedidoManu235659" ManuallyRouted="false" />
-        <AssociationConnector Association="BDGestaoManutencaoModel.FKPedidoManu31804" ManuallyRouted="false" />
-        <AssociationConnector Association="BDGestaoManutencaoModel.FKUtilizador314280" ManuallyRouted="false" />
         <AssociationConnector Association="BDGestaoManutencaoModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="BDGestaoManutencaoModel.FK_AspNetUsers_TipoUtilizador" />
+        <AssociationConnector Association="BDGestaoManutencaoModel.FK_IntervencaoCurativa_AspNetUsers" />
+        <AssociationConnector Association="BDGestaoManutencaoModel.FK_PedidoManutCurativa_AspNetUsers" />
+        <AssociationConnector Association="BDGestaoManutencaoModel.FK_PedidoManutPreventiva_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

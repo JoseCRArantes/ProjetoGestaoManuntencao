@@ -14,19 +14,19 @@ export class AspNetUsersService {
   constructor(private http: HttpClient) { }
 
   // Http Headers
-    httpOptions = {
+    /*httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }
+  }*/
 
-  /*httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json', 
       'Authorization': 'Bearer ' + localStorage.getItem('token') 
    }), 
    withCredentials: true
-  }*/
+  }
 
 
 

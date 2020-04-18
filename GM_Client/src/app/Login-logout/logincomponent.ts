@@ -23,12 +23,12 @@ import { AspNetUsersService } from '../shared/aspNetUsers/aspNetUsers.service';
     form:FormGroup;
     tokenParam:TokenParams;
     //aspNetUsersModel : AspNetUsers;
-    aspNetUsersList: any = [];
+    //aspNetUsersList: any = [];
     
     
 
     ngOnInit() {
-      this.loadAspNetUsers();
+      //this.loadAspNetUsers();
       
     }
       constructor(
@@ -43,11 +43,11 @@ import { AspNetUsersService } from '../shared/aspNetUsers/aspNetUsers.service';
         password: ['',Validators.required]});
       }
 
-      loadAspNetUsers() {
+     /*  loadAspNetUsers() {
         return this.aspNetUsersService.GetAspNetUsers().subscribe((data: {}) => {
           this.aspNetUsersList = data;
         })
-      }
+      } */
 
 
       //Método que chama o pedido de Token 
@@ -56,21 +56,11 @@ import { AspNetUsersService } from '../shared/aspNetUsers/aspNetUsers.service';
         
         const val = this.form.value;
         this.authService.login(val.username, val.password);
-
-        for (var _i = 0; _i < this.aspNetUsersList.length; _i++)
-        {
-            var user = this.aspNetUsersList[_i];
-            if(this.aspNetUsersList[_i].UserName == localStorage.getItem('username'))
-              {
-                localStorage.setItem('idusername', user.Id);
-              }
-        }  
       } 
 
         Logout(){
           localStorage.removeItem('token');
           localStorage.removeItem('username');
-          localStorage.removeItem('idusername');
           this.ngZone.run(() => this.router.navigateByUrl('/'))
         }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilizadorService } from '../../shared/utilizador/utilizador.service';
+//import { UtilizadorService } from '../../shared/utilizador/utilizador.service';
 import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
+import { AspNetUsersService } from '../../shared/aspNetUsers/aspNetUsers.service';
 
 @Component({
   selector: 'app-utilizador-list',
@@ -9,33 +10,33 @@ import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizado
 })
 export class UtilizadorListComponent implements OnInit {
 
-  utilizadorList: any = [];
+  aspNetUsersList: any = [];
   tipoUtilizadorList: any = [];
 
   constructor(
-    private utilizadorService : UtilizadorService,
+    private aspNetUserService : AspNetUsersService,
     private tipoUtilizadorService : TipoUtilizadorService
   ) { }
 
 
   ngOnInit() {
-    this.loadUtilizadores();
+    this.loadAspNetUsers();
     this.loadTiposUtilizador();
   }
 
   //load utilizadores da DB 
-  loadUtilizadores() {
-    return this.utilizadorService.GetUtilizador().subscribe((data: {}) => {
-      this.utilizadorList = data;
+  loadAspNetUsers() {
+    return this.aspNetUserService.GetAspNetUsers().subscribe((data: {}) => {
+      this.aspNetUsersList = data;
     })
   }
 
   //load tipos de utilizador da DB
   loadTiposUtilizador() {
-       return this.tipoUtilizadorService.GetTiposUtilizador().subscribe((data: {}) => {
-       this.tipoUtilizadorList = data;
-      
-    })
-  }
+    return this.tipoUtilizadorService.GetTiposUtilizador().subscribe((data: {}) => {
+    this.tipoUtilizadorList = data;
+   
+ })
+}
 
 }

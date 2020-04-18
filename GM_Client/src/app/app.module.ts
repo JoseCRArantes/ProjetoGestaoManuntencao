@@ -31,6 +31,7 @@ import { UtilizadorAddComponent } from './components/utilizador-add/utilizador-a
 import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
 import { UtilizadorListComponent } from './components/utilizador-list/utilizador-list.component';
 import { UtilizadorEditComponent } from './components/utilizador-edit/utilizador-edit.component';
+import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-user-list.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
@@ -43,10 +44,11 @@ import { UtilizadorEditComponent } from './components/utilizador-edit/utilizador
     EquipEditComponent,
     RegisterComponent,
     LoginComponent,
-    UtilizadorAddComponent,
+    //UtilizadorAddComponent,
     TipoUtilizadorListComponent,
-    UtilizadorListComponent,
-    UtilizadorEditComponent,
+ /*    UtilizadorListComponent,
+    UtilizadorEditComponent, */
+    AspNetUserListComponent,
   ],
   imports: [
     BrowserModule,

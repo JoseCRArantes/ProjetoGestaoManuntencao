@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { UtilizadorService } from '../../shared/utilizador/utilizador.service';
+//import { UtilizadorService } from '../../shared/utilizador/utilizador.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
+//import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
 
 @Component({
   selector: 'app-utilizador-edit',
@@ -11,25 +11,25 @@ import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizado
 })
 export class UtilizadorEditComponent implements OnInit {
 
-  updateUtilizadorForm: FormGroup;
-  tipoUtilizadorList: any = [];
+//  updateUtilizadorForm: FormGroup;
+  //tipoUtilizadorList: any = [];
   
   ngOnInit() {
-    this.updateForm();
-    this.loadTiposUtilizador();
+    //this.updateForm();
+    //this.loadTiposUtilizador();
   }
 
   constructor
   (
-    private actRoute: ActivatedRoute,    
-    public utilizadorService: UtilizadorService,
-    public tiposUtilizadorService: TipoUtilizadorService,
-    public fb: FormBuilder,
-    private ngZone: NgZone,
-    private router: Router
+    // private actRoute: ActivatedRoute,    
+    // public utilizadorService: UtilizadorService,
+    // public tiposUtilizadorService: TipoUtilizadorService,
+    // public fb: FormBuilder,
+    // private ngZone: NgZone,
+    // private router: Router
   ) 
   { 
-    var id = this.actRoute.snapshot.paramMap.get('id');
+   /*  var id = this.actRoute.snapshot.paramMap.get('id');
     this.utilizadorService.GetOneUtilizador(id).subscribe((data) => {
       this.updateUtilizadorForm = this.fb.group({
         Id: [data.Id],
@@ -38,10 +38,10 @@ export class UtilizadorEditComponent implements OnInit {
         IDTipo: [data.IDTipo],       
         DataInativacao : [data.DataInativacao]
       })
-    })
+    }) */
   }
 
-  updateForm(){
+ /*  updateForm(){
     this.updateUtilizadorForm = this.fb.group({
     Id: [''],
     Nome : [''],
@@ -63,5 +63,5 @@ export class UtilizadorEditComponent implements OnInit {
     this.tipoUtilizadorList = data;
    
  })
-}
+} */
 }

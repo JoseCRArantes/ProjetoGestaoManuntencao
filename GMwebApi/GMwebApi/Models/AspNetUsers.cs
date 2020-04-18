@@ -26,5 +26,9 @@ namespace GMwebApi.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public Nullable<int> IDTipo { get; set; }
+        public Nullable<int> NumeroUtilizador { get; set; }
+        public string Nome { get; set; }
+        public Nullable<System.DateTime> DataInativacao { get; set; }
     }
 }
