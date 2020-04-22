@@ -593,7 +593,6 @@ C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebAp
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\System.IdentityModel.Tokens.Jwt.xml
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.Owin.Cors.dll
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Microsoft.Owin.Cors.xml
-C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\GMwebApi.dll.config
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\GMwebApi.dll
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\GMwebApi.pdb
@@ -753,3 +752,4 @@ C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Deb
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.dll
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.pdb
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache

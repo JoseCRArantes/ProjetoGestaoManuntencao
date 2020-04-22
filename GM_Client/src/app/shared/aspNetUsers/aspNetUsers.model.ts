@@ -1,8 +1,7 @@
 export class AspNetUsers
 {
-    //UserName: string;
+    UserName: string;
     IDTipo : number;
     NumeroUtilizador : number;
     Nome : string;
-    //DataInativacao : Date;
 }

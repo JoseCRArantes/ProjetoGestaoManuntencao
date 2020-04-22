@@ -40,6 +40,25 @@ export class AspNetUsersService {
     )
   }
 
+  //GET ONE 
+  GetOneUser(id): Observable<AspNetUsers> {
+    return this.http.get<AspNetUsers>(this.baseurl + '/AspNetUsers?UserName=' + id, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+
+  //PUT
+  UpdateAspNetUser(id, data): Observable<AspNetUsers> {
+    return this.http.put<AspNetUsers>(this.baseurl + '/AspNetUsers?Username=' + id, JSON.stringify(data), this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
   errorHandl(error) {
      let errorMessage = '';
      if(error.error instanceof ErrorEvent) {

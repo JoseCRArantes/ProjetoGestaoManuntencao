@@ -73,5 +73,4 @@ export class EquipEditComponent implements OnInit {
       this.ngZone.run(() => this.router.navigateByUrl('/equip-list'))
     })
   }
-
 }

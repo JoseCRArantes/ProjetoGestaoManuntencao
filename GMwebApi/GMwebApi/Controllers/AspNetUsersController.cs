@@ -30,28 +30,155 @@ namespace GMwebApi.Controllers
             return db.AspNetUsers.ToList().Select(
                 a => new AspNetUsersDto
                 {
-                    //UserName = a.UserName,
+                    UserName = a.UserName,
                     IDTipo = (int)a.IDTipo,
                     NumeroUtilizador = (int)a.NumeroUtilizador,
                     Nome = a.Nome,
-                    //DataInativacao = (DateTime)a.DataInativacao.GetValueOrDefault()
+
                 }).AsQueryable();
         }
 
 
 
 
-        // GET: api/AspNetUsers/5
-        //[ResponseType(typeof(AspNetUsers))]
-        //public async Task<IHttpActionResult> GetAspNetUsers(string id)
+        //GET: api/AspNetUsers/5
+        [Authorize]
+        [ResponseType(typeof(AspNetUsersDto))]
+        public async Task<IHttpActionResult> GetAspNetUsers(string UserName)
+        {
+            AspNetUsersDto aspNetUserDto = new AspNetUsersDto();
+
+            AspNetUsers aspNetUsers = await db.AspNetUsers.FirstOrDefaultAsync(a => a.UserName == UserName);
+
+            aspNetUserDto.IDTipo = (int)aspNetUsers.IDTipo;
+            aspNetUserDto.Nome = aspNetUsers.Nome;
+            aspNetUserDto.NumeroUtilizador = (int)aspNetUsers.NumeroUtilizador;
+            aspNetUserDto.UserName = aspNetUsers.UserName;
+            
+            if (aspNetUserDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(aspNetUserDto);
+        }
+
+       
+
+
+        private AspNetUsers AspNetUsersDtoToAspNetUsers(AspNetUsersDto aspNetUsersDto)
+        {
+            return new AspNetUsers()
+            {
+                //Id = "",
+                IDTipo = aspNetUsersDto.IDTipo,
+                NumeroUtilizador = aspNetUsersDto.NumeroUtilizador,
+                Nome = aspNetUsersDto.Nome
+
+            };
+        }
+
+
+        //PUT: api/AspNetUsers/5
+        [Authorize]
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutAspNetUsers(string Username, AspNetUsersDto aspNetUsersDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == Username);
+
+            aspNetUsers.IDTipo = aspNetUsersDto.IDTipo;
+            aspNetUsers.Nome = aspNetUsersDto.Nome;
+            aspNetUsers.NumeroUtilizador = aspNetUsersDto.NumeroUtilizador;
+            
+            
+            try
+            {
+                db.Entry(aspNetUsers).State = EntityState.Modified;
+            }
+
+            catch(DbEntityValidationException e) {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AspNetUsersExists(aspNetUsers.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+        //private AspNetUsers AspNetUsersDtoToAspNetUsers(AspNetUsersDto aspNetUsersDto)
         //{
-        //    AspNetUsers aspNetUsers = await db.AspNetUsers.FindAsync(id);
-        //    if (aspNetUsers == null)
+        //    return new AspNetUsers()
         //    {
-        //        return NotFound();
+        //        Id = "",
+        //        IDTipo = aspNetUsersDto.IDTipo,
+        //        NumeroUtilizador = aspNetUsersDto.NumeroUtilizador,
+        //        Nome = aspNetUsersDto.Nome
+
+        //    };
+        //}
+
+
+        ////PUT: api/AspNetUsers/5
+        //[Authorize]
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutAspNetUsers(AspNetUsersDto aspNetUsersDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
         //    }
 
-        //    return Ok(aspNetUsers);
+        //    AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.Nome == aspNetUsersDto.Nome);
+
+        //    aspNetUsers.IDTipo = aspNetUsersDto.IDTipo;
+        //    aspNetUsers.Nome = aspNetUsersDto.Nome;
+        //    aspNetUsers.NumeroUtilizador = aspNetUsersDto.NumeroUtilizador;
+
+        //    try
+        //    {
+        //        db.Entry(aspNetUsers).State = EntityState.Modified;
+        //    }
+
+        //    catch (DbEntityValidationException e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //    }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!AspNetUsersExists(aspNetUsers.Id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NoContent);
         //}
 
         //PUT: api/AspNetUsers/5
@@ -88,79 +215,6 @@ namespace GMwebApi.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
-
-
-        private AspNetUsers AspNetUsersDtoToAspNetUsers(AspNetUsersDto aspNetUsersDto)
-        {
-            return new AspNetUsers()
-            {
-                Id = "",
-                IDTipo = aspNetUsersDto.IDTipo,
-                NumeroUtilizador = aspNetUsersDto.NumeroUtilizador,
-                Nome = aspNetUsersDto.Nome
-
-            };
-        }
-
-
-        //PUT: api/AspNetUsers/5
-        [Authorize]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAspNetUsers(AspNetUsersDto aspNetUsersDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            //AspNetUsers aspNetUsers = AspNetUsersDtoToAspNetUsers(aspNetUsersDto);
-
-            //string id = "";
-            //foreach (AspNetUsers n in db.AspNetUsers)
-            //{
-            //    if (aspNetUsersDto.Nome == n.Nome)
-            //    {
-            //       id = n.Id;
-            //    }
-            //}
-            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.Nome == aspNetUsersDto.Nome);
-
-            aspNetUsers.IDTipo = aspNetUsersDto.IDTipo;
-            aspNetUsers.Nome = aspNetUsersDto.Nome;
-            aspNetUsers.NumeroUtilizador = aspNetUsersDto.NumeroUtilizador;
-
-           // aspNetUsers.
-
-            //if (id != aspNetUsers.Id)
-            //{
-            //    return BadRequest();
-            //}
-            try
-            {
-                db.Entry(aspNetUsers).State = EntityState.Modified;
-            }
-
-            catch(DbEntityValidationException e) {
-                Console.WriteLine(e.Message);
-            }
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AspNetUsersExists(aspNetUsers.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
 
 
 

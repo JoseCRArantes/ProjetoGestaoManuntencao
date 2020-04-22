@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 /* Service */
 import { EquipamentoService } from './shared/equipamento/equipamento.service';
 import { GrupoMaquinaService } from './shared/gruposmaquina/grupomaquina.service';
+import {AspNetUsersService} from './shared/aspNetUsers/aspNetUsers.service';
+
 
 /* Forms module */
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,11 +29,11 @@ import { EquipEditComponent }        from './components/equipamento-edit/equip-e
 import { RegisterComponent }         from './components/register-add/register-add.component';
 import { AuthService}                from './TokenAuth/auth.service';
 import { LoginComponent }            from './Login-logout/logincomponent';
-import { UtilizadorAddComponent } from './components/utilizador-add/utilizador-add.component';
+
 import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
-import { UtilizadorListComponent } from './components/utilizador-list/utilizador-list.component';
-import { UtilizadorEditComponent } from './components/utilizador-edit/utilizador-edit.component';
+
 import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-user-list.component';
+import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-user-edit.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
@@ -44,11 +46,9 @@ import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-
     EquipEditComponent,
     RegisterComponent,
     LoginComponent,
-    //UtilizadorAddComponent,
     TipoUtilizadorListComponent,
- /*    UtilizadorListComponent,
-    UtilizadorEditComponent, */
     AspNetUserListComponent,
+ AspNetUserEditComponent,
   ],
   imports: [
     BrowserModule,
