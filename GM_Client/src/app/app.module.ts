@@ -34,6 +34,7 @@ import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/t
 
 import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-user-list.component';
 import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-user-edit.component';
+import { PedidoCurativoListComponent } from './components/pedido-curativo-list/pedido-curativo-list.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
@@ -49,6 +50,7 @@ import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-
     TipoUtilizadorListComponent,
     AspNetUserListComponent,
  AspNetUserEditComponent,
+ PedidoCurativoListComponent,
   ],
   imports: [
     BrowserModule,

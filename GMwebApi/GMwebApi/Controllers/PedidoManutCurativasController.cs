@@ -29,11 +29,27 @@ namespace GMwebApi.Controllers
         // GET: api/PedidoManutCurativas
         public IQueryable<PedidoManutCurativa> GetPedidoManutCurativa()
         {
-            return db.PedidoManutCurativa;
+             return db.PedidoManutCurativa;
+            //PedidoManutCurativa p = new PedidoManutCurativa();
+
+            //AspNetUsers asp = db.AspNetUsers.Find(p.UtilizadorIDUser);
+            //string UtilizadorIDUser = asp.Nome;
+
+            //return db.PedidoManutCurativa.ToList().Select(
+            //        a => new PedidoManutCurativa
+            //        {
+            //            IDEquipamento = (int)a.IDEquipamento,
+            //            Descricao = a.Descricao,
+            //            IDEstadoIntervencao = (int)a.IDEstadoIntervencao,
+            //            DataPedido = (DateTime)a.DataPedido,
+            //            UtilizadorIDUser = a.UtilizadorIDUser,
+            //            IDPedido = a.IDPedido,
+            //        }).AsQueryable();
         }
 
+
         // GET: api/PedidoManutCurativas/5
-        
+
         [ResponseType(typeof(PedidoManutCurativa))]
         public async Task<IHttpActionResult> GetPedidoManutCurativa(int id)
         {
@@ -82,6 +98,11 @@ namespace GMwebApi.Controllers
         }
         
 
+        /// <summary>
+        /// DTO para o método Post
+        /// </summary>
+        /// <param name="pedidoManutCurativaDto"></param>
+        /// <returns></returns>
         private PedidoManutCurativa PedidoMCurativaDtoTOPedidoMCurativa(PedidoManutCurativaDto pedidoManutCurativaDto)
         {
             var user = User.Identity.GetUserId();

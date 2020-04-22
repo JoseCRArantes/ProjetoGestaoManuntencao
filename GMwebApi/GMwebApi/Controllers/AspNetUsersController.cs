@@ -39,6 +39,27 @@ namespace GMwebApi.Controllers
         }
 
 
+        [Authorize]
+        [ResponseType(typeof(AspNetUsersDto))]
+        public async Task<IHttpActionResult> GetAspNetUsersByID(string Id)
+        {
+            AspNetUsersDto aspNetUserDto = new AspNetUsersDto();
+
+            AspNetUsers aspNetUsers = await db.AspNetUsers.FindAsync(Id);
+
+            aspNetUserDto.IDTipo = (int)aspNetUsers.IDTipo;
+            aspNetUserDto.Nome = aspNetUsers.Nome;
+            aspNetUserDto.NumeroUtilizador = (int)aspNetUsers.NumeroUtilizador;
+            aspNetUserDto.UserName = aspNetUsers.UserName;
+
+            if (aspNetUserDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(aspNetUserDto);
+        }
+
 
 
         //GET: api/AspNetUsers/5
@@ -64,8 +85,6 @@ namespace GMwebApi.Controllers
         }
 
        
-
-
         private AspNetUsers AspNetUsersDtoToAspNetUsers(AspNetUsersDto aspNetUsersDto)
         {
             return new AspNetUsers()

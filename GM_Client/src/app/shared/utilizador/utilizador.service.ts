@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Utilizador } from './utilizador.model';
 import { Observable, throwError } from 'rxjs';
@@ -73,4 +73,4 @@ export class UtilizadorService {
      return throwError(errorMessage);
   }
 
-}
+} */
