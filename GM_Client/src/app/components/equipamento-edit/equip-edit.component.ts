@@ -13,6 +13,7 @@ import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.ser
 
 export class EquipEditComponent implements OnInit {
 
+  
   gruposMaquinaList: any = [];
   updateEquipForm: FormGroup;
   

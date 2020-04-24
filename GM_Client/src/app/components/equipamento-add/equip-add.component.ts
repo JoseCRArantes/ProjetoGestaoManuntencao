@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
 
+
 @Component({
   selector: 'app-add-equip',
   templateUrl: './equip-add.component.html',
@@ -14,6 +15,8 @@ export class EquipAddComponent implements OnInit {
   equipForm: FormGroup;
   EquipArr: any = [];
   gruposMaquinaList: any = [];
+
+
 
 
   ngOnInit() {

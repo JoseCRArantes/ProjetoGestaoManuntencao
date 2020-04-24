@@ -27,25 +27,29 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/PedidoManutCurativas
-        public IQueryable<PedidoManutCurativa> GetPedidoManutCurativa()
+        public IQueryable<PedidoManutCurativaDto> GetPedidoManutCurativa()
         {
-             return db.PedidoManutCurativa;
-            //PedidoManutCurativa p = new PedidoManutCurativa();
+            //return db.PedidoManutCurativa;
 
-            //AspNetUsers asp = db.AspNetUsers.Find(p.UtilizadorIDUser);
-            //string UtilizadorIDUser = asp.Nome;
+            IQueryable<PedidoManutCurativaDto> pMcurativa =
+                  from c in db.AspNetUsers
+                  from p in db.PedidoManutCurativa
+                  where p.UtilizadorIDUser == c.Id
+                  select new PedidoManutCurativaDto
+                  {
+                      IDPedido = p.IDPedido,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      IDEstadoIntervencao = p.IDEstadoIntervencao,
+                      DataPedido = p.DataPedido
+                  };
 
-            //return db.PedidoManutCurativa.ToList().Select(
-            //        a => new PedidoManutCurativa
-            //        {
-            //            IDEquipamento = (int)a.IDEquipamento,
-            //            Descricao = a.Descricao,
-            //            IDEstadoIntervencao = (int)a.IDEstadoIntervencao,
-            //            DataPedido = (DateTime)a.DataPedido,
-            //            UtilizadorIDUser = a.UtilizadorIDUser,
-            //            IDPedido = a.IDPedido,
-            //        }).AsQueryable();
+            return pMcurativa;
+
+
         }
+
 
 
         // GET: api/PedidoManutCurativas/5

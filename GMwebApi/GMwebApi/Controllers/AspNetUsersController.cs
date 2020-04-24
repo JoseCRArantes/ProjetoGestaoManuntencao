@@ -61,7 +61,7 @@ namespace GMwebApi.Controllers
         }
 
 
-
+        //Usado para editar um AspNetUser.
         //GET: api/AspNetUsers/5
         [Authorize]
         [ResponseType(typeof(AspNetUsersDto))]

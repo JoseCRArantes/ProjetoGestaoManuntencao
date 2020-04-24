@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
 import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
+import { Equipamento } from 'src/app/shared/equipamento/equipamentomodel';
 
 @Component({
   selector: 'app-equip-list',
@@ -9,9 +10,14 @@ import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.ser
 })
 export class EquipListComponent implements OnInit {
 
+  ;
+ //EquipList : Equipamento[] = []; criar um array de objecto equipamentos.
   EquipList: any = [];
   gruposMaquinaList: any = [];
 
+  equipToPedidos(){
+    this.EquipList;
+  }
 
   ngOnInit() {
     this.loadEquip();

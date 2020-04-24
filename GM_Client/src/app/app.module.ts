@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EquipamentoService } from './shared/equipamento/equipamento.service';
 import { GrupoMaquinaService } from './shared/gruposmaquina/grupomaquina.service';
 import {AspNetUsersService} from './shared/aspNetUsers/aspNetUsers.service';
+import {PedidoManutCurativaService} from './shared/pedidoManutCurativa/pedidoManutCurativa.service';
 
 
 /* Forms module */
@@ -60,7 +61,7 @@ import { PedidoCurativoListComponent } from './components/pedido-curativo-list/p
     FormsModule
   ],
   
-  providers: [EquipamentoService, AuthService], /*Aqui ficar AuthService ou RegisterService */
+  providers: [PedidoManutCurativaService, EquipamentoService, AuthService], /*Aqui ficar AuthService ou RegisterService */
   bootstrap: [AppComponent]
 })
 
