@@ -1,0 +1,46 @@
+<!--' equipList {{recebeEquipamentos}}'-->
+<div class="container wrapper">
+    <div class="row">
+        
+        <!-- Equipamentos table -->
+        <div class="col-md-12">
+            <div class="inner">
+                <div id="main">
+                    <h3>Pedidos de manutenção curativa</h3> <!--<button type="button" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0;"
+                    [routerLink]="['/add-equip']">Novo pedido</button>-->
+                  </div> 
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Utilizador</th>
+                            <th scope="col">Equipamento</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Estado da intervenção</th>
+                            <th scope="col">Data da avaria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <tr *ngFor="let item of pedidos">
+                            <th scope="row">{{item.IDPedido}}</th>
+                            <!--<ng-container *ngFor="let gm of gruposMaquinaList">
+                                <td *ngIf="gm.IDGrupoMaquinas==equipamentos.IDGrupoM">{{gm.Descr}}</td>
+                            </ng-container>-->
+                            <td>{{item.UtilizadorIDUser}}</td>
+                            <td>{{item.IDEquipamento}}</td>
+                            <td>{{item.Descricao}}</td>
+                            <td *ngIf="item.IDEstadoIntervencao==1">Aberto</td>
+                            <td *ngIf="item.IDEstadoIntervencao==0" >Fechado</td>
+                            <td>{{item.DataPedido}}</td>
+                           <!-- <td>
+                               <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/edit-equip/', equipamentos.IDEquipamento]">Editar</button>
+                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

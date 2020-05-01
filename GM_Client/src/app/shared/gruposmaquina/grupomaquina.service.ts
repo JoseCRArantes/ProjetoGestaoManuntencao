@@ -46,6 +46,7 @@ export class GrupoMaquinaService {
       retry(1),
       catchError(this.errorHandl)
     )
+    
   }
 
   

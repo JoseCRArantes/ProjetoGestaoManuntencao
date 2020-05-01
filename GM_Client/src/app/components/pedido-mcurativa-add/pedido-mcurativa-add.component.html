@@ -1,0 +1,32 @@
+<div class="container wrapper wrapper2">
+    <div class="row">
+
+        <!-- Form -->
+        <div class="col-md-12">
+            <h3>Novo pedido</h3>
+            <div class="td">Pedido</div>
+            <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>   
+                <div class="form-group">
+                    <label>Equipamento</label>
+                    <input type="text" formControlName="IDEquipamento" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <input type="text" formControlName="Descricao" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Estado de intervenção</label>
+                    <input type="text" formControlName="IDEstadoIntervencao" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Data do pedido</label>
+                    <input type="date" formControlName="DataPedido" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>

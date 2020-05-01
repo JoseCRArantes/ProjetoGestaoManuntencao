@@ -41,8 +41,8 @@ export class EquipamentoService {
   }
 
   // GET
-  GetEquipamentos(): Observable<Equipamento> {
-    return this.http.get<Equipamento>(this.baseurl + '/Equipamentoes', this.httpOptions)
+  GetEquipamentos(): Observable<Equipamento[]> {
+    return this.http.get<Equipamento[]>(this.baseurl + '/Equipamentoes', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)

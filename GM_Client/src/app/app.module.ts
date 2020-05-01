@@ -15,8 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { EquipamentoService } from './shared/equipamento/equipamento.service';
 import { GrupoMaquinaService } from './shared/gruposmaquina/grupomaquina.service';
 import {AspNetUsersService} from './shared/aspNetUsers/aspNetUsers.service';
-import {PedidoManutCurativaService} from './shared/pedidoManutCurativa/pedidoManutCurativa.service';
-
 
 /* Forms module */
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,7 +33,8 @@ import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/t
 
 import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-user-list.component';
 import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-user-edit.component';
-import { PedidoCurativoListComponent } from './components/pedido-curativo-list/pedido-curativo-list.component';
+import { PedidoMcurativaListTesteComponent } from './components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component';
+import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/pedido-mcurativa-add.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
@@ -51,7 +50,8 @@ import { PedidoCurativoListComponent } from './components/pedido-curativo-list/p
     TipoUtilizadorListComponent,
     AspNetUserListComponent,
  AspNetUserEditComponent,
- PedidoCurativoListComponent,
+ PedidoMcurativaListTesteComponent,
+ PedidoMcurativaAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +61,7 @@ import { PedidoCurativoListComponent } from './components/pedido-curativo-list/p
     FormsModule
   ],
   
-  providers: [PedidoManutCurativaService, EquipamentoService, AuthService], /*Aqui ficar AuthService ou RegisterService */
+  providers: [/*PedidoManutCurativaService, EquipamentoService,*/ AuthService], /*Aqui ficar AuthService ou RegisterService */
   bootstrap: [AppComponent]
 })
 

@@ -10,9 +10,9 @@ import { Equipamento } from 'src/app/shared/equipamento/equipamentomodel';
 })
 export class EquipListComponent implements OnInit {
 
-  ;
- //EquipList : Equipamento[] = []; criar um array de objecto equipamentos.
-  EquipList: any = [];
+  
+  EquipList : Equipamento[] = []; //criar um array de objecto equipamentos.
+  //EquipList: any = [];
   gruposMaquinaList: any = [];
 
   equipToPedidos(){
@@ -31,7 +31,7 @@ export class EquipListComponent implements OnInit {
 
    // lista equipamentos 
    loadEquip() {
-    return this.equipamentoService.GetEquipamentos().subscribe((data: {}) => {
+    return this.equipamentoService.GetEquipamentos().subscribe((data: Equipamento[]) => {
       this.EquipList = data;
     })
   }
