@@ -563,9 +563,6 @@
           <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="DataInicioIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DataFimIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Equipamento" Relationship="Self.FKIntervenca464077" FromRole="IntervencaoCurativa" ToRole="Equipamento" />
-          <NavigationProperty Name="PedidoManutCurativa" Relationship="Self.FKIntervenca350631" FromRole="IntervencaoCurativa" ToRole="PedidoManutCurativa" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BDGestaoManutencaoModel.FK_IntervencaoCurativa_AspNetUsers" FromRole="IntervencaoCurativa" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="IntervencaoPreventiva">
           <Key>

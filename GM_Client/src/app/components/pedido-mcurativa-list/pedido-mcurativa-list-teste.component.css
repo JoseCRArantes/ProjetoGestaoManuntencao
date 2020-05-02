@@ -1,0 +1,13 @@
+.info-text{
+    text-align: center;
+}
+
+
+mat-expansion-panel-header {
+    width: 90%;
+    margin: auto;
+}
+mat-expansion-panel{
+    width: 90%;
+    margin: auto;
+}

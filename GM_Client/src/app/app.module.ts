@@ -18,6 +18,13 @@ import {AspNetUsersService} from './shared/aspNetUsers/aspNetUsers.service';
 
 /* Forms module */
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 /* Components */
 
@@ -58,7 +65,13 @@ import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/p
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule, 
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatToolbarModule
   ],
   
   providers: [/*PedidoManutCurativaService, EquipamentoService,*/ AuthService], /*Aqui ficar AuthService ou RegisterService */

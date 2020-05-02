@@ -21,9 +21,5 @@ namespace GMwebApi.Models
         public string Descricao { get; set; }
         public string DataInicioIntervencao { get; set; }
         public string DataFimIntervencao { get; set; }
-    
-        public virtual Equipamento Equipamento { get; set; }
-        public virtual PedidoManutCurativa PedidoManutCurativa { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }
