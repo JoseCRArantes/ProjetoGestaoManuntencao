@@ -14,23 +14,11 @@ namespace GMwebApi.Models
     
     public partial class PedidoManutPreventiva
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PedidoManutPreventiva()
-        {
-            this.IntervencaoPreventiva = new HashSet<IntervencaoPreventiva>();
-        }
-    
         public int ID { get; set; }
         public int IDEquipamento { get; set; }
         public string UtilizadorIDUser { get; set; }
         public int FichaManutencaoID { get; set; }
         public string DataLimiteManutencaoPrev { get; set; }
         public string DataDoPedido { get; set; }
-    
-        public virtual Equipamento Equipamento { get; set; }
-        public virtual FichaManutencao FichaManutencao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IntervencaoPreventiva> IntervencaoPreventiva { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -96,6 +96,7 @@
     <EntitySetMapping Name="IntervencaoCurativa">
       <EntityTypeMapping TypeName="BDGestaoManutencaoModel.IntervencaoCurativa">
         <MappingFragment StoreEntitySet="IntervencaoCurativa">
+          <ScalarProperty Name="IDEstadoIntervencao" ColumnName="IDEstadoIntervencao" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="IDPedido" ColumnName="IDPedido" />
           <ScalarProperty Name="IDEquipamento" ColumnName="IDEquipamento" />
@@ -123,7 +124,6 @@
           <ScalarProperty Name="UtilizadorIDUser" ColumnName="UtilizadorIDUser" />
           <ScalarProperty Name="IDEquipamento" ColumnName="IDEquipamento" />
           <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-          <ScalarProperty Name="IDEstadoIntervencao" ColumnName="IDEstadoIntervencao" />
           <ScalarProperty Name="DataPedido" ColumnName="DataPedido" />
         </MappingFragment>
       </EntityTypeMapping>

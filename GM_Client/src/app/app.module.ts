@@ -36,7 +36,7 @@ import { RegisterComponent }         from './components/register-add/register-ad
 import { AuthService}                from './TokenAuth/auth.service';
 import { LoginComponent }            from './Login-logout/logincomponent';
 
-import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
+//import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
 
 import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-user-list.component';
 import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-user-edit.component';
@@ -54,7 +54,7 @@ import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/p
     EquipEditComponent,
     RegisterComponent,
     LoginComponent,
-    TipoUtilizadorListComponent,
+    //TipoUtilizadorListComponent,
     AspNetUserListComponent,
  AspNetUserEditComponent,
  PedidoMcurativaListTesteComponent,

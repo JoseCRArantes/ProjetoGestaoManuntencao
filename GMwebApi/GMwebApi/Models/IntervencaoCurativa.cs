@@ -14,12 +14,13 @@ namespace GMwebApi.Models
     
     public partial class IntervencaoCurativa
     {
+        public int IDEstadoIntervencao { get; set; }
         public int ID { get; set; }
         public int IDPedido { get; set; }
         public int IDEquipamento { get; set; }
         public string UtilizadorIDUser { get; set; }
         public string Descricao { get; set; }
-        public string DataInicioIntervencao { get; set; }
-        public string DataFimIntervencao { get; set; }
+        public System.DateTime DataInicioIntervencao { get; set; }
+        public System.DateTime DataFimIntervencao { get; set; }
     }
 }

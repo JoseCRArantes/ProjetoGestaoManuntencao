@@ -98,13 +98,14 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
+    <Property Name="IDEstadoIntervencao" Type="int" Nullable="false" />
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="IDPedido" Type="int" Nullable="false" />
     <Property Name="IDEquipamento" Type="int" Nullable="false" />
     <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Descricao" Type="varchar" MaxLength="255" />
-    <Property Name="DataInicioIntervencao" Type="varchar" MaxLength="50" />
-    <Property Name="DataFimIntervencao" Type="varchar" MaxLength="50" />
+    <Property Name="Descricao" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="DataInicioIntervencao" Type="datetime" Nullable="false" />
+    <Property Name="DataFimIntervencao" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="IntervencaoPreventiva">
     <Key>
@@ -123,7 +124,6 @@
     <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="IDEquipamento" Type="int" Nullable="false" />
     <Property Name="Descricao" Type="varchar" MaxLength="100" />
-    <Property Name="IDEstadoIntervencao" Type="int" />
     <Property Name="DataPedido" Type="datetime" />
   </EntityType>
   <EntityType Name="PedidoManutPreventiva">
@@ -235,6 +235,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_IntervencaoCurativa_EstadoIntervencao">
+    <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="1" />
+    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoIntervencao">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IntervencaoCurativa">
+        <PropertyRef Name="IDEstadoIntervencao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PedidoManutCurativa_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
@@ -244,18 +256,6 @@
       </Principal>
       <Dependent Role="PedidoManutCurativa">
         <PropertyRef Name="UtilizadorIDUser" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PedidoManutCurativa_EstadoIntervencao">
-    <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="0..1" />
-    <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EstadoIntervencao">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="PedidoManutCurativa">
-        <PropertyRef Name="IDEstadoIntervencao" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -407,12 +407,12 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
     </AssociationSet>
+    <AssociationSet Name="FK_IntervencaoCurativa_EstadoIntervencao" Association="Self.FK_IntervencaoCurativa_EstadoIntervencao">
+      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
+      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
     <AssociationSet Name="FK_PedidoManutCurativa_AspNetUsers" Association="Self.FK_PedidoManutCurativa_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PedidoManutCurativa_EstadoIntervencao" Association="Self.FK_PedidoManutCurativa_EstadoIntervencao">
-      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
       <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
     </AssociationSet>
     <AssociationSet Name="FK_PedidoManutPreventiva_AspNetUsers" Association="Self.FK_PedidoManutPreventiva_AspNetUsers">

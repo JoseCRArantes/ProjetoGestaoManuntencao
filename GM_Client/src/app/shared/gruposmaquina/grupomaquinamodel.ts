@@ -3,3 +3,4 @@ export class GrupoMaquina {
     CodigoInterno : number;
     Descr : string
  }
+

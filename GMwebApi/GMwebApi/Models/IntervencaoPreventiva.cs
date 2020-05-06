@@ -18,7 +18,5 @@ namespace GMwebApi.Models
         public int PedidoManutPreventivaID { get; set; }
         public string Observacoes { get; set; }
         public string DataRealizacao { get; set; }
-    
-        public virtual PedidoManutPreventiva PedidoManutPreventiva { get; set; }
     }
 }

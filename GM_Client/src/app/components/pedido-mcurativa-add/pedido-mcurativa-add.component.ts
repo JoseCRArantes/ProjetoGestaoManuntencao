@@ -1,8 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, EventEmitter, Output} from '@angular/core';
 import { PedidoManutCurativaTeste } from '../../shared/pedidoMcurativa-teste/pedidoMcurativa.model';
 import { PedidosService } from '../../shared/pedidoMcurativa-teste/pedidoMcurativa.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GrupoMaquina } from '../../shared/gruposmaquina/grupomaquinamodel';
+import {Equipamento} from '../../shared/equipamento/equipamentomodel';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pedido-mcurativa-add',
@@ -12,6 +15,12 @@ import { Router } from '@angular/router';
 export class PedidoMcurativaAddComponent implements OnInit {
 
   pedidoForm: FormGroup;
+  selectedOption: number; 
+  gmID : number
+
+  gruposMaquinaList: GrupoMaquina[] = [];
+  equipamentosList: Equipamento[] = [];
+  equipamentosFiltrados: Equipamento[] = [];
 
   constructor(
     public pedidoService: PedidosService, 
@@ -21,14 +30,51 @@ export class PedidoMcurativaAddComponent implements OnInit {
 
   ngOnInit(){
     this.addPedido();
+    this.loadGrupoMaquinas();
+    this.loadEquipamentos();
   }
+
+   listJustgroupmachine()
+    {
+        this.gmID = this.selectedOption;
+
+        if(this.equipamentosFiltrados.length>0)
+          {
+            this.equipamentosFiltrados.length=0;
+          }   
+
+        for (let j = 0; j < this.equipamentosList.length; j++) 
+        {
+          if (this.gmID == this.equipamentosList[j].IDGrupoM) 
+          {
+            this.equipamentosFiltrados.push(this.equipamentosList[j]);           
+          }
+        }  
+    } 
+
+
+  loadEquipamentos() {
+    return this.pedidoService.GetEquipamentosObser().subscribe((data: Equipamento[]) => {
+      this.equipamentosList = data;
+      console.log(this.equipamentosList);
+    })
+  }
+
+  // lista equipamentos 
+  loadGrupoMaquinas() {
+    return this.pedidoService.GetGruposMaquina().subscribe((data: GrupoMaquina[]) => {
+      this.gruposMaquinaList = data;
+      console.log(this.gruposMaquinaList);
+    })
+  }
+  
 
   addPedido() {
     this.pedidoForm = this.fb.group({
       IDEquipamento : [0],
       Descricao: [''],
-      IDEstadoIntervencao: [0],
-      DataPedido:['']   
+      //IDEstadoIntervencao: [0],
+      //DataPedido:['']   
     })
   }
 

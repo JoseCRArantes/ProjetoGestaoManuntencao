@@ -22,6 +22,7 @@ namespace GMwebApi.Controllers
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
+
         //Retorna apenas os atributos do objeto essenciais
         // GET: api/AspNetUsers
         [Authorize]

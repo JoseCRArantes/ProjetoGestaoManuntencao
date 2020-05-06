@@ -5,24 +5,41 @@
         <div class="col-md-12">
             
             <h3>Novo pedido</h3>
-            <div class="td">Pedido</div>
+            <div class="td"></div>
+            <br>
+
+            <label>Grupo de máquina</label>
+            <br>
+            <select [(ngModel)]="selectedOption" (click)="listJustgroupmachine()">           
+                <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.CodigoInterno }} {{ item.Descr}}</option>
+            </select>
+            <br>
+            
+
             <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>   
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label>Equipamento</label>
                     <input type="text" formControlName="IDEquipamento" class="form-control">
-                </div>
+                </div>-->
+
+
+                <br><label>Equipamento</label><br>
+                <select  class="form-group" formControlName="IDEquipamento">
+                    <option value="0">Selecione o equipamento</option>   
+                    <option *ngFor="let item of equipamentosFiltrados" [value]="item.IDEquipamento">{{item.CodigoInterno}}{{ item.Marca}}</option>                  
+                </select>
                 <div class="form-group">
                     <label>Descrição</label>
                     <input type="text" formControlName="Descricao" class="form-control">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Estado de intervenção</label>
                     <input type="text" formControlName="IDEstadoIntervencao" class="form-control">
-                </div>
-                <div class="form-group">
+                </div> -->
+                <!--<div class="form-group">
                     <label>Data do pedido</label>
                     <input type="date" formControlName="DataPedido" class="form-control">
-                </div>
+                </div>-->
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

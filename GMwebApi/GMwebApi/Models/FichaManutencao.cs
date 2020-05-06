@@ -14,19 +14,9 @@ namespace GMwebApi.Models
     
     public partial class FichaManutencao
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FichaManutencao()
-        {
-            this.PedidoManutPreventiva = new HashSet<PedidoManutPreventiva>();
-        }
-    
         public int ID { get; set; }
         public int IDGrupoMaquinas { get; set; }
         public Nullable<int> NumFichaManutencao { get; set; }
         public string CaminhoPDF { get; set; }
-    
-        public virtual GrupoMaquina GrupoMaquina { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoManutPreventiva> PedidoManutPreventiva { get; set; }
     }
 }

@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { retry, catchError, map } from 'rxjs/operators';
 import { Equipamento } from '../equipamento/equipamentomodel';
 import { EstadoIntervencao } from '../estadoIntervencao/estadoIntervencao.model';
+import { GrupoMaquina } from '../gruposmaquina/grupomaquinamodel';
+
 
 
 @Injectable({providedIn: 'root'})
@@ -24,7 +26,6 @@ export class PedidosService {
     
     constructor(private httpClient: HttpClient){}
 
-
     getPedidos() {
       this.httpClient.get<any>('http://localhost:44334/api/PedidoManutCurativas', this.httpOptions)
         .toPromise()
@@ -33,7 +34,6 @@ export class PedidosService {
           UtilizadorIDUser : pedido.UtilizadorIDUser,
           IDEquipamento : pedido.IDEquipamento,
           Descricao : pedido.Descricao,
-          IDEstadoIntervencao : pedido.IDEstadoIntervencao,
           DataPedido : pedido.DataPedido 
         }))
         )
@@ -41,7 +41,6 @@ export class PedidosService {
           this.pedidos = transformedpedidos;
           this.pedidosUpdated.next([...this.pedidos]);
         });
-    
   }
 
 
@@ -73,6 +72,15 @@ export class PedidosService {
       .pipe(
         retry(1)
       )
+    }
+
+    //GET grupos de máquinas
+    GetGruposMaquina(): Observable<GrupoMaquina[]> {
+      return this.httpClient.get<GrupoMaquina[]>('http://localhost:44334/api/GrupoMaquinas', this.httpOptions)
+      .pipe(
+        retry(1)
+      )
+      
     }
 
  

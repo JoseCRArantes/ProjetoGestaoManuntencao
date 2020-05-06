@@ -1,13 +1,25 @@
-.info-text{
-    text-align: center;
-}
 
 
+
+ td{border:0px solid white;}
+ .table-responsive>.table{padding:0 32px 0 24px;}
+ mat-expansion-panel-header .table td{text-align: left}
+
+ .mat-expansion-panel-header-label.mat-expanded:hover {
+    background: rgb(255, 255, 255);  
+  
+  }
+
+  .mat-expansion-panel-header{
+      background-color: white;
+  }
+
+/*
 mat-expansion-panel-header {
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 mat-expansion-panel{
     width: 90%;
     margin: auto;
-}
+}*/

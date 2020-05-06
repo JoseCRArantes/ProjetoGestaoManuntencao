@@ -41,7 +41,7 @@ namespace GMwebApi.Controllers
                       UtilizadorIDUser = c.Nome,
                       IDEquipamento = p.IDEquipamento,
                       Descricao = p.Descricao,
-                      IDEstadoIntervencao = p.IDEstadoIntervencao,
+                      //IDEstadoIntervencao = p.IDEstadoIntervencao,
                       DataPedido = p.DataPedido
                   };
 
@@ -110,14 +110,13 @@ namespace GMwebApi.Controllers
         private PedidoManutCurativa PedidoMCurativaDtoTOPedidoMCurativa(PedidoManutCurativaDto pedidoManutCurativaDto)
         {
             var user = User.Identity.GetUserId();
-
             return new PedidoManutCurativa()
             {
                 UtilizadorIDUser = (string)user,
                 IDEquipamento = pedidoManutCurativaDto.IDEquipamento,
                 Descricao = pedidoManutCurativaDto.Descricao,
-                IDEstadoIntervencao = pedidoManutCurativaDto.IDEstadoIntervencao,
-                DataPedido = pedidoManutCurativaDto.DataPedido
+                // IDEstadoIntervencao = 1,//pedidoManutCurativaDto.IDEstadoIntervencao,
+                DataPedido = DateTime.Now //pedidoManutCurativaDto.DataPedido
             };
         }
 

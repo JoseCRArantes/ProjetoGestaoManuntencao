@@ -29,8 +29,9 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     this.pedidosSub = this.pedidosService.getPedidoUpdateListener().subscribe((pedidos: PedidoManutCurativaTeste[]) => {
     this.pedidos = pedidos;
     });
-    this.loadEquip();
     this.loadEstadosIntervencao(); 
+    this.loadEquip();
+
     }
 
     ngOnDestroy(){
@@ -48,20 +49,20 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     }
 
     //Troca o ID do estado de intervenção, pela sua descrição correspondente.
-     changeIDtoDescription(estado : number)
+   /*  changeIDtoDescription(estado : number)
     {
         for (let j = 0; j < this.equipamentosList.length; j++) {
           if (this.pedidos[estado].IDEstadoIntervencao == this.estadoIntervencaoList[j].ID) {
              return this.estadoIntervencaoList[j].Descr;        
           }
         }   
-    } 
+    } */
     
     loadEstadosIntervencao()
     {
       return this.pedidosService.GetEstadosIntervencao().subscribe((data: EstadoIntervencao[]) => {
         this.estadoIntervencaoList = data;
-        console.log(this.estadoIntervencaoList);
+       // console.log(this.estadoIntervencaoList);
       })
         
       
@@ -71,9 +72,10 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
    loadEquip() {
     return this.pedidosService.GetEquipamentosObser().subscribe((data: Equipamento[]) => {
       this.equipamentosList = data;
-      console.log(this.equipamentosList);
+     // console.log(this.equipamentosList);
     })
   }
+  
 
     
 

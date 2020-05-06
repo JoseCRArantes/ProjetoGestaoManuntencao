@@ -19,6 +19,7 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/EstadoIntervencaos
+        [Authorize]
         public IQueryable<EstadoIntervencao> GetEstadoIntervencao()
         {
             return db.EstadoIntervencao;

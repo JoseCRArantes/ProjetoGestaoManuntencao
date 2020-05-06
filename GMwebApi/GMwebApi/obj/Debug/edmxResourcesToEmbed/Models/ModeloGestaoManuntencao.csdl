@@ -99,9 +99,11 @@
     <Property Name="IDPedido" Type="Int32" Nullable="false" />
     <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
     <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="DataInicioIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="DataFimIntervencao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DataInicioIntervencao" Type="String" Nullable="false" />
+    <Property Name="DataFimIntervencao" Type="String" Nullable="false" />
+    <Property Name="IDEstadoIntervencao" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EstadoIntervencao" Relationship="BDGestaoManutencaoModel.FK_IntervencaoCurativa_EstadoIntervencao" FromRole="IntervencaoCurativa" ToRole="EstadoIntervencao" />
   </EntityType>
   <EntityType Name="IntervencaoPreventiva">
     <Key>
@@ -121,7 +123,6 @@
     <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
     <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="IDEstadoIntervencao" Type="Int32" />
     <Property Name="DataPedido" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="PedidoManutPreventiva">
@@ -377,6 +378,10 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
     </AssociationSet>
+    <AssociationSet Name="FK_IntervencaoCurativa_EstadoIntervencao" Association="BDGestaoManutencaoModel.FK_IntervencaoCurativa_EstadoIntervencao">
+      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
+      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_AspNetUsers_TipoUtilizador">
     <End Type="BDGestaoManutencaoModel.TipoUtilizador" Role="TipoUtilizador" Multiplicity="0..1" />
@@ -423,6 +428,18 @@
       </Principal>
       <Dependent Role="PedidoManutPreventiva">
         <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IntervencaoCurativa_EstadoIntervencao">
+    <End Type="BDGestaoManutencaoModel.EstadoIntervencao" Role="EstadoIntervencao" Multiplicity="1" />
+    <End Type="BDGestaoManutencaoModel.IntervencaoCurativa" Role="IntervencaoCurativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoIntervencao">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IntervencaoCurativa">
+        <PropertyRef Name="IDEstadoIntervencao" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

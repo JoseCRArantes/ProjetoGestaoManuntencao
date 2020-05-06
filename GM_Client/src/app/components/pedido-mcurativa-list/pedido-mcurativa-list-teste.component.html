@@ -1,4 +1,4 @@
-
+<!--
 <div id="main">
     <div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h4>Pedidos curativos </h4> 
@@ -13,18 +13,54 @@
             <p>#Nº {{item.PedidoIDPedido}} #Funcionário: {{item.UtilizadorIDUser}}
                 #Equipamento: {{changeIDtoInternalCode(i)}} #Data:{{item.DataPedido}}
                  #Estado: {{changeIDtoDescription(i)}}</p>
-            <!--
-            PedidoIDPedido : pedido.IDPedido,
-            UtilizadorIDUser : pedido.UtilizadorIDUser,
-            IDEquipamento : pedido.IDEquipamento,
-            Descricao : pedido.Descricao,
-            IDEstadoIntervencao : pedido.IDEstadoIntervencao,
-            DataPedido : pedido.DataPedido -->
+            
+           
 
         </mat-expansion-panel-header>
         <p>Descricação: {{item.Descricao}}</p>
     </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion>-->
 
 
-<!--<p *ngIf="item.length == 0" class="info-text mat-body-1">There are no pedidos, yet!</p>-->
+
+
+
+ 
+ <hr/>
+
+	<div class="table-responsive ">
+		<table class="table" style="width: 100%">
+			<thead>
+				<tr>
+					<th scope="col" width="25">ID</th>
+					<th scope="col" width="150">Utilizador</th>
+					<th scope="col" width="250">Equipamento</th>
+					
+					<th scope="col" width="350">Descrição</th>
+					<th scope="col" width="170">Data de avaria</th>
+					<!--<th scope="col" width="100">Estado da intervencao</th>			-->		
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<mat-accordion>
+
+		<mat-expansion-panel *ngFor="let item of pedidos; let i = index">
+			<mat-expansion-panel-header >
+				<table class="table ">
+					<tbody>
+						<tr>
+							<td class="tb-td-txt" width="25">{{item.PedidoIDPedido}}</td>
+							<td class="tb-td-txt" width="150">{{item.UtilizadorIDUser}}</td>
+							<td class="tb-td-txt" width="250">{{changeIDtoInternalCode(i)}}</td>
+							<td class="tb-td-txt" width="350">{{item.Descricao}}</td>
+							<td class="tb-td-txt" width="170">{{item.DataPedido |  date:'dd/MM/yyyy HH:mm'}}</td>
+							
+							<!--<td class="tb-td-txt" width="100" [ngStyle]="{'color': (changeIDtoDescription(i) === 'Aberto') ? 'red' : (changeIDtoDescription(i) === 'Programado') ? 'yellow' : (changeIDtoDescription(i) === 'Fechado') ? 'green' : ''}">{{changeIDtoDescription(i)}}</td>-->
+						</tr>
+					</tbody>
+				</table>
+			</mat-expansion-panel-header>
+		</mat-expansion-panel>
+	</mat-accordion>
+
