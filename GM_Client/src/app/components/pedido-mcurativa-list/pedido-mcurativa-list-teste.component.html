@@ -27,40 +27,85 @@
 
  
  <hr/>
-
-	<div class="table-responsive ">
+ <div class="inner">
+ 	<div id="main">
+ 		<h3>Pedidos curativos</h3> <button type="button" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0;"
+ 			[routerLink]="['/pedido-mcurativa-add']">Novo pedido</button>
+ 			
+	</div> 
+	<br>
+		<div class="table-responsive ">
 		<table class="table" style="width: 100%">
 			<thead>
 				<tr>
-					<th scope="col" width="25">ID</th>
-					<th scope="col" width="150">Utilizador</th>
-					<th scope="col" width="250">Equipamento</th>
-					
-					<th scope="col" width="350">Descrição</th>
+					<th scope="col" width="20">#</th>
+					<th scope="col" width="80">Utilizador</th>
+					<th scope="col" width="400">Equipamento</th>
+					<th scope="col" width="500">Descrição</th>
 					<th scope="col" width="170">Data de avaria</th>
-					<!--<th scope="col" width="100">Estado da intervencao</th>			-->		
+						
 				</tr>
 			</thead>
 		</table>
 	</div>
-	<mat-accordion>
 
-		<mat-expansion-panel *ngFor="let item of pedidos; let i = index">
-			<mat-expansion-panel-header >
+	<mat-accordion multi="false">
+		<mat-expansion-panel *ngFor="let item of pedidos; let i = index" >
+			<mat-expansion-panel-header  >
 				<table class="table ">
 					<tbody>
 						<tr>
-							<td class="tb-td-txt" width="25">{{item.PedidoIDPedido}}</td>
-							<td class="tb-td-txt" width="150">{{item.UtilizadorIDUser}}</td>
-							<td class="tb-td-txt" width="250">{{changeIDtoInternalCode(i)}}</td>
-							<td class="tb-td-txt" width="350">{{item.Descricao}}</td>
+							<td class="tb-td-txt" width="20">{{item.PedidoIDPedido}}</td>
+							<td class="tb-td-txt" width="80">{{item.UtilizadorIDUser}}</td>
+							<td class="tb-td-txt" width="400">{{changeIDtoInternalCode(i)}}</td>
+							<td class="tb-td-txt" width="500">{{item.Descricao}}</td>
 							<td class="tb-td-txt" width="170">{{item.DataPedido |  date:'dd/MM/yyyy HH:mm'}}</td>
-							
-							<!--<td class="tb-td-txt" width="100" [ngStyle]="{'color': (changeIDtoDescription(i) === 'Aberto') ? 'red' : (changeIDtoDescription(i) === 'Programado') ? 'yellow' : (changeIDtoDescription(i) === 'Fechado') ? 'green' : ''}">{{changeIDtoDescription(i)}}</td>-->
-						</tr>
+						</tr>						
 					</tbody>
 				</table>
+				
 			</mat-expansion-panel-header>
+			<div class="table-responsive ">
+				<table class="table" style="width: 80%">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col" >Utilizador</th>
+							<th scope="col" width="250">Descrição</th>
+							<th scope="col" width="150">Estado</th>	
+							<th scope="col" width="170">Inicio da intervenção</th>
+							<th scope="col" width="170">Fim da intervenção</th>		
+						</tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+			
+			<tr *ngFor="let inter of intervencoes; let j = index">
+			<ng-container *ngIf="inter.IDPedido== item.PedidoIDPedido">
+				<th scope="row">{{inter.ID}}</th>		
+						<td >{{inter.UtilizadorIDUser}}</td>
+						<td >{{inter.Descricao}}</td>
+						<td >{{changeIDtoDescription(j)}}</td>
+						<td >{{inter.DataInicioIntervencao}}</td>
+						<td >{{inter.DataFimIntervencao}}</td>
+							
+				</ng-container>	
+			</tr>
+			</tbody>
+		</table>
+	</div>
+				
 		</mat-expansion-panel>
 	</mat-accordion>
+</div>
 
+
+
+
+	<!-- <mat-accordion>
+						<mat-expansion-panel *ngFor="let inter of intervencoes; let j = index">
+						<mat-expansion-panel-header  *ngIf="item.PedidoIDPedido==inter.IntervencaoIDPedido" >
+								<p>{{inter.DataFimIntervencao}}</p>
+						</mat-expansion-panel-header  >
+						</mat-expansion-panel>
+</mat-accordion> -->

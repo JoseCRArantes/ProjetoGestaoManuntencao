@@ -1,4 +1,15 @@
 
+  h3 {
+    margin-left: 25px;
+      display: inline-block;
+  }
+
+  button{
+    /*width:90px;
+    height: 50px;*/
+    margin-right: 80px;
+  }
+  
 
 
  td{border:0px solid white;}

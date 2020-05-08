@@ -6,14 +6,12 @@ import { retry, catchError, map } from 'rxjs/operators';
 import { Equipamento } from '../equipamento/equipamentomodel';
 import { EstadoIntervencao } from '../estadoIntervencao/estadoIntervencao.model';
 import { GrupoMaquina } from '../gruposmaquina/grupomaquinamodel';
+import { IntervencaoCurativa} from './intervencaoCurativa.model';
 
 
 
 @Injectable({providedIn: 'root'})
 export class PedidosService {
-
-    pedidos: PedidoManutCurativaTeste[] = [];
-    private pedidosUpdated = new Subject<PedidoManutCurativaTeste[]>();
 
     // Http Headers
     httpOptions = {
@@ -23,6 +21,13 @@ export class PedidosService {
      }), 
      withCredentials: true
     }
+
+    pedidos: PedidoManutCurativaTeste[] = [];
+    private pedidosUpdated = new Subject<PedidoManutCurativaTeste[]>();
+    intervencoes: IntervencaoCurativa[] = [];
+    private intervencoesUpdated = new Subject<IntervencaoCurativa[]>();
+
+    
     
     constructor(private httpClient: HttpClient){}
 
@@ -41,6 +46,7 @@ export class PedidosService {
           this.pedidos = transformedpedidos;
           this.pedidosUpdated.next([...this.pedidos]);
         });
+        
   }
 
 
@@ -49,8 +55,6 @@ export class PedidosService {
       return this.pedidosUpdated.asObservable();   
   }
 
-
-  
     //POST PEDIDO 
     postPedido(data){
       this.httpClient.post<any>('http://localhost:44334/api/PedidoManutCurativas', JSON.stringify(data), this.httpOptions)
@@ -59,6 +63,33 @@ export class PedidosService {
         this.pedidosUpdated.next([...this.pedidos]);        
       }
 
+
+      getIntervencoes() {
+        this.httpClient.get<any>('http://localhost:44334/api/IntervencaoCurativas', this.httpOptions)
+          .toPromise()
+          .then(r => r.map(intervencao => ({
+            ID : intervencao.ID,
+            IDPedido : intervencao.IDPedido,
+            UtilizadorIDUser : intervencao.UtilizadorIDUser,
+            IDEquipamento : intervencao.IDEquipamento,
+            Descricao : intervencao.Descricao,
+            IDEstadoIntervencao : intervencao.IDEstadoIntervencao,
+            DataFimIntervencao: intervencao.DataFimIntervencao,
+            DataInicioIntervencao : intervencao.DataInicioIntervencao
+          }))
+          )
+            .then(transformedintervencoes=> {
+            this.intervencoes = transformedintervencoes;
+            this.intervencoesUpdated.next([...this.intervencoes]);
+          });
+          console.log(this.intervencoes, 'teste');
+    }
+
+    getIntervencaoUpdateListener() 
+    {
+        return this.intervencoesUpdated.asObservable();   
+    }
+  
   // GET
   GetEquipamentosObser(): Observable<Equipamento[]> {
     return this.httpClient.get<Equipamento[]>('http://localhost:44334/api/Equipamentoes', this.httpOptions)
@@ -80,7 +111,6 @@ export class PedidosService {
       .pipe(
         retry(1)
       )
-      
     }
 
  

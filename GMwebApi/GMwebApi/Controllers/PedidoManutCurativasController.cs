@@ -35,7 +35,8 @@ namespace GMwebApi.Controllers
                   from c in db.AspNetUsers
                   from p in db.PedidoManutCurativa
                   where p.UtilizadorIDUser == c.Id
-                  select new PedidoManutCurativaDto
+                  orderby p.DataPedido descending
+                 select new PedidoManutCurativaDto
                   {
                       IDPedido = p.IDPedido,
                       UtilizadorIDUser = c.Nome,
@@ -44,8 +45,14 @@ namespace GMwebApi.Controllers
                       //IDEstadoIntervencao = p.IDEstadoIntervencao,
                       DataPedido = p.DataPedido
                   };
-
             return pMcurativa;
+
+
+            
+
+
+
+            
 
 
         }
@@ -115,7 +122,6 @@ namespace GMwebApi.Controllers
                 UtilizadorIDUser = (string)user,
                 IDEquipamento = pedidoManutCurativaDto.IDEquipamento,
                 Descricao = pedidoManutCurativaDto.Descricao,
-                // IDEstadoIntervencao = 1,//pedidoManutCurativaDto.IDEstadoIntervencao,
                 DataPedido = DateTime.Now //pedidoManutCurativaDto.DataPedido
             };
         }

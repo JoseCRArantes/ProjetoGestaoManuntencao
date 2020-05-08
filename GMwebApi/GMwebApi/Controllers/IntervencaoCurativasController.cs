@@ -11,9 +11,11 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using GMwebApi.Models;
 using GMwebApi.DTO;
+using Microsoft.AspNet.Identity;
 
 namespace GMwebApi.Controllers
 {
+    [Authorize]
     public class IntervencaoCurativasController : ApiController
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
@@ -33,7 +35,8 @@ namespace GMwebApi.Controllers
                     IDEquipamento = p.IDEquipamento,
                     Descricao = p.Descricao,
                     DataInicioIntervencao = p.DataInicioIntervencao,
-                    DataFimIntervencao = p.DataFimIntervencao
+                    DataFimIntervencao = p.DataFimIntervencao,
+                    IDEstadoIntervencao = p.IDEstadoIntervencao
 
                 };
 
@@ -87,15 +90,38 @@ namespace GMwebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// DTO para o método Post. 
+        /// </summary>
+        /// <param name="intervencaoCurativaDto"></param>
+        /// <returns></returns>
+        private IntervencaoCurativa IntervencaoCurativaDtoTOIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
+        {
+            var user = User.Identity.GetUserId();
+            return new IntervencaoCurativa()
+            {
+
+                UtilizadorIDUser = (string)user,
+                IDEquipamento = intervencaoCurativaDto.IDEquipamento,
+                Descricao = intervencaoCurativaDto.Descricao,
+                IDPedido = intervencaoCurativaDto.IDPedido,
+                IDEstadoIntervencao = intervencaoCurativaDto.IDEstadoIntervencao,
+                DataFimIntervencao = intervencaoCurativaDto.DataFimIntervencao,
+                DataInicioIntervencao = intervencaoCurativaDto.DataInicioIntervencao   
+            };
+        }
+
+
         // POST: api/IntervencaoCurativas
         [ResponseType(typeof(IntervencaoCurativa))]
-        public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativa intervencaoCurativa)
+        public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            IntervencaoCurativa intervencaoCurativa = IntervencaoCurativaDtoTOIntervencaoCurativa(intervencaoCurativaDto);
             db.IntervencaoCurativa.Add(intervencaoCurativa);
 
             try
