@@ -10,7 +10,6 @@ namespace GMwebApi.DTO
         public int IDEstadoIntervencao { get; set; }
         public int ID { get; set; }
         public int IDPedido { get; set; }
-        public int IDEquipamento { get; set; }
         public string UtilizadorIDUser { get; set; }
         public string Descricao { get; set; }
         public System.DateTime DataInicioIntervencao { get; set; }

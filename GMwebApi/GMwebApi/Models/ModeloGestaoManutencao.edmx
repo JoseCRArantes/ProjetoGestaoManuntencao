@@ -104,9 +104,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="IDEstadoIntervencao" Type="int" Nullable="false" />
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDPedido" Type="int" Nullable="false" />
-          <Property Name="IDEquipamento" Type="int" Nullable="false" />
           <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="DataInicioIntervencao" Type="datetime" Nullable="false" />
@@ -312,18 +311,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FKIntervenca464077">
-          <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
-          <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Equipamento">
-              <PropertyRef Name="IDEquipamento" />
-            </Principal>
-            <Dependent Role="IntervencaoCurativa">
-              <PropertyRef Name="IDEquipamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FKIntervenca782768">
           <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="1" />
           <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
@@ -436,10 +423,6 @@
             <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
             <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
           </AssociationSet>
-          <AssociationSet Name="FKIntervenca464077" Association="Self.FKIntervenca464077">
-            <End Role="Equipamento" EntitySet="Equipamento" />
-            <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
-          </AssociationSet>
           <AssociationSet Name="FKIntervenca782768" Association="Self.FKIntervenca782768">
             <End Role="PedidoManutPreventiva" EntitySet="PedidoManutPreventiva" />
             <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
@@ -468,6 +451,7 @@
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserClaims">
           <Key>
@@ -477,6 +461,7 @@
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
@@ -487,6 +472,7 @@
           <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -553,9 +539,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="IDEstadoIntervencao" Type="Int32" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDPedido" Type="Int32" Nullable="false" />
-          <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
           <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DataInicioIntervencao" Type="DateTime" Nullable="false" Precision="3" />
@@ -697,18 +682,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FKIntervenca464077">
-          <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
-          <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Equipamento">
-              <PropertyRef Name="IDEquipamento" />
-            </Principal>
-            <Dependent Role="IntervencaoCurativa">
-              <PropertyRef Name="IDEquipamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FKPedidoManu3098">
           <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
           <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
@@ -839,10 +812,6 @@
           <AssociationSet Name="FKEquipament289357" Association="Self.FKEquipament289357">
             <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />
             <End Role="Equipamento" EntitySet="Equipamento" />
-          </AssociationSet>
-          <AssociationSet Name="FKIntervenca464077" Association="Self.FKIntervenca464077">
-            <End Role="Equipamento" EntitySet="Equipamento" />
-            <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
           </AssociationSet>
           <AssociationSet Name="FKPedidoManu3098" Association="Self.FKPedidoManu3098">
             <End Role="Equipamento" EntitySet="Equipamento" />
@@ -981,7 +950,6 @@
                 <ScalarProperty Name="IDEstadoIntervencao" ColumnName="IDEstadoIntervencao" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="IDPedido" ColumnName="IDPedido" />
-                <ScalarProperty Name="IDEquipamento" ColumnName="IDEquipamento" />
                 <ScalarProperty Name="UtilizadorIDUser" ColumnName="UtilizadorIDUser" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="DataInicioIntervencao" ColumnName="DataInicioIntervencao" />

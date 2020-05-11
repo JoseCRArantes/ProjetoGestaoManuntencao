@@ -32,12 +32,10 @@ namespace GMwebApi.Controllers
                     ID = p.ID,
                     UtilizadorIDUser = c.Nome,
                     IDPedido = p.IDPedido,
-                    IDEquipamento = p.IDEquipamento,
                     Descricao = p.Descricao,
                     DataInicioIntervencao = p.DataInicioIntervencao,
                     DataFimIntervencao = p.DataFimIntervencao,
                     IDEstadoIntervencao = p.IDEstadoIntervencao
-
                 };
 
             return intervencaoCurativa;
@@ -102,7 +100,7 @@ namespace GMwebApi.Controllers
             {
 
                 UtilizadorIDUser = (string)user,
-                IDEquipamento = intervencaoCurativaDto.IDEquipamento,
+                //IDEquipamento = intervencaoCurativaDto.IDEquipamento,
                 Descricao = intervencaoCurativaDto.Descricao,
                 IDPedido = intervencaoCurativaDto.IDPedido,
                 IDEstadoIntervencao = intervencaoCurativaDto.IDEstadoIntervencao,

@@ -33,7 +33,8 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     
     this.pedidosService.getPedidos();
     this.pedidosSub = this.pedidosService.getPedidoUpdateListener().subscribe((pedidos: PedidoManutCurativaTeste[]) => {
-    this.pedidos = pedidos;
+      console.log(pedidos);
+      this.pedidos = pedidos;
     });
 
     this.pedidosService.getIntervencoes();
@@ -58,7 +59,6 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     //Troca no front-end, o ID do equipamento pelo código interno da empresa
     changeIDtoInternalCode(equip : number)
     {
-
         for (let j = 0; j < this.equipamentosList.length; j++) {
           if (this.pedidos[equip].IDEquipamento == this.equipamentosList[j].IDEquipamento) {
              return this.equipamentosList[j].CodigoInterno + " - " +

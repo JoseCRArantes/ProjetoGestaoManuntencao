@@ -70,13 +70,16 @@ namespace GMwebApi.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null, 
             };
 
+
         }
 
+        [AllowAnonymous]
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            Authentication.SignOut();
+           // Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
 

@@ -99,7 +99,6 @@
           <ScalarProperty Name="IDEstadoIntervencao" ColumnName="IDEstadoIntervencao" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="IDPedido" ColumnName="IDPedido" />
-          <ScalarProperty Name="IDEquipamento" ColumnName="IDEquipamento" />
           <ScalarProperty Name="UtilizadorIDUser" ColumnName="UtilizadorIDUser" />
           <ScalarProperty Name="Descricao" ColumnName="Descricao" />
           <ScalarProperty Name="DataInicioIntervencao" ColumnName="DataInicioIntervencao" />

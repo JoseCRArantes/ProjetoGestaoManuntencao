@@ -99,9 +99,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="IDEstadoIntervencao" Type="int" Nullable="false" />
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IDPedido" Type="int" Nullable="false" />
-    <Property Name="IDEquipamento" Type="int" Nullable="false" />
     <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Descricao" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="DataInicioIntervencao" Type="datetime" Nullable="false" />
@@ -307,18 +306,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FKIntervenca464077">
-    <End Role="Equipamento" Type="Self.Equipamento" Multiplicity="1" />
-    <End Role="IntervencaoCurativa" Type="Self.IntervencaoCurativa" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Equipamento">
-        <PropertyRef Name="IDEquipamento" />
-      </Principal>
-      <Dependent Role="IntervencaoCurativa">
-        <PropertyRef Name="IDEquipamento" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FKIntervenca782768">
     <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="1" />
     <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
@@ -429,10 +416,6 @@
     </AssociationSet>
     <AssociationSet Name="FKIntervenca350631" Association="Self.FKIntervenca350631">
       <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
-      <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
-    </AssociationSet>
-    <AssociationSet Name="FKIntervenca464077" Association="Self.FKIntervenca464077">
-      <End Role="Equipamento" EntitySet="Equipamento" />
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
     </AssociationSet>
     <AssociationSet Name="FKIntervenca782768" Association="Self.FKIntervenca782768">

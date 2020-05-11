@@ -13,6 +13,7 @@ using System.Web.Http.Description;
 using GMwebApi.DTO;
 using GMwebApi.Models;
 
+
 namespace GMwebApi.Controllers
 {
     public class EquipamentoesController : ApiController

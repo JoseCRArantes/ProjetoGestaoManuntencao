@@ -39,7 +39,7 @@
 			<thead>
 				<tr>
 					<th scope="col" width="20">#</th>
-					<th scope="col" width="80">Utilizador</th>
+					<th scope="col" width="140">Utilizador</th>
 					<th scope="col" width="400">Equipamento</th>
 					<th scope="col" width="500">Descrição</th>
 					<th scope="col" width="170">Data de avaria</th>
@@ -55,8 +55,8 @@
 				<table class="table ">
 					<tbody>
 						<tr>
-							<td class="tb-td-txt" width="20">{{item.PedidoIDPedido}}</td>
-							<td class="tb-td-txt" width="80">{{item.UtilizadorIDUser}}</td>
+							<td class="tb-td-txt" width="20">{{item.IDPedido}}</td>
+							<td class="tb-td-txt" width="140">{{item.UtilizadorIDUser}}</td>
 							<td class="tb-td-txt" width="400">{{changeIDtoInternalCode(i)}}</td>
 							<td class="tb-td-txt" width="500">{{item.Descricao}}</td>
 							<td class="tb-td-txt" width="170">{{item.DataPedido |  date:'dd/MM/yyyy HH:mm'}}</td>
@@ -66,11 +66,12 @@
 				
 			</mat-expansion-panel-header>
 			<div class="table-responsive ">
+				<body style="text-align:center;">
 				<table class="table" style="width: 80%">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
-							<th scope="col" >Utilizador</th>
+							<th scope="col" width="25">#</th>
+							<th scope="col" width="80">Utilizador</th>
 							<th scope="col" width="250">Descrição</th>
 							<th scope="col" width="150">Estado</th>	
 							<th scope="col" width="170">Inicio da intervenção</th>
@@ -81,18 +82,19 @@
                         <tr>
 			
 			<tr *ngFor="let inter of intervencoes; let j = index">
-			<ng-container *ngIf="inter.IDPedido== item.PedidoIDPedido">
-				<th scope="row">{{inter.ID}}</th>		
-						<td >{{inter.UtilizadorIDUser}}</td>
-						<td >{{inter.Descricao}}</td>
-						<td >{{changeIDtoDescription(j)}}</td>
-						<td >{{inter.DataInicioIntervencao}}</td>
-						<td >{{inter.DataFimIntervencao}}</td>
+			<ng-container *ngIf="inter.IDPedido== item.IDPedido">
+				<th scope="row" width="25">{{inter.ID}}</th>		
+				<td class="tb-td-txt" width="80">{{inter.UtilizadorIDUser}}</td>
+				<td class="tb-td-txt" width="250">{{inter.Descricao}}</td>
+				<td class="tb-td-txt" width="150">{{changeIDtoDescription(j)}}</td>
+				<td class="tb-td-txt" width="170">{{inter.DataInicioIntervencao |  date:'dd/MM/yyyy HH:mm'}}</td>
+				<td class="tb-td-txt" width="170">{{inter.DataFimIntervencao |  date:'dd/MM/yyyy HH:mm'}}</td>
 							
 				</ng-container>	
 			</tr>
 			</tbody>
 		</table>
+	</body>
 	</div>
 				
 		</mat-expansion-panel>

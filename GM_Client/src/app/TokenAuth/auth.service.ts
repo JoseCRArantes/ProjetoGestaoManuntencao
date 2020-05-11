@@ -13,6 +13,13 @@ export class AuthService{
     {  }
     private TokenAPI = "http://localhost:44334/Token";
 
+     // Http Headers
+    httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+
     login(Username:string, Password:string)
     { 
       console.log('Teste - AUTH login');

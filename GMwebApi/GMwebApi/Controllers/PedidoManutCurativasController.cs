@@ -42,7 +42,6 @@ namespace GMwebApi.Controllers
                       UtilizadorIDUser = c.Nome,
                       IDEquipamento = p.IDEquipamento,
                       Descricao = p.Descricao,
-                      //IDEstadoIntervencao = p.IDEstadoIntervencao,
                       DataPedido = p.DataPedido
                   };
             return pMcurativa;

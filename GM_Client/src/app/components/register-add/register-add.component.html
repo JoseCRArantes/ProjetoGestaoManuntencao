@@ -14,11 +14,14 @@
                     <label>Nº de funcionário</label>
                     <input type="text" formControlName="NumeroUtilizador" class="form-control">
                 </div>
+                <label>Tipo de cargo</label>
+                <br>
                 <select class="form-group" formControlName="IDTipo">
+                    
                     <option value="0">Selecione</option>   
                     <option *ngFor="let item of tipoUtilizadorList" [value]="item.IDTipo">{{item.TipoDescr}}</option>                  
                 </select>
-                <div class="form-group">
+                <div class="form-group" >
                     <label>Email</label>
                     <input type="text" formControlName="Email" class="form-control">
                 </div>
