@@ -79,24 +79,7 @@ export class PedidosService {
      
     
 
-    
-   /*  getPedidos() {
-      this.httpClient.get<any>('http://localhost:44334/api/PedidoManutCurativas', this.httpOptions)
-        .toPromise()
-        .then(r => r.map(pedido => ({
-          PedidoIDPedido : pedido.IDPedido,
-          UtilizadorIDUser : pedido.UtilizadorIDUser,
-          IDEquipamento : pedido.IDEquipamento,
-          Descricao : pedido.Descricao,
-          DataPedido : pedido.DataPedido 
-        }))
-        )
-          .then(transformedpedidos => {
-          this.pedidos = transformedpedidos;
-          this.pedidosUpdated.next([...this.pedidos]);
-        });
-        
-  } */
+
 
 
 
@@ -114,27 +97,6 @@ export class PedidosService {
         this.pedidosUpdated.next([...this.pedidos]);        
       }
 
-
-     /*  getIntervencoes() {
-        this.httpClient.get<any>('http://localhost:44334/api/IntervencaoCurativas', this.httpOptions)
-          .toPromise()
-          .then(r => r.map(intervencao => ({
-            ID : intervencao.ID,
-            IDPedido : intervencao.IDPedido,
-            UtilizadorIDUser : intervencao.UtilizadorIDUser,
-            IDEquipamento : intervencao.IDEquipamento,
-            Descricao : intervencao.Descricao,
-            IDEstadoIntervencao : intervencao.IDEstadoIntervencao,
-            DataFimIntervencao: intervencao.DataFimIntervencao,
-            DataInicioIntervencao : intervencao.DataInicioIntervencao
-          }))
-          )
-            .then(transformedintervencoes=> {
-            this.intervencoes = transformedintervencoes;
-            this.intervencoesUpdated.next([...this.intervencoes]);
-          });
-          console.log(this.intervencoes, 'teste');
-    } */
 
     getIntervencaoUpdateListener() 
     {
@@ -171,6 +133,49 @@ export class PedidosService {
 
 
   }
+
+
+
+      
+   /*  getPedidos() {
+      this.httpClient.get<any>('http://localhost:44334/api/PedidoManutCurativas', this.httpOptions)
+        .toPromise()
+        .then(r => r.map(pedido => ({
+          PedidoIDPedido : pedido.IDPedido,
+          UtilizadorIDUser : pedido.UtilizadorIDUser,
+          IDEquipamento : pedido.IDEquipamento,
+          Descricao : pedido.Descricao,
+          DataPedido : pedido.DataPedido 
+        }))
+        )
+          .then(transformedpedidos => {
+          this.pedidos = transformedpedidos;
+          this.pedidosUpdated.next([...this.pedidos]);
+        });
+        
+  } */
+  
+     /*  getIntervencoes() {
+        this.httpClient.get<any>('http://localhost:44334/api/IntervencaoCurativas', this.httpOptions)
+          .toPromise()
+          .then(r => r.map(intervencao => ({
+            ID : intervencao.ID,
+            IDPedido : intervencao.IDPedido,
+            UtilizadorIDUser : intervencao.UtilizadorIDUser,
+            IDEquipamento : intervencao.IDEquipamento,
+            Descricao : intervencao.Descricao,
+            IDEstadoIntervencao : intervencao.IDEstadoIntervencao,
+            DataFimIntervencao: intervencao.DataFimIntervencao,
+            DataInicioIntervencao : intervencao.DataInicioIntervencao
+          }))
+          )
+            .then(transformedintervencoes=> {
+            this.intervencoes = transformedintervencoes;
+            this.intervencoesUpdated.next([...this.intervencoes]);
+          });
+          console.log(this.intervencoes, 'teste');
+    } */
+
 
   
 

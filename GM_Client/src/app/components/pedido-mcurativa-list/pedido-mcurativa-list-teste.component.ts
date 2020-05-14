@@ -8,6 +8,9 @@ import { Equipamento } from '../../shared/equipamento/equipamentomodel';
 import {EstadoIntervencao } from '../../shared/estadoIntervencao/estadoIntervencao.model';
 import { IntervencaoCurativa } from 'src/app/shared/pedidoMcurativa-teste/intervencaoCurativa.model';
 import { stringify } from 'querystring';
+import { MatDialog } from '@angular/material/dialog';
+
+import {IntervencaoCurativaAddComponent} from '../intervencao-curativa-add/intervencao-curativa-add.component';
 
 @Component({
   selector: 'app-pedido-mcurativa-list-teste',
@@ -21,12 +24,16 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   estadoIntervencaoList: EstadoIntervencao[] = [];
 
   intervencoes: IntervencaoCurativa[] = [];
+  intervencoesFiltradas: IntervencaoCurativa[] = [];
 
-  constructor(public pedidosService: PedidosService){
+
+  constructor(public pedidosService: PedidosService, public dialog:MatDialog){
   }
 
   private pedidosSub: Subscription;
   private intervencoesSub:Subscription;
+
+   
   
 
   ngOnInit(){
@@ -46,8 +53,6 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     //Carregamento de outros métodos.
     this.loadEstadosIntervencao(); 
     this.loadEquip();
-    console.log(this.pedidosSub, 'testePedidos');
-
     }
 
     ngOnDestroy(){
@@ -55,7 +60,12 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       this.intervencoesSub.unsubscribe();
       }
 
-      //Header acordion
+      openDialog()
+      {
+        this.dialog.open(IntervencaoCurativaAddComponent);
+      }
+
+
     //Troca no front-end, o ID do equipamento pelo código interno da empresa
     changeIDtoInternalCode(equip : number)
     {
@@ -68,11 +78,66 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
         }   
     }
 
+    checkStateOfIntervention(a: number)
+    {
+     
+
+      if(this.intervencoesFiltradas.length>0)
+      {
+        this.intervencoesFiltradas.length=0;
+      }    
+       
+      for(let j = 0; j <this.intervencoes.length; j++)
+      {
+          if(this.pedidos[a].IDPedido==this.intervencoes[j].IDPedido)
+          {
+            this.intervencoesFiltradas.push(this.intervencoes[j]);  
+            
+          }
+      }
+
+      if(this.intervencoesFiltradas.length>0)
+      {
+      
+            var max = this.intervencoesFiltradas[0].IDPedido;
+            var maxIndex = 0;
+
+            for (var i = 1; i < this.intervencoesFiltradas.length; i++) 
+            {
+              if (this.intervencoesFiltradas[i].IDPedido > max) 
+              {
+                  maxIndex = i;
+                  max = this.intervencoesFiltradas[i].IDPedido;
+              }
+           }
+      }
+      
+      if(this.intervencoesFiltradas.length==0)
+        {return 'Aberto';}
+      else if(this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 1)
+       {return 'Standby';}
+      else if
+       (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
+       return 'Aguarda';
+       else if
+       (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
+       return 'Fechado';
+
+       
+       
+  
+     
+  }
+   
+       
+      
+    
+
+
+
     //Troca o ID do estado de intervenção, pela sua descrição correspondente.
     changeIDtoDescription(estado : number)
     {
-      
-
         for (let j = 0; j < this.equipamentosList.length; j++) {
           if (this.intervencoes[estado].IDEstadoIntervencao == this.estadoIntervencaoList[j].ID) {
              return this.estadoIntervencaoList[j].Descr      

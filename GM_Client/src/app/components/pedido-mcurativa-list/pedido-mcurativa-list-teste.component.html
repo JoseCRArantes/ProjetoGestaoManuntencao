@@ -1,31 +1,3 @@
-<!--
-<div id="main">
-    <div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h4>Pedidos curativos </h4> 
-    <button type="button" class="btn btn-success btn-sm move-right" style="position: absolute; left: 1180px;"
-                    [routerLink]="['/pedido-mcurativa-add']">Novo pedido</button> </div>
-</div>
-
-<mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let item of pedidos; let i = index">
-        <mat-expansion-panel-header >
-            
-            <p>#Nº {{item.PedidoIDPedido}} #Funcionário: {{item.UtilizadorIDUser}}
-                #Equipamento: {{changeIDtoInternalCode(i)}} #Data:{{item.DataPedido}}
-                 #Estado: {{changeIDtoDescription(i)}}</p>
-            
-           
-
-        </mat-expansion-panel-header>
-        <p>Descricação: {{item.Descricao}}</p>
-    </mat-expansion-panel>
-</mat-accordion>-->
-
-
-
-
-
- 
  <hr/>
  <div class="inner">
  	<div id="main">
@@ -33,16 +5,23 @@
  			[routerLink]="['/pedido-mcurativa-add']">Novo pedido</button>
  			
 	</div> 
+<!-- 	<mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+     </mat-paginator> -->
 	<br>
 		<div class="table-responsive ">
 		<table class="table" style="width: 100%">
 			<thead>
 				<tr>
 					<th scope="col" width="20">#</th>
-					<th scope="col" width="140">Utilizador</th>
-					<th scope="col" width="400">Equipamento</th>
-					<th scope="col" width="500">Descrição</th>
-					<th scope="col" width="170">Data de avaria</th>
+					<th scope="col" width="120">Utilizador</th>
+					<th scope="col" width="375">Equipamento</th>
+					<th scope="col" width="400">Descrição</th>
+					<th scope="col" width="150">Data de avaria</th>
+					<th scope="col" width="50">Estado</th>
+					
+					<!--<th scope="col" width="25"></th>-->
 						
 				</tr>
 			</thead>
@@ -50,16 +29,20 @@
 	</div>
 
 	<mat-accordion multi="false">
-		<mat-expansion-panel *ngFor="let item of pedidos; let i = index" >
-			<mat-expansion-panel-header  >
+		<mat-expansion-panel *ngFor="let item of pedidos; let i = index"  >
+			<mat-expansion-panel-header collapsedHeight="*" expandedHeight="*" >
 				<table class="table ">
 					<tbody>
+						
 						<tr>
 							<td class="tb-td-txt" width="20">{{item.IDPedido}}</td>
-							<td class="tb-td-txt" width="140">{{item.UtilizadorIDUser}}</td>
+							<td class="tb-td-txt" width="100">{{item.UtilizadorIDUser}}</td>
 							<td class="tb-td-txt" width="400">{{changeIDtoInternalCode(i)}}</td>
-							<td class="tb-td-txt" width="500">{{item.Descricao}}</td>
-							<td class="tb-td-txt" width="170">{{item.DataPedido |  date:'dd/MM/yyyy HH:mm'}}</td>
+							<td class="tb-td-txt" width="380">{{item.Descricao}}</td>
+							<td class="tb-td-txt" width="150">{{item.DataPedido |  date:'dd/MM/yyyy HH:mm'}}</td>
+						    <td class="tb-td-txt" width="50">{{checkStateOfIntervention(i)}}</td>
+							
+							
 						</tr>						
 					</tbody>
 				</table>
@@ -69,14 +52,19 @@
 				<body style="text-align:center;">
 				<table class="table" style="width: 80%">
 					<thead>
+						
 						<tr>
 							<th scope="col" width="25">#</th>
 							<th scope="col" width="80">Utilizador</th>
 							<th scope="col" width="250">Descrição</th>
 							<th scope="col" width="150">Estado</th>	
 							<th scope="col" width="170">Inicio da intervenção</th>
-							<th scope="col" width="170">Fim da intervenção</th>		
-						</tr>
+							<th scope="col" width="170">Fim da intervenção</th>	
+							<td>
+								<!--(-->
+								<button type="button"  (click)="openDialog()" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0; height:30px;width:30px">+</button>
+							</td>
+						</tr >
                     </thead>
                     <tbody>
                         <tr>
@@ -90,7 +78,10 @@
 				<td class="tb-td-txt" width="170">{{inter.DataInicioIntervencao |  date:'dd/MM/yyyy HH:mm'}}</td>
 				<td class="tb-td-txt" width="170">{{inter.DataFimIntervencao |  date:'dd/MM/yyyy HH:mm'}}</td>
 							
-				</ng-container>	
+				</ng-container>
+				<!--<td >
+							<button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/edit-equip/', item.IDEquipamento]">+</button>
+						 </td>	-->
 			</tr>
 			</tbody>
 		</table>

@@ -11,7 +11,7 @@ import {AspNetUserListComponent} from './components/asp-net-user-list/asp-net-us
 import {AspNetUserEditComponent} from './components/asp-net-user-edit/asp-net-user-edit.component';
 import {PedidoMcurativaListTesteComponent} from './components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component';
 import {PedidoMcurativaAddComponent} from './components/pedido-mcurativa-add/pedido-mcurativa-add.component';
-
+import {IntervencaoCurativaAddComponent} from './components/intervencao-curativa-add/intervencao-curativa-add.component';
 const routes: Routes = [
   { path: 'edit-equip/:id', component: EquipEditComponent },
   { path: 'equip-list', component: EquipListComponent },
@@ -22,7 +22,8 @@ const routes: Routes = [
   { path: 'asp-net-user-list', component : AspNetUserListComponent},
   { path: 'asp-net-user-edit/:id', component : AspNetUserEditComponent},
   { path: 'pedido-mcurativa-list-teste', component : PedidoMcurativaListTesteComponent},
-  { path: 'pedido-mcurativa-add', component : PedidoMcurativaAddComponent}
+  { path: 'pedido-mcurativa-add', component : PedidoMcurativaAddComponent},
+  {path: 'intervencao-curativa-add', component : IntervencaoCurativaAddComponent}
 ];
 
 @NgModule({

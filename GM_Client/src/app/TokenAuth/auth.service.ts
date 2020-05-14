@@ -20,6 +20,20 @@ export class AuthService{
     })
   }
 
+
+  //api/Account/Logout
+
+  logout()
+  {
+    return this.http.post<any>("http://localhost:44334/api/Account/Logout", this.httpOptions).subscribe(
+    res=> {
+      console.log('Logout');
+    },
+    err=>{
+      console.log(err.message);
+    });
+  }
+
     login(Username:string, Password:string)
     { 
       console.log('Teste - AUTH login');
@@ -32,10 +46,6 @@ export class AuthService{
         res=>{
             //console.log(res);
             localStorage.setItem('token', res.access_token);
-            // O localStorage abaixo, irá guardar o username que tem sessão iniciada, 
-            //sendo necessário para várias coisas, uma delas:
-            //para verificar se o utilizador com sessao iniciada,
-            //tem a ficha de utilizador criada.
             localStorage.setItem('username', res.userName);
             console.log('Saiu do AUTH login');
             

@@ -24,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 
 /* Components */
@@ -42,6 +44,7 @@ import { AspNetUserListComponent } from './components/asp-net-user-list/asp-net-
 import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-user-edit.component';
 import { PedidoMcurativaListTesteComponent } from './components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component';
 import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/pedido-mcurativa-add.component';
+import { IntervencaoCurativaAddComponent } from './components/intervencao-curativa-add/intervencao-curativa-add.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
@@ -59,7 +62,9 @@ import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/p
  AspNetUserEditComponent,
  PedidoMcurativaListTesteComponent,
  PedidoMcurativaAddComponent,
+ IntervencaoCurativaAddComponent,
   ],
+  entryComponents:[IntervencaoCurativaAddComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -71,10 +76,11 @@ import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/p
     MatInputModule,
     MatButtonModule,
     MatExpansionModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule
   ],
   
-  providers: [/*PedidoManutCurativaService, EquipamentoService,*/ AuthService], /*Aqui ficar AuthService ou RegisterService */
+  providers: [AuthService], /*Aqui ficar AuthService ou RegisterService */
   bootstrap: [AppComponent]
 })
 
