@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenParams } from './TokenParamsModel';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
-import {Observable} from 'rxjs';
+
 import {map} from 'rxjs/operators';
 
 @Injectable()
@@ -14,16 +16,27 @@ export class AuthService{
     private TokenAPI = "http://localhost:44334/Token";
 
      // Http Headers
-    httpOptions = {
+  /*   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   }
+ */
+
+  // Http Headers
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + localStorage.getItem('token') 
+   }), 
+   withCredentials: true
+  }
 
 
-  //api/Account/Logout
 
-  logout()
+//api/Account/Logout
+/* 
+  log()
   {
     return this.http.post<any>("http://localhost:44334/api/Account/Logout", this.httpOptions).subscribe(
     res=> {
@@ -32,7 +45,16 @@ export class AuthService{
     err=>{
       console.log(err.message);
     });
-  }
+  } */
+
+  logout(){
+    return this.http.post<TokenParams>("http://localhost:44334/api/Account/Logout", this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }  
+  
 
     login(Username:string, Password:string)
     { 
@@ -55,5 +77,20 @@ export class AuthService{
         });
         
     }
+
+    
+  errorHandl(error) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      // Get erro lado cliente
+      errorMessage = error.error.message;
+    } else {
+      // Get erro lado servidor
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+ }
+
 
 }

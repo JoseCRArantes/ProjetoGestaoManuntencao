@@ -104,15 +104,15 @@ namespace GMwebApi.Controllers
                 Descricao = intervencaoCurativaDto.Descricao,
                 IDPedido = intervencaoCurativaDto.IDPedido,
                 IDEstadoIntervencao = intervencaoCurativaDto.IDEstadoIntervencao,
-                DataFimIntervencao = intervencaoCurativaDto.DataFimIntervencao,
-                DataInicioIntervencao = intervencaoCurativaDto.DataInicioIntervencao   
+                DataInicioIntervencao = intervencaoCurativaDto.DataInicioIntervencao,
+                DataFimIntervencao = DateTime.Now       
             };
         }
 
 
         // POST: api/IntervencaoCurativas
         [ResponseType(typeof(IntervencaoCurativa))]
-        public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
+        public async Task<IHttpActionResult> PostIntervencaoCurativa( IntervencaoCurativaDto intervencaoCurativaDto)
         {
             if (!ModelState.IsValid)
             {

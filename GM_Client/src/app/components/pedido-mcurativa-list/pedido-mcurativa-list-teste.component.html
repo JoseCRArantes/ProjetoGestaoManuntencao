@@ -1,14 +1,16 @@
+
+
+
+<mat-spinner style="margin:0 auto;" mode="indeterminate" color="accent" *ngIf="isLoading"> </mat-spinner>
+<p style="margin:0 auto;" *ngIf="isLoading"> aguarde ...</p>
+
  <hr/>
  <div class="inner">
  	<div id="main">
- 		<h3>Pedidos curativos</h3> <button type="button" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0;"
+ 		<h5>Pedidos curativos</h5> <button type="button" class="btn btn-outline-primary" style="position: absolute; right: 0;"
  			[routerLink]="['/pedido-mcurativa-add']">Novo pedido</button>
  			
 	</div> 
-<!-- 	<mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-     </mat-paginator> -->
 	<br>
 		<div class="table-responsive ">
 		<table class="table" style="width: 100%">
@@ -19,10 +21,7 @@
 					<th scope="col" width="375">Equipamento</th>
 					<th scope="col" width="400">Descrição</th>
 					<th scope="col" width="150">Data de avaria</th>
-					<th scope="col" width="50">Estado</th>
-					
-					<!--<th scope="col" width="25"></th>-->
-						
+					<th scope="col" width="50">Estado</th>	
 				</tr>
 			</thead>
 		</table>
@@ -61,7 +60,7 @@
 							<th scope="col" width="170">Inicio da intervenção</th>
 							<th scope="col" width="170">Fim da intervenção</th>	
 							<td>
-								<!--(-->
+
 								<button type="button"  (click)="openDialog()" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0; height:30px;width:30px">+</button>
 							</td>
 						</tr >
@@ -70,7 +69,9 @@
                         <tr>
 			
 			<tr *ngFor="let inter of intervencoes; let j = index">
+			
 			<ng-container *ngIf="inter.IDPedido== item.IDPedido">
+				
 				<th scope="row" width="25">{{inter.ID}}</th>		
 				<td class="tb-td-txt" width="80">{{inter.UtilizadorIDUser}}</td>
 				<td class="tb-td-txt" width="250">{{inter.Descricao}}</td>

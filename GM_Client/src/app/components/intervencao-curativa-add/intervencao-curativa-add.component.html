@@ -5,14 +5,21 @@
     <mat-form-field>
         <input matInput placeholder="Descrição do processo" >
     </mat-form-field>
+    
     <br>
+    
     <mat-form-field>
-        <input matInput placeholder="Estado" >
-    </mat-form-field>
+        <mat-label>Estado</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let item of estadoIntervencaoList" [value]="item.ID">
+            {{item.Descr}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
      
  
 </mat-dialog-content>
-<button mat-button class="close-icon" [mat-dialog-close]="true">
+    <button mat-button class="close-icon" [mat-dialog-close]="true">
      Fechar  
     </button>

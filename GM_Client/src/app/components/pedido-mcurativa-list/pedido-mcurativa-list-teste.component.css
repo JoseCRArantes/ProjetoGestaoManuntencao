@@ -1,5 +1,5 @@
 
-  h3 {
+  h5 {
     margin-left: 25px;
       display: inline-block;
   }
@@ -9,15 +9,15 @@
     height: 50px;*/
     margin-right: 80px;
   }
+ 
 
-  mat-expansion-panel {
-    mat-expansion-panel-header {
-      height: auto!important; 
+  .disable_ripple:hover{
+    background: currentColor !important;
     }
+
+ .mat-expansion-panel-header .mat-expanded{
+      background-color: none;
   }
-  
-
-
 
  td{border:0px solid white;}
  .table-responsive>.table{padding:0 32px 0 24px;}

@@ -73,7 +73,7 @@ namespace GMwebApi.Controllers
 
         }
 
-        [AllowAnonymous]
+        [Authorize]
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()

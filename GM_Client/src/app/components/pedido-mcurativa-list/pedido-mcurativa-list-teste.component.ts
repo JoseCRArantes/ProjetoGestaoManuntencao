@@ -9,7 +9,7 @@ import {EstadoIntervencao } from '../../shared/estadoIntervencao/estadoIntervenc
 import { IntervencaoCurativa } from 'src/app/shared/pedidoMcurativa-teste/intervencaoCurativa.model';
 import { stringify } from 'querystring';
 import { MatDialog } from '@angular/material/dialog';
-
+import { PageEvent } from '@angular/material/paginator';
 import {IntervencaoCurativaAddComponent} from '../intervencao-curativa-add/intervencao-curativa-add.component';
 
 @Component({
@@ -19,6 +19,7 @@ import {IntervencaoCurativaAddComponent} from '../intervencao-curativa-add/inter
 })
 export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
 
+  isLoading = false;
   pedidos: PedidoManutCurativaTeste[] = [];
   equipamentosList: Equipamento[] = [];
   estadoIntervencaoList: EstadoIntervencao[] = [];
@@ -34,12 +35,18 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   private intervencoesSub:Subscription;
 
    
-  
+  pageSizeOptions = [5, 10, 15];
+  total = 0;
+  postsPerPage = 2;
+  currentPage = 1;
+ 
 
   ngOnInit(){
-    
+    this.isLoading = true;
     this.pedidosService.getPedidos();
     this.pedidosSub = this.pedidosService.getPedidoUpdateListener().subscribe((pedidos: PedidoManutCurativaTeste[]) => {
+      
+      this.isLoading = false;
       console.log(pedidos);
       this.pedidos = pedidos;
     });
@@ -60,11 +67,27 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       this.intervencoesSub.unsubscribe();
       }
 
+      onChangedPage(pageData: PageEvent){
+        this.currentPage = pageData.pageIndex + 1;
+        this.postsPerPage = pageData.pageSize;
+       // this.pedidosService.getPedidos(this.postsPerPage, this.currentPage);
+      }
+
       openDialog()
       {
         this.dialog.open(IntervencaoCurativaAddComponent);
       }
 
+
+
+
+
+
+
+
+
+
+      //## MÉTODOS ## // 
 
     //Troca no front-end, o ID do equipamento pelo código interno da empresa
     changeIDtoInternalCode(equip : number)
@@ -80,8 +103,6 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
 
     checkStateOfIntervention(a: number)
     {
-     
-
       if(this.intervencoesFiltradas.length>0)
       {
         this.intervencoesFiltradas.length=0;
@@ -91,14 +112,12 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       {
           if(this.pedidos[a].IDPedido==this.intervencoes[j].IDPedido)
           {
-            this.intervencoesFiltradas.push(this.intervencoes[j]);  
-            
+            this.intervencoesFiltradas.push(this.intervencoes[j]);      
           }
       }
 
       if(this.intervencoesFiltradas.length>0)
-      {
-      
+      {     
             var max = this.intervencoesFiltradas[0].IDPedido;
             var maxIndex = 0;
 
@@ -113,28 +132,16 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       }
       
       if(this.intervencoesFiltradas.length==0)
-        {return 'Aberto';}
-      else if(this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 1)
-       {return 'Standby';}
+          return 'Aberto';
       else if
-       (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
-       return 'Aguarda';
+          (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
+          return 'Standby';
        else if
-       (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
-       return 'Fechado';
-
-       
-       
-  
-     
+          (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
+          return 'Fechado';
   }
-   
-       
-      
+         
     
-
-
-
     //Troca o ID do estado de intervenção, pela sua descrição correspondente.
     changeIDtoDescription(estado : number)
     {
@@ -146,22 +153,18 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     } 
 
     
-    
+    //lista estados de intervenção.
     loadEstadosIntervencao()
     {
       return this.pedidosService.GetEstadosIntervencao().subscribe((data: EstadoIntervencao[]) => {
         this.estadoIntervencaoList = data;
-       // console.log(this.estadoIntervencaoList);
       })
-        
-      
     }
 
-   // lista equipamentos 
+   // lista equipamentos.
    loadEquip() {
     return this.pedidosService.GetEquipamentosObser().subscribe((data: Equipamento[]) => {
       this.equipamentosList = data;
-     // console.log(this.equipamentosList);
     })
   }
   

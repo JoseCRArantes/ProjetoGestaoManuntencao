@@ -56,14 +56,22 @@ import { AspNetUsersService } from '../shared/aspNetUsers/aspNetUsers.service';
         
         const val = this.form.value;
         this.authService.login(val.username, val.password);
-        this.ngZone.run(() => this.router.navigateByUrl('/'))
+        
       } 
+      
+     
 
         Logout(){
           this.authService.logout();
-          localStorage.removeItem('token');
-          localStorage.removeItem('username');
-         // this.ngZone.run(() => this.router.navigateByUrl('/'))
+
+          setTimeout(() => 
+          {
+              this.router.navigate(['/my-login']);
+              localStorage.removeItem('token');
+              localStorage.removeItem('username');
+          },
+            5000);
+          
         }
 }
   

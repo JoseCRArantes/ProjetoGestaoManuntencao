@@ -5,6 +5,10 @@ import { NgForm } from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import {EstadoIntervencao } from '../../shared/estadoIntervencao/estadoIntervencao.model';
+import { PedidosService } from '../../shared/pedidoMcurativa-teste/pedidoMcurativa.service';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 @Component({
@@ -16,20 +20,30 @@ export class IntervencaoCurativaAddComponent implements OnInit {
 
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
+  estadoIntervencaoList: EstadoIntervencao[] = [];
 
   form: FormGroup;
   description:string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-      private fb: FormBuilder ){}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder , public pedidoServ:PedidosService){}
 
 
 
   
 
-  ngOnInit() {
+  ngOnInit() 
+    {
+        this.loadEstadosIntervencao();
+    }
+  
 
+      loadEstadosIntervencao()
+      {
+        return this.pedidoServ.GetEstadosIntervencao().subscribe((data: EstadoIntervencao[]) => {
+          this.estadoIntervencaoList = data;
+        })
+          
+        
       }
-  
 
 }

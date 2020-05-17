@@ -3,6 +3,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormBuilder, FormsModule, FormGroup } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
  
 import { AppRoutingModule } from './app-routing.model';
 import { AppComponent } from './app.component';
@@ -26,6 +29,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 /* Components */
@@ -77,7 +81,9 @@ import { IntervencaoCurativaAddComponent } from './components/intervencao-curati
     MatButtonModule,
     MatExpansionModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule, MatSelectModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
   
   providers: [AuthService], /*Aqui ficar AuthService ou RegisterService */
