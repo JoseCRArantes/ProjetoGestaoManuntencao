@@ -30,6 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 
 
 /* Components */
@@ -49,6 +50,7 @@ import { AspNetUserEditComponent } from './components/asp-net-user-edit/asp-net-
 import { PedidoMcurativaListTesteComponent } from './components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component';
 import { PedidoMcurativaAddComponent } from './components/pedido-mcurativa-add/pedido-mcurativa-add.component';
 import { IntervencaoCurativaAddComponent } from './components/intervencao-curativa-add/intervencao-curativa-add.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
@@ -83,7 +85,9 @@ import { IntervencaoCurativaAddComponent } from './components/intervencao-curati
     MatToolbarModule,
     MatDialogModule, MatSelectModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatDatepickerModule,
+    MatProgressSpinnerModule, 
+    NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule
   ],
   
   providers: [AuthService], /*Aqui ficar AuthService ou RegisterService */
