@@ -144,16 +144,26 @@ namespace GMwebApi.Controllers
         [ResponseType(typeof(IntervencaoCurativa))]
         public async Task<IHttpActionResult> DeleteIntervencaoCurativa(int id)
         {
-            IntervencaoCurativa intervencaoCurativa = await db.IntervencaoCurativa.FindAsync(id);
-            if (intervencaoCurativa == null)
+            var user = User.Identity.GetUserId();
+
+            IntervencaoCurativa intervCurativa = db.IntervencaoCurativa.FirstOrDefault(a => a.ID == id);
+
+            if (intervCurativa.UtilizadorIDUser == user)
             {
-                return NotFound();
+
+                IntervencaoCurativa intervencaoCurativa = await db.IntervencaoCurativa.FindAsync(id);
+                if (intervencaoCurativa == null)
+                {
+                    return NotFound();
+                }
+
+                db.IntervencaoCurativa.Remove(intervencaoCurativa);
+                await db.SaveChangesAsync();
+
+                return Ok(intervencaoCurativa);
             }
-
-            db.IntervencaoCurativa.Remove(intervencaoCurativa);
-            await db.SaveChangesAsync();
-
-            return Ok(intervencaoCurativa);
+            else
+                return NotFound();
         }
 
         protected override void Dispose(bool disposing)

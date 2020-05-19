@@ -28,7 +28,8 @@ export class IntervencaoCurativaAddComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder,
     public pedidoServ: PedidosService
-  ) {
+  ) 
+  {
     this.idPedido = this.data.idPedido;
   }
 

@@ -112,6 +112,30 @@ export class PedidosService {
     return this.intervencoesUpdated.asObservable();
   }
 
+  errorHandl(error) {
+    let errorMessage = "";
+    if (error.error instanceof ErrorEvent) {
+      // Get erro lado cliente
+      errorMessage = error.error.message;
+    } else {
+      // Get erro lado servidor
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
+
+  // DELETE
+  DeleteIntervencao(id) {
+    console.log(id, "cheguei ao metodo");
+    return this.httpClient
+      .delete<IntervencaoCurativa>(
+        "http://localhost:44334/api/IntervencaoCurativas/" + id,
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.errorHandl));
+  }
+
   // GET
   GetEquipamentosObser(): Observable<Equipamento[]> {
     return this.httpClient

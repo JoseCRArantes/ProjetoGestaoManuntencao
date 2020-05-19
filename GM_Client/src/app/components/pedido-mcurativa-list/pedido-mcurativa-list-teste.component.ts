@@ -78,6 +78,10 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteIntervencao(ID) {
+    return this.pedidosService.DeleteIntervencao(ID).subscribe((res) => {});
+  }
+
   //## MÉTODOS ## //
 
   //Troca no front-end, o ID do equipamento pelo código interno da empresa
@@ -122,9 +126,9 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.intervencoesFiltradas.length == 0) return "Aberto";
+    if (this.intervencoesFiltradas.length == 0) return "S/I";
     else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
-      return "Standby";
+      return "Aguarda";
     else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
       return "Fechado";
   }
