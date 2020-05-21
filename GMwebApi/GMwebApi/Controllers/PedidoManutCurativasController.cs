@@ -27,16 +27,36 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/PedidoManutCurativas
-        public IQueryable<PedidoManutCurativaDto> GetPedidoManutCurativa()
+        //public IQueryable<PedidoManutCurativaDto> GetPedidoManutCurativa()
+        //{
+        //    //return db.PedidoManutCurativa;
+
+        //    IQueryable<PedidoManutCurativaDto> pMcurativa =
+        //          from c in db.AspNetUsers
+        //          from p in db.PedidoManutCurativa
+        //          where p.UtilizadorIDUser == c.Id
+        //          orderby p.DataPedido descending
+        //         select new PedidoManutCurativaDto
+        //          {
+        //              IDPedido = p.IDPedido,
+        //              UtilizadorIDUser = c.Nome,
+        //              IDEquipamento = p.IDEquipamento,
+        //              Descricao = p.Descricao,
+        //              DataPedido = p.DataPedido
+        //          };
+        //    return pMcurativa;
+
+        //}
+
+        public PedidoManutCurativaDtoCount GetPedidoManutCurativa()
         {
-            //return db.PedidoManutCurativa;
 
             IQueryable<PedidoManutCurativaDto> pMcurativa =
                   from c in db.AspNetUsers
                   from p in db.PedidoManutCurativa
                   where p.UtilizadorIDUser == c.Id
                   orderby p.DataPedido descending
-                 select new PedidoManutCurativaDto
+                  select new PedidoManutCurativaDto
                   {
                       IDPedido = p.IDPedido,
                       UtilizadorIDUser = c.Nome,
@@ -44,16 +64,14 @@ namespace GMwebApi.Controllers
                       Descricao = p.Descricao,
                       DataPedido = p.DataPedido
                   };
-            return pMcurativa;
 
+            PedidoManutCurativaDtoCount pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount()
+            {
+                PedidoManutCurativaList = pMcurativa,
+                CountPedidos = pMcurativa.Count()
+            };
 
-            
-
-
-
-            
-
-
+            return pedidoManutCurativaDtoCount;
         }
 
 

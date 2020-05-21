@@ -31,7 +31,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
-
+import {MatIconModule} from '@angular/material/icon';
 
 /* Components */
 
@@ -87,7 +87,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatFormFieldModule,
     MatDatepickerModule,
     MatProgressSpinnerModule, 
-    NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule
+    NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule,
+    MatIconModule
   ],
   
   providers: [AuthService], /*Aqui ficar AuthService ou RegisterService */

@@ -28,8 +28,7 @@ export class IntervencaoCurativaAddComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder,
     public pedidoServ: PedidosService
-  ) 
-  {
+  ) {
     this.idPedido = this.data.idPedido;
   }
 
@@ -57,11 +56,10 @@ export class IntervencaoCurativaAddComponent implements OnInit {
 
       //if (body.DataInicioIntervencao.getTime() > body.DataFimIntervencao.getTime())
 
-      console.log(body);
       this.pedidoServ.postIntervencao(body);
-      //http enviar o body para a api
+      //http enviar o body para a api.
     } else {
-      //show dialog a dizer que falta merda
+      //show dialog a dizer que falta algo.
     }
   }
 

@@ -26,6 +26,7 @@ export class PedidosService {
 
   constructor(private httpClient: HttpClient) {}
 
+  /*
   getPedidos() {
     this.httpClient
       .get<any[]>(
@@ -45,6 +46,32 @@ export class PedidosService {
           transformedpedidos.push(transformedpedido);
         }
 
+        this.pedidos = transformedpedidos;
+        this.pedidosUpdated.next([...this.pedidos]);
+      });
+  }*/
+
+  
+  getPedidos() {
+    this.httpClient
+      .get<any>(
+        "http://localhost:44334/api/PedidoManutCurativas",
+        this.httpOptions 
+      )
+      .subscribe((pedidos) => {
+        let transformedpedidos: PedidoManutCurativaTeste[] = [];
+        console.log(pedidos);
+        for (let x = 0; x < pedidos.PedidoManutCurativaList.length; x++) {
+          let transformedpedido: PedidoManutCurativaTeste = {
+            IDPedido: pedidos.PedidoManutCurativaList[x].IDPedido,
+            UtilizadorIDUser: pedidos.PedidoManutCurativaList[x].UtilizadorIDUser,
+            IDEquipamento: pedidos.PedidoManutCurativaList[x].IDEquipamento,
+            Descricao: pedidos.PedidoManutCurativaList[x].Descricao,
+            DataPedido: pedidos.PedidoManutCurativaList[x].DataPedido,
+          };
+          transformedpedidos.push(transformedpedido);
+        }
+        console.log(pedidos.CountPedidos);
         this.pedidos = transformedpedidos;
         this.pedidosUpdated.next([...this.pedidos]);
       });

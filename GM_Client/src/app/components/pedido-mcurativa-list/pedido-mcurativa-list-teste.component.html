@@ -5,7 +5,8 @@
   *ngIf="isLoading"
 >
 </mat-spinner>
-<p style="margin: 0 auto;" *ngIf="isLoading">aguarde ...</p>
+<p style="text-align:center" *ngIf="isLoading">aguarde ...</p>
+<p>
 
 <hr />
 <div class="inner">
@@ -111,8 +112,9 @@
                       color="accent"
                       (click)="deleteIntervencao(inter.ID)"
                     >
-                      -
+                    <mat-icon _ngcontent-oax-c0="" class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">delete</mat-icon>
                     </button>
+                    
                   </td>
                 </ng-container>
               </tr>

@@ -56,7 +56,6 @@ export class PedidoMcurativaAddComponent implements OnInit {
   loadEquipamentos() {
     return this.pedidoService.GetEquipamentosObser().subscribe((data: Equipamento[]) => {
       this.equipamentosList = data;
-      console.log(this.equipamentosList);
     })
   }
 

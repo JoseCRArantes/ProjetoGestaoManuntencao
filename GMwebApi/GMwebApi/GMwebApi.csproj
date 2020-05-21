@@ -298,7 +298,9 @@
     <Compile Include="DTO\AspNetUsersDto.cs" />
     <Compile Include="DTO\EquipamentoDto.cs" />
     <Compile Include="DTO\IntervencaoCurativaDto.cs" />
+    <Compile Include="DTO\IntervencaoCurativaDtoCount.cs" />
     <Compile Include="DTO\PedidoManutCurativaDto.cs" />
+    <Compile Include="DTO\PedidoManutCurativaDtoCount.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

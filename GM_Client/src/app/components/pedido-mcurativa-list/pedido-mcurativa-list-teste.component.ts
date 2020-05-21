@@ -45,7 +45,6 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       .getPedidoUpdateListener()
       .subscribe((pedidos: PedidoManutCurativaTeste[]) => {
         this.isLoading = false;
-        console.log(pedidos);
         this.pedidos = pedidos;
       });
 

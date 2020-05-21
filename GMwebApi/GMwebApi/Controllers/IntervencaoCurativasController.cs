@@ -23,6 +23,7 @@ namespace GMwebApi.Controllers
         // GET: api/IntervencaoCurativas
         public IQueryable<IntervencaoCurativaDto> GetIntervencaoCurativa()
         {
+           
             IQueryable<IntervencaoCurativaDto> intervencaoCurativa =
                 from c in db.AspNetUsers
                 from p in db.IntervencaoCurativa
@@ -40,6 +41,34 @@ namespace GMwebApi.Controllers
 
             return intervencaoCurativa;
         }
+        /*
+         /*
+         public IntervencaoCurativaDtoCount GetIntervencaoCurativa()
+        {
+            
+            IQueryable<IntervencaoCurativaDto> intervencaoCurativa =
+                from c in db.AspNetUsers
+                from p in db.IntervencaoCurativa
+                where p.UtilizadorIDUser == c.Id
+                select new IntervencaoCurativaDto
+                {
+                    ID = p.ID,
+                    UtilizadorIDUser = c.Nome,
+                    IDPedido = p.IDPedido,
+                    Descricao = p.Descricao,
+                    DataInicioIntervencao = p.DataInicioIntervencao,
+                    DataFimIntervencao = p.DataFimIntervencao,
+                    IDEstadoIntervencao = p.IDEstadoIntervencao
+                };
+            IntervencaoCurativaDtoCount intervencaoCurativaDtoCount = new IntervencaoCurativaDtoCount()
+            {
+                IntervencaoCurativaList = intervencaoCurativa,
+                CountIntervencoes = intervencaoCurativa.Count()
+            };
+
+            return intervencaoCurativaDtoCount;
+        }
+             */
 
         // GET: api/IntervencaoCurativas/5
         [ResponseType(typeof(IntervencaoCurativa))]
@@ -108,8 +137,76 @@ namespace GMwebApi.Controllers
             };
         }
 
+        private IntervencaoCurativa IntervencaoCurativaDtoTOIntervencaoCurativaPost(IntervencaoCurativaDto intervencaoCurativaDto)
+        {
+            var user = User.Identity.GetUserId();
+
+            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.Id == user);
+
+            return new IntervencaoCurativa()
+            {
+                UtilizadorIDUser = (string)aspNetUsers.Nome,
+                Descricao = intervencaoCurativaDto.Descricao,
+                IDPedido = intervencaoCurativaDto.IDPedido,
+                IDEstadoIntervencao = intervencaoCurativaDto.IDEstadoIntervencao,
+                DataInicioIntervencao = intervencaoCurativaDto.DataInicioIntervencao,
+                DataFimIntervencao = intervencaoCurativaDto.DataFimIntervencao
+            };
+        }
+
 
         // POST: api/IntervencaoCurativas
+        [ResponseType(typeof(IntervencaoCurativa))]
+        public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IntervencaoCurativa intervencaoCurativa = IntervencaoCurativaDtoTOIntervencaoCurativa(intervencaoCurativaDto);
+            db.IntervencaoCurativa.Add(intervencaoCurativa);
+
+
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (IntervencaoCurativaExists(intervencaoCurativa.ID))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            var user = User.Identity.GetUserId();
+
+            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.Id == user);
+
+            IntervencaoCurativa intervencaoCurativaDto1 = new IntervencaoCurativa()
+            {
+                ID = intervencaoCurativa.ID,
+                UtilizadorIDUser = (string)aspNetUsers.Nome,
+                Descricao = intervencaoCurativaDto.Descricao,
+                IDPedido = intervencaoCurativaDto.IDPedido,
+                IDEstadoIntervencao = intervencaoCurativaDto.IDEstadoIntervencao,
+                DataInicioIntervencao = intervencaoCurativaDto.DataInicioIntervencao,
+                DataFimIntervencao = intervencaoCurativaDto.DataFimIntervencao
+            };
+
+
+            return CreatedAtRoute("DefaultApi", new { id = intervencaoCurativa.ID }, intervencaoCurativaDto1);
+        }
+
+        /*
+         // POST: api/IntervencaoCurativas
         [ResponseType(typeof(IntervencaoCurativa))]
         public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
         {
@@ -139,6 +236,8 @@ namespace GMwebApi.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = intervencaoCurativa.ID }, intervencaoCurativa);
         }
+             */
+
 
         // DELETE: api/IntervencaoCurativas/5
         [ResponseType(typeof(IntervencaoCurativa))]
@@ -165,6 +264,8 @@ namespace GMwebApi.Controllers
             else
                 return NotFound();
         }
+
+
 
         protected override void Dispose(bool disposing)
         {
