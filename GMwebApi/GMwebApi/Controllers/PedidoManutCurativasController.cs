@@ -48,9 +48,8 @@ namespace GMwebApi.Controllers
 
         //}
 
-        public PedidoManutCurativaDtoCount GetPedidoManutCurativa()
+        public PedidoManutCurativaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage)
         {
-
             IQueryable<PedidoManutCurativaDto> pMcurativa =
                   from c in db.AspNetUsers
                   from p in db.PedidoManutCurativa
@@ -65,19 +64,25 @@ namespace GMwebApi.Controllers
                       DataPedido = p.DataPedido
                   };
 
+ 
+           IQueryable<PedidoManutCurativaDto> result = pMcurativa.Skip(
+                pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
             PedidoManutCurativaDtoCount pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount()
             {
-                PedidoManutCurativaList = pMcurativa,
+                PedidoManutCurativaList = result,
                 CountPedidos = pMcurativa.Count()
             };
+
 
             return pedidoManutCurativaDtoCount;
         }
 
+        
+
 
 
         // GET: api/PedidoManutCurativas/5
-
         [ResponseType(typeof(PedidoManutCurativa))]
         public async Task<IHttpActionResult> GetPedidoManutCurativa(int id)
         {

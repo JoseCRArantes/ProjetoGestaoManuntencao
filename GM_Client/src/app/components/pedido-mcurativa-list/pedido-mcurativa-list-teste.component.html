@@ -124,4 +124,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+  <mat-paginator [length]="totalPedidos" [pageSize]="pedidosPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="pedidos.length > 0"></mat-paginator>
+
 </div>

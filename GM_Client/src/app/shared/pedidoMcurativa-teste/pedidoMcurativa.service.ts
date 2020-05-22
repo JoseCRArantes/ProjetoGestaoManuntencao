@@ -20,46 +20,40 @@ export class PedidosService {
   };
 
   pedidos: PedidoManutCurativaTeste[] = [];
-  private pedidosUpdated = new Subject<PedidoManutCurativaTeste[]>();
+  //private pedidosUpdated = new Subject<PedidoManutCurativaTeste[]>();
+
+  private pedidosUpdated = new Subject<{pedidos: PedidoManutCurativaTeste[], CountPedidos: number}>();
+  countPedidos: number;
   intervencoes: IntervencaoCurativa[] = [];
   private intervencoesUpdated = new Subject<IntervencaoCurativa[]>();
 
   constructor(private httpClient: HttpClient) {}
 
-  /*
-  getPedidos() {
+  getPedidos(pedidosPerPage:number, currentPage:number) {
+    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}`;
     this.httpClient
-      .get<any[]>(
-        "http://localhost:44334/api/PedidoManutCurativas",
+      .get<{PedidoManutCurativaList : PedidoManutCurativaTeste[], CountPedidos: number}>(
+        "http://localhost:44334/api/PedidoManutCurativas" + queryParms,
         this.httpOptions
       )
-      .subscribe((pedidos) => {
-        let transformedpedidos: PedidoManutCurativaTeste[] = [];
-        for (let x = 0; x < pedidos.length; x++) {
-          let transformedpedido: PedidoManutCurativaTeste = {
-            IDPedido: pedidos[x].IDPedido,
-            UtilizadorIDUser: pedidos[x].UtilizadorIDUser,
-            IDEquipamento: pedidos[x].IDEquipamento,
-            Descricao: pedidos[x].Descricao,
-            DataPedido: pedidos[x].DataPedido,
+      .pipe(
+        map(pedidoCurativaData =>{
+          return {
+            PedidoManutCurativaList: pedidoCurativaData.PedidoManutCurativaList.map(pedidoCurativo => {
+                return {
+                  IDPedido: pedidoCurativo.IDPedido,
+                  UtilizadorIDUser: pedidoCurativo.UtilizadorIDUser,
+                  IDEquipamento: pedidoCurativo.IDEquipamento,
+                  Descricao: pedidoCurativo.Descricao,
+                  DataPedido: pedidoCurativo.DataPedido,
+                };
+            }),
+            pedidoCurativoCount: pedidoCurativaData.CountPedidos
           };
-          transformedpedidos.push(transformedpedido);
-        }
-
-        this.pedidos = transformedpedidos;
-        this.pedidosUpdated.next([...this.pedidos]);
-      });
-  }*/
-
-  
-  getPedidos() {
-    this.httpClient
-      .get<any>(
-        "http://localhost:44334/api/PedidoManutCurativas",
-        this.httpOptions 
+        })
       )
-      .subscribe((pedidos) => {
-        let transformedpedidos: PedidoManutCurativaTeste[] = [];
+      .subscribe((pedidosCurativa) => {
+       /*  let transformedpedidos: PedidoManutCurativaTeste[] = [];
         console.log(pedidos);
         for (let x = 0; x < pedidos.PedidoManutCurativaList.length; x++) {
           let transformedpedido: PedidoManutCurativaTeste = {
@@ -70,10 +64,11 @@ export class PedidosService {
             DataPedido: pedidos.PedidoManutCurativaList[x].DataPedido,
           };
           transformedpedidos.push(transformedpedido);
-        }
-        console.log(pedidos.CountPedidos);
-        this.pedidos = transformedpedidos;
-        this.pedidosUpdated.next([...this.pedidos]);
+        } */
+        this.countPedidos = pedidosCurativa.pedidoCurativoCount;
+        console.log("numero de pedidos", pedidosCurativa.pedidoCurativoCount);
+        this.pedidos = pedidosCurativa.PedidoManutCurativaList;
+        this.pedidosUpdated.next({pedidos:[...this.pedidos], CountPedidos:this.countPedidos});
       });
   }
 
@@ -116,7 +111,8 @@ export class PedidosService {
       )
       .toPromise();
     this.pedidos.push(data);
-    this.pedidosUpdated.next([...this.pedidos]);
+    this.countPedidos = this.countPedidos + 1;
+     this.pedidosUpdated.next({pedidos:[...this.pedidos], CountPedidos:this.countPedidos});
   }
 
   postIntervencao(data) {
@@ -192,6 +188,31 @@ export class PedidosService {
       .pipe(retry(1));
   }
 }
+
+/* LAST GETPEDIDOS
+  getPedidos() {
+    this.httpClient
+      .get<any[]>(
+        "http://localhost:44334/api/PedidoManutCurativas",
+        this.httpOptions
+      )
+      .subscribe((pedidos) => {
+        let transformedpedidos: PedidoManutCurativaTeste[] = [];
+        for (let x = 0; x < pedidos.length; x++) {
+          let transformedpedido: PedidoManutCurativaTeste = {
+            IDPedido: pedidos[x].IDPedido,
+            UtilizadorIDUser: pedidos[x].UtilizadorIDUser,
+            IDEquipamento: pedidos[x].IDEquipamento,
+            Descricao: pedidos[x].Descricao,
+            DataPedido: pedidos[x].DataPedido,
+          };
+          transformedpedidos.push(transformedpedido);
+        }
+
+        this.pedidos = transformedpedidos;
+        this.pedidosUpdated.next([...this.pedidos]);
+      });
+  }*/
 
 /*  getPedidos() {
       this.httpClient.get<any>('http://localhost:44334/api/PedidoManutCurativas', this.httpOptions)

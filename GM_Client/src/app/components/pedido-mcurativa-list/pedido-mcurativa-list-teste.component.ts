@@ -6,7 +6,7 @@ import { NgForm } from "@angular/forms";
 import { Equipamento } from "../../shared/equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { IntervencaoCurativa } from "src/app/shared/pedidoMcurativa-teste/intervencaoCurativa.model";
-import { stringify } from "querystring";
+//import { stringify } from "querystring";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { IntervencaoCurativaAddComponent } from "../intervencao-curativa-add/intervencao-curativa-add.component";
@@ -21,7 +21,6 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   pedidos: PedidoManutCurativaTeste[] = [];
   equipamentosList: Equipamento[] = [];
   estadoIntervencaoList: EstadoIntervencao[] = [];
-
   intervencoes: IntervencaoCurativa[] = [];
   intervencoesFiltradas: IntervencaoCurativa[] = [];
 
@@ -33,20 +32,29 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   private pedidosSub: Subscription;
   private intervencoesSub: Subscription;
 
-  pageSizeOptions = [5, 10, 15];
-  total = 0;
-  postsPerPage = 2;
+  pageSizeOptions = [2, 5, 10, 15];
+  totalPedidos = 0;
+  pedidosPerPage = 2;
   currentPage = 1;
 
   ngOnInit() {
+
     this.isLoading = true;
-    this.pedidosService.getPedidos();
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+    //this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
-      .subscribe((pedidos: PedidoManutCurativaTeste[]) => {
+      .subscribe((pedidoData:{pedidos: PedidoManutCurativaTeste[], CountPedidos: number}) => {
         this.isLoading = false;
-        this.pedidos = pedidos;
+        this.pedidos = pedidoData.pedidos;
+        this.totalPedidos = pedidoData.CountPedidos;
       });
+    /*  this.pedidosSub = this.pedidosService.getPedidoUpdateListener().subscribe((pedidos: {PedidoManutCurativaList: PedidoManutCurativaTeste[], CountPedidos: number}) => {
+        this.isLoading = false;
+        this.totalPedidos = pedidos.CountPedidos;
+        this.pedidos = pedidos.PedidoManutCurativaList;
+      }); */
 
     this.pedidosService.getIntervencoes();
     this.intervencoesSub = this.pedidosService
@@ -67,8 +75,8 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
 
   onChangedPage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
-    this.postsPerPage = pageData.pageSize;
-    // this.pedidosService.getPedidos(this.postsPerPage, this.currentPage);
+    this.pedidosPerPage = pageData.pageSize;
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
   }
 
   openDialog(idPedido) {

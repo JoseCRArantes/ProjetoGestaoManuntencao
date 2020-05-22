@@ -41,7 +41,7 @@ namespace GMwebApi.Controllers
 
             return intervencaoCurativa;
         }
-        /*
+        
          /*
          public IntervencaoCurativaDtoCount GetIntervencaoCurativa()
         {
