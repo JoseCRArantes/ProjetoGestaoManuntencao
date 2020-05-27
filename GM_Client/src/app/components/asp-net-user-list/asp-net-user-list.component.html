@@ -2,8 +2,12 @@
     <div class="row">
 
         <!-- Utilizadores table -->
+        <br>
+        <!-- <button type="button" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0;"
+        [routerLink]="['/add-register']">Novo utilizador</button>    -->           
         <div class="col-md-12">
             <div class="inner">
+                <br>
                 <h3>Utilizadores registados</h3>
                 <table class="table table-bordered">
                     <thead>
@@ -11,9 +15,13 @@
                             <!-- <th scope="col">#</th> -->
                             <th scope="col">Nome</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Nº de funcionário</th>
+                            <th scope="col" width="165">Nº de funcionário</th>
                             <th scope="col">Tipo de utilizador</th>
-                           
+                            <th >
+                                <button type="button" class="btn btn-success btn-sm move-right" class="alinharButton" 
+        [routerLink]="['/add-register']" >+</button>
+                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -21,11 +29,11 @@
                         <tr *ngFor="let utilizador of aspNetUsersList">
                             <td>{{utilizador.Nome}}</td>
                             <td>{{utilizador.UserName}}</td>
-                            <td>{{utilizador.NumeroUtilizador}}</td>                         
+                            <td  width="165">{{utilizador.NumeroUtilizador}}</td>                         
                             <ng-container *ngFor="let tu of tipoUtilizadorList">
                                 <td *ngIf="tu.IDTipo==utilizador.IDTipo">{{tu.TipoDescr}}</td>
                             </ng-container>                   
-                            <td>
+                            <td width="30">
                                <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/asp-net-user-edit/', utilizador.UserName]">Editar</button>
                             </td>
                         </tr>

@@ -1,11 +1,13 @@
+<div class="centerScreen">
 <div class="container wrapper wrapper2">
     <div class="row">
 
         <!-- Form -->
         <div class="col-md-12">
-            <h3>Novo registo</h3>
+            <br>
+            <h3>Ficha de novo utilizador</h3>
             
-            <form [formGroup]="equipForm" (ngSubmit)="submitForm()" novalidate>
+            <form [formGroup]="equipForm" (ngSubmit)="submitForm()" novalidate >
                 <div class="form-group">
                     <label>Nome</label>
                     <input type="text" formControlName="Nome" class="form-control">
@@ -38,5 +40,6 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 

@@ -7,3 +7,4 @@ export class Register
     NumeroUtilizador : number;
     Nome : string;
 }
+

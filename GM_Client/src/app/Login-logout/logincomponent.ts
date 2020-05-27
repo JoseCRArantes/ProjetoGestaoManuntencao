@@ -55,13 +55,13 @@ import { AspNetUsersService } from '../shared/aspNetUsers/aspNetUsers.service';
       login() { 
         
         const val = this.form.value;
+        if(this.form.invalid){
+        return;}
         this.authService.login(val.username, val.password);
         
-      } 
-      
-     
+      }
 
-        Logout(){
+/*         Logout(){
           this.authService.logout();
 
           setTimeout(() => 
@@ -72,6 +72,6 @@ import { AspNetUsersService } from '../shared/aspNetUsers/aspNetUsers.service';
           },
             5000);
           
-        }
+        } */
 }
   

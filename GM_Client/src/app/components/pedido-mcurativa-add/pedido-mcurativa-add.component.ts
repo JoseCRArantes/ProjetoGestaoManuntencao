@@ -78,12 +78,11 @@ export class PedidoMcurativaAddComponent implements OnInit {
   }
 
   submitForm() {
-    this.pedidoService.postPedido(this.pedidoForm.value);//.subscribe(res => {
-     // console.log('Equipamento adicionado!')
-      //this.ngZone.run(() => this.router.navigateByUrl('/equip-list'))
-    //});
-    //this.ngZone.run(() => this.router.navigateByUrl('/pedido-mcurativa-list-teste'));
-  }
+    this.pedidoService.postPedido(this.pedidoForm.value);
+    this.router.navigateByUrl('/pedido-mcurativa-list-teste'); 
+    }
+    
+  
 
 
 

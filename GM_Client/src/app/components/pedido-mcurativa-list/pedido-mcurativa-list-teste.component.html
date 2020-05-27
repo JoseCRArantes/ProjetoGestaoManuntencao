@@ -11,7 +11,7 @@
 <hr />
 <div class="inner">
   <div id="main">
-    <h5>Pedidos curativos</h5>
+    <h5 style="text-align:center">Pedidos curativos</h5>
     <button
       type="button"
       class="btn btn-outline-primary"
@@ -23,7 +23,7 @@
   </div>
   <br />
   <div class="table-responsive">
-    <table class="table" style="width: 100%;">
+    <table class="table" style="width: 100%;" [hidden]="isLoading">
       <thead>
         <tr>
           <th scope="col" width="20">#</th>

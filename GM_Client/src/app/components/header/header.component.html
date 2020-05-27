@@ -1,0 +1,43 @@
+<mat-toolbar class="col">
+  
+  <button
+    mat-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon button with a menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="pedidos">Pedidos</button>
+    <button mat-menu-item routerLink="/equip-list">Equipamentos</button>
+    <button mat-menu-item routerLink="/grupomaquina-list">Grupos de máquina</button>
+    <button mat-menu-item routerLink="/asp-net-user-list">Utilizadores</button>
+  </mat-menu>
+
+  <mat-menu #pedidos="matMenu">
+    <button mat-menu-item routerLink="/pedido-mcurativa-list-teste">
+      Pedidos curativos
+    </button>
+    <button mat-menu-item routerLink="/pedido-mcurativa-list-teste">
+      Pedidos preventivos
+    </button>
+  </mat-menu>
+
+  <a class="tt" routerLink="/">Gestão da manutenção</a>
+
+  <ul>
+    <!-- <li *ngIf="userIsAuthenticated"> -->
+    <li>
+      <a mat-button routerLink="/my-login" routerLinkActive="mat-accent"
+        >Login</a
+      >
+    </li>
+    <!-- <li *ngIf="!userIsAuthenticated"> -->
+    <li>
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+</mat-toolbar>
+
+

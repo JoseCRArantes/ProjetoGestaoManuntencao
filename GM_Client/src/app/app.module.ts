@@ -14,6 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { EquipamentoService } from "./shared/equipamento/equipamento.service";
 import { GrupoMaquinaService } from "./shared/gruposmaquina/grupomaquina.service";
 import { AspNetUsersService } from "./shared/aspNetUsers/aspNetUsers.service";
+import { HeaderComponent } from "./components/header/header.component";
 
 /* Forms module */
 import { ReactiveFormsModule } from "@angular/forms";
@@ -43,6 +44,7 @@ import { EquipEditComponent } from "./components/equipamento-edit/equip-edit.com
 import { RegisterComponent } from "./components/register-add/register-add.component";
 import { AuthService } from "./TokenAuth/auth.service";
 import { LoginComponent } from "./Login-logout/logincomponent";
+import {MatMenuModule} from '@angular/material/menu';
 
 //import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
 
@@ -53,6 +55,12 @@ import { PedidoMcurativaAddComponent } from "./components/pedido-mcurativa-add/p
 import { IntervencaoCurativaAddComponent } from "./components/intervencao-curativa-add/intervencao-curativa-add.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 
+
+import {  MatListModule } from  '@angular/material/list';
+//import {MatSidenavModule} from '@angular/material/sidenav';
+
+
+import {MatSidenavModule} from '@angular/material/sidenav';
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
 @NgModule({
@@ -70,6 +78,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     PedidoMcurativaListTesteComponent,
     PedidoMcurativaAddComponent,
     IntervencaoCurativaAddComponent,
+    HeaderComponent,
+ 
   ],
   entryComponents: [IntervencaoCurativaAddComponent],
   imports: [
@@ -94,6 +104,12 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     NgxMatNativeDateModule,
     MatIconModule,
     MatPaginatorModule,
+    MatToolbarModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule, 
+    MatMenuModule, 
+    MatSidenavModule
   ],
 
   providers: [AuthService] /*Aqui ficar AuthService ou RegisterService */,

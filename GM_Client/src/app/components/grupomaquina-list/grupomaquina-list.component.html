@@ -4,20 +4,22 @@
         <!-- GruposMaquinas table -->
         <div class="col-md-12">
             <div class="inner">
+                <br>
                 <h3>Grupos de equipamentos</h3>
-                <table class="table table-bordered">
+                <br>
+                <table class="table table-bordered" >
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Código interno</th>
-                            <th scope="col">Descrição</th>
+                            <th scope="col" width="40">#</th>
+                            <th scope="col" width="150">Código interno</th>
+                            <th scope="col" >Descrição</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let grupomaquinas of GrupoMaquinaList">
-                            <th scope="row">{{grupomaquinas.IDGrupoMaquinas}}</th>
-                            <td>{{grupomaquinas.CodigoInterno}}</td>
-                            <td>{{grupomaquinas.Descr}}</td>
+                            <th scope="row" width="40">{{grupomaquinas.IDGrupoMaquinas}}</th>
+                            <td width="150">{{grupomaquinas.CodigoInterno}}</td>
+                            <td >{{grupomaquinas.Descr}}</td>
                         </tr>
                     </tbody>
                 </table>

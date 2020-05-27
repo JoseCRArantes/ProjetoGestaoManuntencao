@@ -32,7 +32,7 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   private pedidosSub: Subscription;
   private intervencoesSub: Subscription;
 
-  pageSizeOptions = [2, 5, 10, 15];
+  pageSizeOptions = [5, 8, 12];
   totalPedidos = 0;
   pedidosPerPage = 2;
   currentPage = 1;

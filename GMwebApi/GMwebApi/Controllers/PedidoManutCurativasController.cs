@@ -26,28 +26,13 @@ namespace GMwebApi.Controllers
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
-        // GET: api/PedidoManutCurativas
-        //public IQueryable<PedidoManutCurativaDto> GetPedidoManutCurativa()
-        //{
-        //    //return db.PedidoManutCurativa;
-
-        //    IQueryable<PedidoManutCurativaDto> pMcurativa =
-        //          from c in db.AspNetUsers
-        //          from p in db.PedidoManutCurativa
-        //          where p.UtilizadorIDUser == c.Id
-        //          orderby p.DataPedido descending
-        //         select new PedidoManutCurativaDto
-        //          {
-        //              IDPedido = p.IDPedido,
-        //              UtilizadorIDUser = c.Nome,
-        //              IDEquipamento = p.IDEquipamento,
-        //              Descricao = p.Descricao,
-        //              DataPedido = p.DataPedido
-        //          };
-        //    return pMcurativa;
-
-        //}
-
+        
+        /// <summary>
+        /// GET Pedidos, com paginação incluída.
+        /// </summary>
+        /// <param name="pedidosPerPage"></param>
+        /// <param name="currentPage"></param>
+        /// <returns></returns>
         public PedidoManutCurativaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage)
         {
             IQueryable<PedidoManutCurativaDto> pMcurativa =
@@ -64,7 +49,6 @@ namespace GMwebApi.Controllers
                       DataPedido = p.DataPedido
                   };
 
- 
            IQueryable<PedidoManutCurativaDto> result = pMcurativa.Skip(
                 pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
 
@@ -73,7 +57,6 @@ namespace GMwebApi.Controllers
                 PedidoManutCurativaList = result,
                 CountPedidos = pMcurativa.Count()
             };
-
 
             return pedidoManutCurativaDtoCount;
         }
@@ -209,5 +192,28 @@ namespace GMwebApi.Controllers
         {
             return db.PedidoManutCurativa.Count(e => e.IDPedido == id) > 0;
         }
+
+
+        // GET: api/PedidoManutCurativas
+        //public IQueryable<PedidoManutCurativaDto> GetPedidoManutCurativa()
+        //{
+        //    //return db.PedidoManutCurativa;
+
+        //    IQueryable<PedidoManutCurativaDto> pMcurativa =
+        //          from c in db.AspNetUsers
+        //          from p in db.PedidoManutCurativa
+        //          where p.UtilizadorIDUser == c.Id
+        //          orderby p.DataPedido descending
+        //         select new PedidoManutCurativaDto
+        //          {
+        //              IDPedido = p.IDPedido,
+        //              UtilizadorIDUser = c.Nome,
+        //              IDEquipamento = p.IDEquipamento,
+        //              Descricao = p.Descricao,
+        //              DataPedido = p.DataPedido
+        //          };
+        //    return pMcurativa;
+
+        //}
     }
 }

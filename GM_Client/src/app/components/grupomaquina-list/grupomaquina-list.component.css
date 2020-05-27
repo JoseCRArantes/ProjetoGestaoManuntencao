@@ -1,0 +1,11 @@
+.inner{
+    
+  table-layout: fixed;
+  width: 600px;
+}
+
+
+.table table-bordered{
+    display: flex;
+    justify-content: center;
+}
