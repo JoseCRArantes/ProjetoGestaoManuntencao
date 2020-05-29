@@ -13,7 +13,6 @@ import { PedidoMcurativaListTesteComponent } from "./components/pedido-mcurativa
 import { PedidoMcurativaAddComponent } from "./components/pedido-mcurativa-add/pedido-mcurativa-add.component";
 import { IntervencaoCurativaAddComponent } from "./components/intervencao-curativa-add/intervencao-curativa-add.component";
 const routes: Routes = [
-  // {path : ''},
   { path: "edit-equip/:id", component: EquipEditComponent },
   { path: "equip-list", component: EquipListComponent },
   { path: "add-equip", component: EquipAddComponent },

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone, OnDestroy } from "@angular/core";
 import { MatMenuModule } from "@angular/material/menu";
 import { AuthService } from "../../TokenAuth/auth.service";
 import { Router } from "@angular/router";
@@ -9,18 +9,22 @@ import { Subscription } from "rxjs";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.css"],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
     private ngZone: NgZone
   ) {}
   
-  showFiller = false;
-  opened: boolean;
+  user :string;
 
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
+
+  userNow(){
+    this.user = this.authService.getUserName();
+    console.log(this.user);
+  }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -29,6 +33,10 @@ export class HeaderComponent implements OnInit {
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
       });
+  }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
   }
 
   onLogout() {
