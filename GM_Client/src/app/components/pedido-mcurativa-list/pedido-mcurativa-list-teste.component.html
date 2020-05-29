@@ -11,15 +11,17 @@
 <hr />
 <div class="inner">
   <div id="main">
-    <h5 style="text-align:center">Pedidos curativos</h5>
+    <div id="side_bar">
+    <h5 style="text-align:left">Pedidos curativos</h5>
     <button
       type="button"
       class="btn btn-outline-primary"
-      style="position: absolute; right: 0;"
+      style="float: right;"
       [routerLink]="['/pedido-mcurativa-add']"
     >
-      Novo pedido
+      +
     </button>
+  </div>
   </div>
   <br />
   <div class="table-responsive">

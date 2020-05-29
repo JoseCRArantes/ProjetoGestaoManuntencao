@@ -1,5 +1,4 @@
 <mat-toolbar class="col">
-  
   <button
     mat-button
     [matMenuTriggerFor]="menu"
@@ -11,7 +10,9 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="pedidos">Pedidos</button>
     <button mat-menu-item routerLink="/equip-list">Equipamentos</button>
-    <button mat-menu-item routerLink="/grupomaquina-list">Grupos de máquina</button>
+    <button mat-menu-item routerLink="/grupomaquina-list">
+      Grupos de máquina
+    </button>
     <button mat-menu-item routerLink="/asp-net-user-list">Utilizadores</button>
   </mat-menu>
 
@@ -27,17 +28,13 @@
   <a class="tt" routerLink="/">Gestão da manutenção</a>
 
   <ul>
-    <!-- <li *ngIf="userIsAuthenticated"> -->
-    <li>
+    <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/my-login" routerLinkActive="mat-accent"
         >Login</a
       >
     </li>
-    <!-- <li *ngIf="!userIsAuthenticated"> -->
-    <li>
+    <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>
     </li>
   </ul>
 </mat-toolbar>
-
-
