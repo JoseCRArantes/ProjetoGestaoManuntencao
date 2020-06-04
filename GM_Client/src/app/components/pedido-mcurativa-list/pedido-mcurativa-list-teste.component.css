@@ -41,6 +41,10 @@ mat-expansion-panel-header .table td {
   background-color: white;
 }
 
+
+.formatH5{
+  margin-left: 40px;
+}
 /*
 mat-expansion-panel-header {
     width: 100%;

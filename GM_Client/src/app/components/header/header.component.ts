@@ -16,14 +16,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private ngZone: NgZone
   ) {}
   
-  user :string;
-
+  user :any = localStorage.getItem('username');
+  
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
   userNow(){
-    this.user = this.authService.getUserName();
-    console.log(this.user);
+    //this.user = this.authService.getUserName();
+    this.user = localStorage.getitem('username');
+    console.log(localStorage.getItem('username'));
   }
 
   ngOnInit() {
