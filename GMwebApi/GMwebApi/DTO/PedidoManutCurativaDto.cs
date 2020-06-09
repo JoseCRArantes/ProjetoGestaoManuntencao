@@ -12,8 +12,11 @@ namespace GMwebApi.DTO
 
         public int IDEquipamento { get; set; }
         public string Descricao { get; set; }
+
        // public Nullable<int> IDEstadoIntervencao { get; set; }
+
         public Nullable<System.DateTime> DataPedido { get; set; }
 
     }
 }
+

@@ -61,6 +61,7 @@ import {  MatListModule } from  '@angular/material/list';
 
 
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { PedidoPreventivaListComponent } from './components/pedido-preventiva-list/pedido-preventiva-list.component';
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 
 @NgModule({
@@ -79,6 +80,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     PedidoMcurativaAddComponent,
     IntervencaoCurativaAddComponent,
     HeaderComponent,
+    PedidoPreventivaListComponent,
  
   ],
   entryComponents: [IntervencaoCurativaAddComponent],

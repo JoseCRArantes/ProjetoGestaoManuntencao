@@ -21,7 +21,7 @@
     <button mat-menu-item routerLink="/pedido-mcurativa-list-teste">
       Pedidos curativos
     </button>
-    <button mat-menu-item routerLink="/pedido-mcurativa-list-teste">
+    <button mat-menu-item routerLink="/pedido-preventiva-list">
       Pedidos preventivos
     </button>
   </mat-menu>
@@ -35,7 +35,7 @@
       >
     </li>
     <li>
-      <a *ngIf="userIsAuthenticated" class="formatFontSize">{{user}}</a>
+      <a *ngIf="userIsAuthenticated" class="formatFontSize">{{userNow()}}</a>
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>

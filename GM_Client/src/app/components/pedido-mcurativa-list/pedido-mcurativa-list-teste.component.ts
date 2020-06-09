@@ -6,7 +6,6 @@ import { NgForm } from "@angular/forms";
 import { Equipamento } from "../../shared/equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { IntervencaoCurativa } from "src/app/shared/pedidoMcurativa-teste/intervencaoCurativa.model";
-//import { stringify } from "querystring";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { IntervencaoCurativaAddComponent } from "../intervencao-curativa-add/intervencao-curativa-add.component";
@@ -41,7 +40,7 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
     this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
-    //this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+    
 
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
@@ -101,9 +100,9 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
         return (
           this.equipamentosList[j].CodigoInterno +
           " - " +
-          this.equipamentosList[j].Marca +
-          " " +
-          this.equipamentosList[j].Descr
+          this.equipamentosList[j].Marca // +
+          //" " +
+          //this.equipamentosList[j].Descr
         );
       }
     }

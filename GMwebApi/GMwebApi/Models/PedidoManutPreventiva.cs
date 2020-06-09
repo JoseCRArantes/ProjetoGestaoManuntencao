@@ -17,8 +17,9 @@ namespace GMwebApi.Models
         public int ID { get; set; }
         public int IDEquipamento { get; set; }
         public string UtilizadorIDUser { get; set; }
-        public int FichaManutencaoID { get; set; }
-        public string DataLimiteManutencaoPrev { get; set; }
-        public string DataDoPedido { get; set; }
+        public Nullable<int> FichaManutencaoID { get; set; }
+        public Nullable<System.DateTime> DataLimiteManutencaoPrev { get; set; }
+        public System.DateTime DataPedido { get; set; }
+        public string Descricao { get; set; }
     }
 }

@@ -1,12 +1,15 @@
 import { PedidoManutCurativaTeste } from "./pedidoMcurativa.model";
 import { Injectable } from "@angular/core";
-import { Subject, Observable, throwError } from "rxjs";
+import { Subject, Observable, throwError, bindCallback } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { retry, catchError, map } from "rxjs/operators";
 import { Equipamento } from "../equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../estadoIntervencao/estadoIntervencao.model";
 import { GrupoMaquina } from "../gruposmaquina/grupomaquinamodel";
 import { IntervencaoCurativa } from "./intervencaoCurativa.model";
+
+import { environment } from "./../environments/environments";
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({ providedIn: "root" })
 export class PedidosService {
@@ -22,24 +25,28 @@ export class PedidosService {
   pedidos: PedidoManutCurativaTeste[] = [];
   //private pedidosUpdated = new Subject<PedidoManutCurativaTeste[]>();
 
-  private pedidosUpdated = new Subject<{pedidos: PedidoManutCurativaTeste[], CountPedidos: number}>();
+  private pedidosUpdated = new Subject<{
+    pedidos: PedidoManutCurativaTeste[];
+    CountPedidos: number;
+  }>();
   countPedidos: number;
   intervencoes: IntervencaoCurativa[] = [];
   private intervencoesUpdated = new Subject<IntervencaoCurativa[]>();
 
   constructor(private httpClient: HttpClient) {}
 
-  getPedidos(pedidosPerPage:number, currentPage:number) {
+  getPedidos(pedidosPerPage: number, currentPage: number) {
     const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}`;
     this.httpClient
-      .get<{PedidoManutCurativaList : PedidoManutCurativaTeste[], CountPedidos: number}>(
-        "http://localhost:44334/api/PedidoManutCurativas" + queryParms,
-        this.httpOptions
-      )
+      .get<{
+        PedidoManutCurativaList: PedidoManutCurativaTeste[];
+        CountPedidos: number;
+      }>(BACKEND_URL + "/PedidoManutCurativas" + queryParms, this.httpOptions)
       .pipe(
-        map(pedidoCurativaData =>{
+        map((pedidoCurativaData) => {
           return {
-            PedidoManutCurativaList: pedidoCurativaData.PedidoManutCurativaList.map(pedidoCurativo => {
+            PedidoManutCurativaList: pedidoCurativaData.PedidoManutCurativaList.map(
+              (pedidoCurativo) => {
                 return {
                   IDPedido: pedidoCurativo.IDPedido,
                   UtilizadorIDUser: pedidoCurativo.UtilizadorIDUser,
@@ -47,13 +54,14 @@ export class PedidosService {
                   Descricao: pedidoCurativo.Descricao,
                   DataPedido: pedidoCurativo.DataPedido,
                 };
-            }),
-            pedidoCurativoCount: pedidoCurativaData.CountPedidos
+              }
+            ),
+            pedidoCurativoCount: pedidoCurativaData.CountPedidos,
           };
         })
       )
       .subscribe((pedidosCurativa) => {
-       /*  let transformedpedidos: PedidoManutCurativaTeste[] = [];
+        /*  let transformedpedidos: PedidoManutCurativaTeste[] = [];
         console.log(pedidos);
         for (let x = 0; x < pedidos.PedidoManutCurativaList.length; x++) {
           let transformedpedido: PedidoManutCurativaTeste = {
@@ -68,16 +76,16 @@ export class PedidosService {
         this.countPedidos = pedidosCurativa.pedidoCurativoCount;
         console.log("numero de pedidos", pedidosCurativa.pedidoCurativoCount);
         this.pedidos = pedidosCurativa.PedidoManutCurativaList;
-        this.pedidosUpdated.next({pedidos:[...this.pedidos], CountPedidos:this.countPedidos});
+        this.pedidosUpdated.next({
+          pedidos: [...this.pedidos],
+          CountPedidos: this.countPedidos,
+        });
       });
   }
 
   getIntervencoes() {
     this.httpClient
-      .get<any[]>(
-        "http://localhost:44334/api/IntervencaoCurativas",
-        this.httpOptions
-      )
+      .get<any[]>(BACKEND_URL + "/IntervencaoCurativas", this.httpOptions)
       .subscribe((intervencoes) => {
         let transformedintervencoes: IntervencaoCurativa[] = [];
         for (let x = 0; x < intervencoes.length; x++) {
@@ -105,20 +113,23 @@ export class PedidosService {
   postPedido(data) {
     this.httpClient
       .post<any>(
-        "http://localhost:44334/api/PedidoManutCurativas",
+        BACKEND_URL + "/PedidoManutCurativas",
         JSON.stringify(data),
         this.httpOptions
       )
       .toPromise();
     this.pedidos.push(data);
     this.countPedidos = this.countPedidos + 1;
-     this.pedidosUpdated.next({pedidos:[...this.pedidos], CountPedidos:this.countPedidos});
+    this.pedidosUpdated.next({
+      pedidos: [...this.pedidos],
+      CountPedidos: this.countPedidos,
+    });
   }
 
   postIntervencao(data) {
     this.httpClient
       .post<any>(
-        "http://localhost:44334/api/IntervencaoCurativas",
+        BACKEND_URL + "/IntervencaoCurativas",
         JSON.stringify(data),
         this.httpOptions
       )
@@ -153,7 +164,7 @@ export class PedidosService {
     console.log(id, "cheguei ao metodo");
     return this.httpClient
       .delete<IntervencaoCurativa>(
-        "http://localhost:44334/api/IntervencaoCurativas/" + id,
+        BACKEND_URL + "/IntervencaoCurativas/" + id,
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.errorHandl));
@@ -162,17 +173,14 @@ export class PedidosService {
   // GET
   GetEquipamentosObser(): Observable<Equipamento[]> {
     return this.httpClient
-      .get<Equipamento[]>(
-        "http://localhost:44334/api/Equipamentoes",
-        this.httpOptions
-      )
+      .get<Equipamento[]>(BACKEND_URL + "/Equipamentoes", this.httpOptions)
       .pipe(retry(1));
   }
   // GET
   GetEstadosIntervencao(): Observable<EstadoIntervencao[]> {
     return this.httpClient
       .get<EstadoIntervencao[]>(
-        "http://localhost:44334/api/EstadoIntervencaos",
+        BACKEND_URL + "/EstadoIntervencaos",
         this.httpOptions
       )
       .pipe(retry(1));
@@ -181,10 +189,7 @@ export class PedidosService {
   //GET grupos de máquinas
   GetGruposMaquina(): Observable<GrupoMaquina[]> {
     return this.httpClient
-      .get<GrupoMaquina[]>(
-        "http://localhost:44334/api/GrupoMaquinas",
-        this.httpOptions
-      )
+      .get<GrupoMaquina[]>(BACKEND_URL + "/GrupoMaquinas", this.httpOptions)
       .pipe(retry(1));
   }
 }

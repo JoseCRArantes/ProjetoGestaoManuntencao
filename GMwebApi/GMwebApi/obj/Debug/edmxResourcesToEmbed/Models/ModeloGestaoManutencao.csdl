@@ -16,7 +16,6 @@
     <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
   </EntityType>
   <EntityType Name="AspNetUserLogins">
     <Key>
@@ -105,10 +104,12 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PedidoManutPreventivaID" Type="Int32" Nullable="false" />
     <Property Name="Observacoes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="DataRealizacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DataInicioIntervencao" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DataFimIntervencao" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IDEstadoIntervencao" Type="Int32" />
   </EntityType>
   <EntityType Name="PedidoManutCurativa">
     <Key>
@@ -124,12 +125,13 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IDEquipamento" Type="Int32" Nullable="false" />
     <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="FichaManutencaoID" Type="Int32" Nullable="false" />
-    <Property Name="DataLimiteManutencaoPrev" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="DataDoPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FichaManutencaoID" Type="Int32" />
+    <Property Name="DataLimiteManutencaoPrev" Type="DateTime" Precision="3" />
+    <Property Name="DataPedido" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -273,6 +275,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_IntervencaoPreventiva_EstadoIntervencao">
+    <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="0..1" />
+    <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoIntervencao">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IntervencaoPreventiva">
+        <PropertyRef Name="IDEstadoIntervencao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FKFichaManut955630">
     <End Role="GrupoMaquina" Type="Self.GrupoMaquina" Multiplicity="1" />
     <End Role="FichaManutencao" Type="Self.FichaManutencao" Multiplicity="*" />
@@ -286,7 +300,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FKPedidoManu399343">
-    <End Role="FichaManutencao" Type="Self.FichaManutencao" Multiplicity="1" />
+    <End Role="FichaManutencao" Type="Self.FichaManutencao" Multiplicity="0..1" />
     <End Role="PedidoManutPreventiva" Type="Self.PedidoManutPreventiva" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="FichaManutencao">
@@ -379,6 +393,10 @@
     <AssociationSet Name="FK_IntervencaoCurativa_EstadoIntervencao" Association="Self.FK_IntervencaoCurativa_EstadoIntervencao">
       <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IntervencaoPreventiva_EstadoIntervencao" Association="Self.FK_IntervencaoPreventiva_EstadoIntervencao">
+      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
+      <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
     </AssociationSet>
     <AssociationSet Name="FKFichaManut955630" Association="Self.FKFichaManut955630">
       <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />

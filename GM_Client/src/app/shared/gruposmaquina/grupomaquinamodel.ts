@@ -1,6 +1,5 @@
 export class GrupoMaquina {
-    IDGrupoMaquinas : number;
-    CodigoInterno : number;
-    Descr : string
- }
-
+  IDGrupoMaquinas: number;
+  CodigoInterno: number;
+  Descr: string;
+}

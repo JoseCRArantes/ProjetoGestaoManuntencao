@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userNow(){
     //this.user = this.authService.getUserName();
-    this.user = localStorage.getitem('username');
-    console.log(localStorage.getItem('username'));
+    return this.user = this.authService.getUserName();
+    //console.log(localStorage.getItem('username'));
   }
 
   ngOnInit() {

@@ -293,14 +293,19 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntervencaoCurativasController.cs" />
     <Compile Include="Controllers\PedidoManutCurativasController.cs" />
+    <Compile Include="Controllers\PedidosPreventivasController.cs" />
     <Compile Include="Controllers\TipoUtilizadorsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\AspNetUsersDto.cs" />
     <Compile Include="DTO\EquipamentoDto.cs" />
     <Compile Include="DTO\IntervencaoCurativaDto.cs" />
     <Compile Include="DTO\IntervencaoCurativaDtoCount.cs" />
+    <Compile Include="DTO\ManutPreventivaGrupoMaquina.cs" />
     <Compile Include="DTO\PedidoManutCurativaDto.cs" />
     <Compile Include="DTO\PedidoManutCurativaDtoCount.cs" />
+    <Compile Include="DTO\PedidoPreventivaDto.cs" />
+    <Compile Include="DTO\PedidoPreventivaDtoCount.cs" />
+    <Compile Include="DTO\PedidoPreventivoDtoCount.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

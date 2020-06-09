@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TipoUtilizador } from './tipoUtilizador.model';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from './../environments/environments';
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,7 @@ export class TipoUtilizadorService {
 
   // GET por IDS
   GetOneTipoUtilizador(IDTipo): Observable<TipoUtilizador> {
-    return this.http.get<TipoUtilizador>(this.baseurl + '/TipoUtilizadors/' + IDTipo, this.httpOptions)
+    return this.http.get<TipoUtilizador>(BACKEND_URL+ '/TipoUtilizadors/' + IDTipo, this.httpOptions)
      .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -40,7 +42,7 @@ export class TipoUtilizadorService {
 
   // GET all 
   GetTiposUtilizador(): Observable<TipoUtilizador> {
-    return this.http.get<TipoUtilizador>(this.baseurl + '/TipoUtilizadors', this.httpOptions)
+    return this.http.get<TipoUtilizador>(BACKEND_URL + '/TipoUtilizadors', this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)

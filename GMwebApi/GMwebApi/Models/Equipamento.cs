@@ -14,7 +14,6 @@ namespace GMwebApi.Models
     
     public partial class Equipamento
     {
-
         public int IDEquipamento { get; set; }
         public int IDGrupoM { get; set; }
         public string NumeroSerie { get; set; }

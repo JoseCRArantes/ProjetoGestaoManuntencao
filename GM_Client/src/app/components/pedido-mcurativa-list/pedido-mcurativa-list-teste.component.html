@@ -25,15 +25,15 @@
   </div>
   <br />
   <div class="table-responsive">
-    <table class="table" style="width: 100%;" [hidden]="isLoading">
+    <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
       <thead>
         <tr>
-          <th scope="col" width="20">#</th>
-          <th scope="col" width="120">Utilizador</th>
-          <th scope="col" width="375">Equipamento</th>
-          <th scope="col" width="400">Descrição</th>
+          <!--<th scope="col" width="20">#</th>-->
+          <th scope="col" width="80">Utilizador</th>
+          <th scope="col" width="220">Equipamento</th>
+          <th scope="col" width="320">Descrição</th>
           <th scope="col" width="150">Data de avaria</th>
-          <th scope="col" width="50">Estado</th>
+          <th scope="col" width="80">Estado</th>
         </tr>
       </thead>
     </table>
@@ -45,16 +45,16 @@
         <table class="table">
           <tbody>
             <tr>
-              <td class="tb-td-txt" width="20">{{ item.IDPedido }}</td>
-              <td class="tb-td-txt" width="100">{{ item.UtilizadorIDUser }}</td>
-              <td class="tb-td-txt" width="400">
+              <!--<td class="tb-td-txt" width="20">{{ item.IDPedido }}</td>-->
+              <td class="tb-td-txt" width="80">{{ item.UtilizadorIDUser }}</td>
+              <td class="tb-td-txt" width="250">
                 {{ changeIDtoInternalCode(i) }}
               </td>
-              <td class="tb-td-txt" width="380">{{ item.Descricao }}</td>
+              <td class="tb-td-txt" width="375">{{ item.Descricao }}</td>
               <td class="tb-td-txt" width="150">
                 {{ item.DataPedido | date: "dd/MM/yyyy HH:mm" }}
               </td>
-              <td class="tb-td-txt" width="50">
+              <td class="tb-td-txt" width="80">
                 {{ checkStateOfIntervention(i) }}
               </td>
             </tr>
@@ -126,6 +126,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <mat-paginator [length]="totalPedidos" [pageSize]="pedidosPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="pedidos.length > 0"></mat-paginator>
+  <mat-paginator class="col" [length]="totalPedidos" [pageSize]="pedidosPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="pedidos.length > 0"></mat-paginator>
 
 </div>

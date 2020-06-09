@@ -11,6 +11,7 @@ h5 {
   display: inline-block;
 }
 
+
 button {
   margin-right: 30px;
 }
@@ -45,10 +46,17 @@ mat-expansion-panel-header .table td {
 .formatH5{
   margin-left: 40px;
 }
+
+
+.col{
+  height: 50px;
+  background-color: slategrey;
+}
 /*
 mat-expansion-panel-header {
     width: 100%;
     margin: auto;
+
 }
 mat-expansion-panel{
     width: 90%;

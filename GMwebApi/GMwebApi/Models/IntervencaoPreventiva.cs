@@ -17,6 +17,8 @@ namespace GMwebApi.Models
         public int ID { get; set; }
         public int PedidoManutPreventivaID { get; set; }
         public string Observacoes { get; set; }
-        public string DataRealizacao { get; set; }
+        public System.DateTime DataInicioIntervencao { get; set; }
+        public System.DateTime DataFimIntervencao { get; set; }
+        public Nullable<int> IDEstadoIntervencao { get; set; }
     }
 }

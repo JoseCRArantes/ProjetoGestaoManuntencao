@@ -112,7 +112,9 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="PedidoManutPreventivaID" ColumnName="PedidoManutPreventivaID" />
           <ScalarProperty Name="Observacoes" ColumnName="Observacoes" />
-          <ScalarProperty Name="DataRealizacao" ColumnName="DataRealizacao" />
+          <ScalarProperty Name="DataInicioIntervencao" ColumnName="DataInicioIntervencao" />
+          <ScalarProperty Name="DataFimIntervencao" ColumnName="DataFimIntervencao" />
+          <ScalarProperty Name="IDEstadoIntervencao" ColumnName="IDEstadoIntervencao" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -135,7 +137,8 @@
           <ScalarProperty Name="UtilizadorIDUser" ColumnName="UtilizadorIDUser" />
           <ScalarProperty Name="FichaManutencaoID" ColumnName="FichaManutencaoID" />
           <ScalarProperty Name="DataLimiteManutencaoPrev" ColumnName="DataLimiteManutencaoPrev" />
-          <ScalarProperty Name="DataDoPedido" ColumnName="DataDoPedido" />
+          <ScalarProperty Name="DataPedido" ColumnName="DataPedido" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

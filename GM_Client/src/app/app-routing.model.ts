@@ -14,6 +14,7 @@ import { AspNetUserEditComponent } from "./components/asp-net-user-edit/asp-net-
 import { PedidoMcurativaListTesteComponent } from "./components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component";
 import { PedidoMcurativaAddComponent } from "./components/pedido-mcurativa-add/pedido-mcurativa-add.component";
 import { IntervencaoCurativaAddComponent } from "./components/intervencao-curativa-add/intervencao-curativa-add.component";
+import { PedidoPreventivaListComponent} from "./components/pedido-preventiva-list/pedido-preventiva-list.component";
 const routes: Routes = [
   { path: "edit-equip/:id", component: EquipEditComponent, canActivate: [AuthGuard] },
   { path: "equip-list", component: EquipListComponent,canActivate: [AuthGuard] },
@@ -33,6 +34,7 @@ const routes: Routes = [
     component: IntervencaoCurativaAddComponent,
     canActivate: [AuthGuard]
   },
+  { path:"pedido-preventiva-list", component: PedidoPreventivaListComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
