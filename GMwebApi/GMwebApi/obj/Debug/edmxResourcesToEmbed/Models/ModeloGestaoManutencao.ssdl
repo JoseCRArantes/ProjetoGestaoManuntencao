@@ -116,6 +116,7 @@
     <Property Name="DataInicioIntervencao" Type="datetime" Nullable="false" />
     <Property Name="DataFimIntervencao" Type="datetime" Nullable="false" />
     <Property Name="IDEstadoIntervencao" Type="int" />
+    <Property Name="UtilizadorIDUser" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="PedidoManutCurativa">
     <Key>
@@ -250,14 +251,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_IntervencaoPreventiva_EstadoIntervencao">
-    <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="0..1" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="EstadoIntervencao">
-        <PropertyRef Name="ID" />
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="IntervencaoPreventiva">
-        <PropertyRef Name="IDEstadoIntervencao" />
+        <PropertyRef Name="UtilizadorIDUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -414,7 +415,7 @@
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
     </AssociationSet>
     <AssociationSet Name="FK_IntervencaoPreventiva_EstadoIntervencao" Association="Self.FK_IntervencaoPreventiva_EstadoIntervencao">
-      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
     </AssociationSet>
     <AssociationSet Name="FK_PedidoManutCurativa_AspNetUsers" Association="Self.FK_PedidoManutCurativa_AspNetUsers">

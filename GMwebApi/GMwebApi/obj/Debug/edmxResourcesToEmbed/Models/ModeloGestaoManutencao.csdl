@@ -16,6 +16,7 @@
     <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
   </EntityType>
   <EntityType Name="AspNetUserLogins">
     <Key>
@@ -110,6 +111,7 @@
     <Property Name="DataInicioIntervencao" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DataFimIntervencao" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IDEstadoIntervencao" Type="Int32" />
+    <Property Name="UtilizadorIDUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
   <EntityType Name="PedidoManutCurativa">
     <Key>
@@ -203,6 +205,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_IntervencaoPreventiva_EstadoIntervencao">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IntervencaoPreventiva">
+        <PropertyRef Name="UtilizadorIDUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PedidoManutCurativa_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="PedidoManutCurativa" Type="Self.PedidoManutCurativa" Multiplicity="*" />
@@ -271,18 +285,6 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="IntervencaoCurativa">
-        <PropertyRef Name="IDEstadoIntervencao" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_IntervencaoPreventiva_EstadoIntervencao">
-    <End Role="EstadoIntervencao" Type="Self.EstadoIntervencao" Multiplicity="0..1" />
-    <End Role="IntervencaoPreventiva" Type="Self.IntervencaoPreventiva" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EstadoIntervencao">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="IntervencaoPreventiva">
         <PropertyRef Name="IDEstadoIntervencao" />
       </Dependent>
     </ReferentialConstraint>
@@ -370,6 +372,10 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
     </AssociationSet>
+    <AssociationSet Name="FK_IntervencaoPreventiva_EstadoIntervencao" Association="Self.FK_IntervencaoPreventiva_EstadoIntervencao">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
+    </AssociationSet>
     <AssociationSet Name="FK_PedidoManutCurativa_AspNetUsers" Association="Self.FK_PedidoManutCurativa_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="PedidoManutCurativa" EntitySet="PedidoManutCurativa" />
@@ -393,10 +399,6 @@
     <AssociationSet Name="FK_IntervencaoCurativa_EstadoIntervencao" Association="Self.FK_IntervencaoCurativa_EstadoIntervencao">
       <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
       <End Role="IntervencaoCurativa" EntitySet="IntervencaoCurativa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_IntervencaoPreventiva_EstadoIntervencao" Association="Self.FK_IntervencaoPreventiva_EstadoIntervencao">
-      <End Role="EstadoIntervencao" EntitySet="EstadoIntervencao" />
-      <End Role="IntervencaoPreventiva" EntitySet="IntervencaoPreventiva" />
     </AssociationSet>
     <AssociationSet Name="FKFichaManut955630" Association="Self.FKFichaManut955630">
       <End Role="GrupoMaquina" EntitySet="GrupoMaquina" />

@@ -5,6 +5,8 @@ mat-paginator {
   ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
     background-color: transparent;
   }
+
+ 
   
   h5 {
     margin-left: 10px;

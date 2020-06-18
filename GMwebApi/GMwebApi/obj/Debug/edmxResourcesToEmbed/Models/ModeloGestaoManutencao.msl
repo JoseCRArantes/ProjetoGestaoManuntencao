@@ -115,6 +115,7 @@
           <ScalarProperty Name="DataInicioIntervencao" ColumnName="DataInicioIntervencao" />
           <ScalarProperty Name="DataFimIntervencao" ColumnName="DataFimIntervencao" />
           <ScalarProperty Name="IDEstadoIntervencao" ColumnName="IDEstadoIntervencao" />
+          <ScalarProperty Name="UtilizadorIDUser" ColumnName="UtilizadorIDUser" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

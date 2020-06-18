@@ -20,5 +20,6 @@ namespace GMwebApi.Models
         public System.DateTime DataInicioIntervencao { get; set; }
         public System.DateTime DataFimIntervencao { get; set; }
         public Nullable<int> IDEstadoIntervencao { get; set; }
+        public string UtilizadorIDUser { get; set; }
     }
 }

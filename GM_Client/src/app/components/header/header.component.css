@@ -32,13 +32,6 @@ ul {
     background-color: slategrey;
   }
   
-  .tt{
-    padding:1em;
-    text-align: center;
-    display:inline-block;
-    text-decoration: none !important;
-    margin:0 auto;
-  }
 
   .formatFontSize{
     font-size:15px;
@@ -49,12 +42,17 @@ ul {
     height: 40px;
   }
   
-
-
 .example-sidenav {
   padding: 20px;
 }
 
+.tt{
+  padding:1em;
+  text-align: center;
+  display:inline-block;
+  text-decoration: none !important;
+  margin:0 auto;
+}
 
 
   

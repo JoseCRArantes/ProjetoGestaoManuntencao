@@ -28,12 +28,11 @@
     <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
       <thead>
         <tr>
-          <th scope="col" width="55">#</th>
-          <th scope="col"width="120">Utilizador</th>
+          <th scope="col"width="80">Utilizador</th>
           <th scope="col" width="375">Equipamento</th>
           <th scope="col" width="400">Descrição</th>
           <th scope="col" width="150">Data</th>
-          <th scope="col" width="50">Estado</th>
+          <th scope="col" width="80">Estado</th>
         </tr>
       </thead>
     </table>
@@ -45,8 +44,7 @@
         <table class="table">
           <tbody>
             <tr>
-              <td class="tb-td-txt" width="20">{{ item.IDPedido }}</td>
-              <td class="tb-td-txt" width="120">{{ item.UtilizadorIDUser }}</td>
+              <td class="tb-td-txt" width="80">{{ item.UtilizadorIDUser }}</td>
               <td class="tb-td-txt" width="375">
                 {{ changeIDtoInternalCode(i) }}
               </td>
@@ -54,8 +52,8 @@
               <td class="tb-td-txt" width="150">
                 {{ item.DataPedido | date: "dd/MM/yyyy HH:mm" }}
               </td>
-              <td class="tb-td-txt" width="50"> 
-                <!--{{ checkStateOfIntervention(i) }}-->
+              <td class="tb-td-txt" width="80"> 
+                {{ checkStateOfIntervention(i) }}
               </td>
             </tr>
           </tbody>

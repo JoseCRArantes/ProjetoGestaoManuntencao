@@ -26,7 +26,7 @@
     </button>
   </mat-menu>
 
-  <a class="tt" routerLink="/">Gestão da manutenção</a>
+  <a class="tt"  routerLink="/">Gestão da manutenção</a>
   
   <ul>
     <li *ngIf="!userIsAuthenticated">
@@ -35,7 +35,7 @@
       >
     </li>
     <li>
-      <a *ngIf="userIsAuthenticated" class="formatFontSize">{{userNow()}}</a>
+      <a *ngIf="userIsAuthenticated" class="formatFontSize">Em sessão: {{userNow()}}</a>
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>

@@ -6,7 +6,7 @@ import { retry, catchError, map } from "rxjs/operators";
 import { Equipamento } from "../equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../estadoIntervencao/estadoIntervencao.model";
 import { GrupoMaquina } from "../gruposmaquina/grupomaquinamodel";
-//import { IntervencaoPreventiva } from "./intervencaoPreventiva.model";
+import { IntervencaoPreventivo } from "./intervencaoPreventiva.model";
 
 import { environment } from "./../environments/environments";
 const BACKEND_URL = environment.apiUrl;
@@ -31,10 +31,10 @@ export class PedidosPreventivosService {
     pedidos: PedidoPreventivo[];
     CountPedidos: number;
   }>();
-  //intervencoes: IntervencaoCurativa[] = [];
-  //private intervencoesUpdated = new Subject<IntervencaoCurativa[]>();
 
-  //POST PEDIDO
+  intervencoes: IntervencaoPreventivo[] = [];
+  private intervencoesUpdated = new Subject<IntervencaoPreventivo[]>();
+
 
   //####################NÂO ESQUECER TERMINAR A PARTE DO iD GRUPOmAQUINA NO URL
   //##########################
@@ -103,21 +103,17 @@ export class PedidosPreventivosService {
       });
   }
 
-  /*
   getIntervencoes() {
     this.httpClient
-      .get<any[]>(
-        "http://localhost:44334/api/IntervencaoCurativas",
-        this.httpOptions
-      )
+      .get<any[]>(BACKEND_URL + "/IntervencaoPreventivas", this.httpOptions)
       .subscribe((intervencoes) => {
-        let transformedintervencoes: IntervencaoCurativa[] = [];
+        let transformedintervencoes: IntervencaoPreventivo[] = [];
         for (let x = 0; x < intervencoes.length; x++) {
-          let transformedIntervencao: IntervencaoCurativa = {
+          let transformedIntervencao: IntervencaoPreventivo = {
             ID: intervencoes[x].ID,
-            IDPedido: intervencoes[x].IDPedido,
+            PedidoManutPreventivaID: intervencoes[x].PedidoManutPreventivaID,
             UtilizadorIDUser: intervencoes[x].UtilizadorIDUser,
-            Descricao: intervencoes[x].Descricao,
+            Observacoes: intervencoes[x].Observacoes,
             IDEstadoIntervencao: intervencoes[x].IDEstadoIntervencao,
             DataFimIntervencao: intervencoes[x].DataFimIntervencao,
             DataInicioIntervencao: intervencoes[x].DataInicioIntervencao,
@@ -128,18 +124,11 @@ export class PedidosPreventivosService {
         this.intervencoesUpdated.next([...this.intervencoes]);
       });
   }
-*/
-  
 
-  /*
-  
-  }*/
-
-  /*
   postIntervencao(data) {
     this.httpClient
       .post<any>(
-        "http://localhost:44334/api/IntervencaoCurativas",
+        BACKEND_URL + "/IntervencaoCurativas",
         JSON.stringify(data),
         this.httpOptions
       )
@@ -150,11 +139,11 @@ export class PedidosPreventivosService {
         this.intervencoesUpdated.next([...this.intervencoes]);
       })
       .catch((err) => {});
-  }*/
-  /*
+  }
+
   getIntervencaoUpdateListener() {
     return this.intervencoesUpdated.asObservable();
-  }*/
+  }
 
   errorHandl(error) {
     let errorMessage = "";
@@ -189,21 +178,18 @@ export class PedidosPreventivosService {
   //GET grupos de máquinas
   GetGruposMaquina(): Observable<GrupoMaquina[]> {
     return this.httpClient
-      .get<GrupoMaquina[]>(
-        BACKEND_URL + "http://localhost:44334/api/GrupoMaquinas",
-        this.httpOptions
-      )
+      .get<GrupoMaquina[]>(BACKEND_URL + "/GrupoMaquinas", this.httpOptions)
       .pipe(retry(1));
   }
 
   // DELETE
-  /*DeleteIntervencao(id) {
+  DeleteIntervencao(id) {
     console.log(id, "cheguei ao metodo");
     return this.httpClient
-      .delete<IntervencaoCurativa>(
-        "http://localhost:44334/api/IntervencaoCurativas/" + id,
+      .delete<IntervencaoPreventivo>(
+        BACKEND_URL + "/IntervencaoCurativas/" + id,
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.errorHandl));
-  }*/
+  }
 }

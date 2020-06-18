@@ -21,10 +21,24 @@ using Microsoft.AspNet.Identity;
 
 namespace GMwebApi.Controllers
 {
+    [Authorize]
     public class PedidosPreventivasController : ApiController
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
+
+        // GET: api/PedidosPreventivas/5
+        [ResponseType(typeof(PedidoManutPreventiva))]
+        public async Task<IHttpActionResult> GetPedidoManutPreventiva(int id)
+        {
+            PedidoManutPreventiva pedidoManutPreventiva = await db.PedidoManutPreventiva.FindAsync(id);
+            if (pedidoManutPreventiva == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pedidoManutPreventiva);
+        }
 
         //GET: api/PedidoManutCurativas
         public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage)
@@ -58,54 +72,23 @@ namespace GMwebApi.Controllers
 
     }
 
-
-        // GET: api/PedidosPreventivas/5
-        [ResponseType(typeof(PedidoManutPreventiva))]
-        public async Task<IHttpActionResult> GetPedidoManutPreventiva(int id)
+ 
+        /// DTO de um post simples para inserir num método POST.
+        private PedidoManutPreventiva PedidoMPreventivaDtoTOPedidoMPreventiva(PedidoPreventivaDto pedidoManutPreventivaDto)
         {
-            PedidoManutPreventiva pedidoManutPreventiva = await db.PedidoManutPreventiva.FindAsync(id);
-            if (pedidoManutPreventiva == null)
+            var user = User.Identity.GetUserId();
+            return new PedidoManutPreventiva()
             {
-                return NotFound();
-            }
-
-            return Ok(pedidoManutPreventiva);
+                UtilizadorIDUser = (string)user,
+                IDEquipamento = pedidoManutPreventivaDto.IDEquipamento,
+                Descricao = pedidoManutPreventivaDto.Descricao,
+                DataPedido = DateTime.Now //pedidoManutCurativaDto.DataPedido
+                //public Nullable<int> FichaManutencaoID { get; set; }
+                //public Nullable<System.DateTime> DataLimiteManutencaoPrev { get; set; }
+            };
         }
 
-        // PUT: api/PedidosPreventivas/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPedidoManutPreventiva(int id, PedidoManutPreventiva pedidoManutPreventiva)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != pedidoManutPreventiva.ID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(pedidoManutPreventiva).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PedidoManutPreventivaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
 
         /// <summary>
         /// DTO para a inserção de manutenção p/ um determinado grupo de máquinas.
@@ -124,6 +107,41 @@ namespace GMwebApi.Controllers
                 Descricao = manutPreventivaGrupoMaquina.Descricao
                 // IDEquipamento = (int)manutPreventivaGrupoMaquina.IDEquipamento,
             };
+        }
+
+        /// <summary>
+        /// POST manutenção preventiva simples.
+        /// </summary>
+        /// <param name="pedidoManutCurativaDto"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(PedidoManutPreventiva))]
+        public async Task<IHttpActionResult> PostPedidoManutPreventivaSimples(PedidoPreventivaDto pedidoManutPreventivaDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            PedidoManutPreventiva pedidoManutPreventiva = PedidoMPreventivaDtoTOPedidoMPreventiva(pedidoManutPreventivaDto);
+            db.PedidoManutPreventiva.Add(pedidoManutPreventiva);
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (PedidoManutPreventivaExists(pedidoManutPreventiva.ID))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = pedidoManutPreventiva.ID }, pedidoManutPreventiva);
         }
 
 
@@ -168,20 +186,54 @@ namespace GMwebApi.Controllers
 
 
         //POST: api/PedidosPreventivas
-       //[ResponseType(typeof(PedidoManutPreventiva))]
-       // public async Task<IHttpActionResult> PostPedidoManutPreventivaSingle(PedidoManutPreventiva pedidoManutPreventiva)
-       // {
-       //     if (!ModelState.IsValid)
-       //     {
-       //         return BadRequest(ModelState);
-       //     }
+        //[ResponseType(typeof(PedidoManutPreventiva))]
+        // public async Task<IHttpActionResult> PostPedidoManutPreventivaSingle(PedidoManutPreventiva pedidoManutPreventiva)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return BadRequest(ModelState);
+        //     }
 
-       //     db.PedidoManutPreventiva.Add(pedidoManutPreventiva);
-       //     await db.SaveChangesAsync();
+        //     db.PedidoManutPreventiva.Add(pedidoManutPreventiva);
+        //     await db.SaveChangesAsync();
 
-       //     return CreatedAtRoute("DefaultApi", new { id = pedidoManutPreventiva.ID }, pedidoManutPreventiva);
-       // }
+        //     return CreatedAtRoute("DefaultApi", new { id = pedidoManutPreventiva.ID }, pedidoManutPreventiva);
+        // }
 
+        // PUT: api/PedidosPreventivas/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutPedidoManutPreventiva(int id, PedidoManutPreventiva pedidoManutPreventiva)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != pedidoManutPreventiva.ID)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(pedidoManutPreventiva).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PedidoManutPreventivaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         // DELETE: api/PedidosPreventivas/5
         [ResponseType(typeof(PedidoManutPreventiva))]
