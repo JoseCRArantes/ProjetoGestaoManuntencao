@@ -60,6 +60,23 @@ export class PedidosPreventivosService {
     return this.pedidosUpdated.asObservable();
   }
 
+    //POST PEDIDO
+    postPedido(data) {
+      this.httpClient
+        .post<any>(
+          BACKEND_URL + "/PedidosPreventivas",
+          JSON.stringify(data),
+          this.httpOptions
+        )
+        .toPromise();
+      this.pedidos.push(data);
+      this.countPedidos = this.countPedidos + 1;
+      this.pedidosUpdated.next({
+        pedidos: [...this.pedidos],
+        CountPedidos: this.countPedidos,
+      });
+    }
+
   //Método GET Pedidos.
   getPedidos(pedidosPerPage: number, currentPage: number) {
     const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}`;
@@ -128,7 +145,7 @@ export class PedidosPreventivosService {
   postIntervencao(data) {
     this.httpClient
       .post<any>(
-        BACKEND_URL + "/IntervencaoCurativas",
+        BACKEND_URL + "/IntervencaoPreventivas",
         JSON.stringify(data),
         this.httpOptions
       )
@@ -184,10 +201,9 @@ export class PedidosPreventivosService {
 
   // DELETE
   DeleteIntervencao(id) {
-    console.log(id, "cheguei ao metodo");
     return this.httpClient
       .delete<IntervencaoPreventivo>(
-        BACKEND_URL + "/IntervencaoCurativas/" + id,
+        BACKEND_URL + "/IntervencaoPreventivas/" + id,
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.errorHandl));

@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GMwebApi.Controllers
 {
+    [Authorize]
     public class IntervencaoPreventivasController : ApiController
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
@@ -106,7 +107,22 @@ namespace GMwebApi.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = intervencaoPreventiva.ID }, intervencaoPreventiva);
+            var user = User.Identity.GetUserId();
+
+            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.Id == user);
+
+            IntervencaoPreventiva intervencaoPreventivaDto1 = new IntervencaoPreventiva()
+            {
+                ID = intervencaoPreventiva.ID,
+                UtilizadorIDUser = (string)aspNetUsers.Nome,
+                Observacoes = intervencaoPreventivaDto.Observacoes,
+                PedidoManutPreventivaID = intervencaoPreventivaDto.PedidoManutPreventivaID,
+                IDEstadoIntervencao = intervencaoPreventivaDto.IDEstadoIntervencao,
+                DataInicioIntervencao = intervencaoPreventivaDto.DataInicioIntervencao,
+                DataFimIntervencao = intervencaoPreventivaDto.DataFimIntervencao
+            };
+
+            return CreatedAtRoute("DefaultApi", new { id = intervencaoPreventiva.ID }, intervencaoPreventivaDto1);
         }
 
 

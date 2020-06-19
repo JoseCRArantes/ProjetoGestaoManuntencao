@@ -13,14 +13,14 @@
   <div id="main">
     <div id="side_bar">
     <h5 class="formatH5" style="text-align:left">Pedidos preventivos</h5>
-   <!-- <button
+   <button
       type="button"
       class="btn btn-outline-primary"
       style="float: right;"
-      [routerLink]="['/pedido-mcurativa-add']"
+      [routerLink]="['/pedido-mpreventiva-add']"
     >
       +
-    </button>-->
+    </button>
   </div>
   </div>
   <br />
@@ -59,7 +59,7 @@
           </tbody>
         </table>
       </mat-expansion-panel-header>
-      <!--<div class="table-responsive">
+      <div class="table-responsive">
         <body style="text-align: center;">
           <table class="table" style="width: 80%;">
             <thead>
@@ -91,12 +91,12 @@
               <tr></tr>
 
               <tr *ngFor="let inter of intervencoes; let j = index">
-                <ng-container *ngIf="inter.IDPedido == item.IDPedido">
+                <ng-container *ngIf="inter.PedidoManutPreventivaID == item.IDPedido">
                   <th scope="row" width="25">{{ inter.ID }}</th>
                   <td class="tb-td-txt" width="80">
                     {{ inter.UtilizadorIDUser }}
                   </td>
-                  <td class="tb-td-txt" width="250">{{ inter.Descricao }}</td>
+                  <td class="tb-td-txt" width="250">{{ inter.Observacoes }}</td>
                   <td class="tb-td-txt" width="150">
                     {{ changeIDtoDescription(j) }}
                   </td>
@@ -121,7 +121,7 @@
             </tbody>
           </table>
         </body>
-      </div>-->
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
   <mat-paginator class="col" [length]="totalPedidos" [pageSize]="pedidosPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="pedidos.length > 0"></mat-paginator>

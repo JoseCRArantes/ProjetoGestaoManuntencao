@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, Component } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AuthGuard } from "../app/TokenAuth/auth.guard";
@@ -14,32 +14,78 @@ import { AspNetUserEditComponent } from "./components/asp-net-user-edit/asp-net-
 import { PedidoMcurativaListTesteComponent } from "./components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component";
 import { PedidoMcurativaAddComponent } from "./components/pedido-mcurativa-add/pedido-mcurativa-add.component";
 import { IntervencaoCurativaAddComponent } from "./components/intervencao-curativa-add/intervencao-curativa-add.component";
-import { PedidoPreventivaListComponent} from "./components/pedido-preventiva-list/pedido-preventiva-list.component";
+import { PedidoPreventivaListComponent } from "./components/pedido-preventiva-list/pedido-preventiva-list.component";
+import { PedidoMpreventivaAddComponent } from "./components/pedido-mpreventiva-add/pedido-mpreventiva-add.component";
+import { IntervencaoPreventivaAddComponent } from "./components/intervencao-preventiva-add/intervencao-preventiva-add.component";
+import { audit } from 'rxjs/operators';
 const routes: Routes = [
-  { path: "edit-equip/:id", component: EquipEditComponent, canActivate: [AuthGuard] },
-  { path: "equip-list", component: EquipListComponent,canActivate: [AuthGuard] },
+  {
+    path: "edit-equip/:id",
+    component: EquipEditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "equip-list",
+    component: EquipListComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "add-equip", component: EquipAddComponent, canActivate: [AuthGuard] },
-  { path: "grupomaquina-list", component: GrupoMaquinaListComponent, canActivate: [AuthGuard] },
-  { path: "add-register", component: RegisterComponent, canActivate: [AuthGuard] },
+  {
+    path: "grupomaquina-list",
+    component: GrupoMaquinaListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "add-register",
+    component: RegisterComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "my-login", component: LoginComponent },
-  { path: "asp-net-user-list", component: AspNetUserListComponent,canActivate: [AuthGuard] },
-  { path: "asp-net-user-edit/:id", component: AspNetUserEditComponent,canActivate: [AuthGuard] },
+  {
+    path: "asp-net-user-list",
+    component: AspNetUserListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "asp-net-user-edit/:id",
+    component: AspNetUserEditComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: "pedido-mcurativa-list-teste",
-    component: PedidoMcurativaListTesteComponent, canActivate: [AuthGuard]
+    component: PedidoMcurativaListTesteComponent,
+    canActivate: [AuthGuard],
   },
-  { path: "pedido-mcurativa-add", component: PedidoMcurativaAddComponent, canActivate: [AuthGuard] },
+  {
+    path: "pedido-mcurativa-add",
+    component: PedidoMcurativaAddComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: "intervencao-curativa-add",
     component: IntervencaoCurativaAddComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
-  { path:"pedido-preventiva-list", component: PedidoPreventivaListComponent, canActivate:[AuthGuard]},
+  {
+    path: "intervencao-preventiva-add",
+    component: IntervencaoPreventivaAddComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "pedido-mpreventiva-add",
+    component : PedidoMpreventivaAddComponent,
+    canActivate:[AuthGuard],
+  },
+  {
+    path: "pedido-preventiva-list",
+    component: PedidoPreventivaListComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers:[AuthGuard]
+  providers: [AuthGuard],
 })
 export class AppRoutingModule {}

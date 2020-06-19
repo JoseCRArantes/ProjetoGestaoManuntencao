@@ -4,6 +4,9 @@ import { AuthService } from "../../TokenAuth/auth.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
+import { interval, Observable } from "rxjs";
+import { map, share } from "rxjs/operators";
+
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -15,15 +18,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private ngZone: NgZone
   ) {}
-  
-  user :any = localStorage.getItem('username');
-  
+
+  user: any = localStorage.getItem("username");
+
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
-  userNow(){
+  userNow() {
     //this.user = this.authService.getUserName();
-    return this.user = this.authService.getUserName();
+    return (this.user = this.authService.getUserName());
     //console.log(localStorage.getItem('username'));
   }
 

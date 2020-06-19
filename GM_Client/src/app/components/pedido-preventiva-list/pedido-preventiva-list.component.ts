@@ -12,8 +12,8 @@ import { Equipamento } from "../../shared/equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { PedidoPreventivo } from "../../shared/pedidoMpreventiva/pedidoMpreventiva.model";
 import { PedidosPreventivosService } from "../../shared/pedidoMpreventiva/pedidoMpreventiva.service";
-import { IntervencaoPreventivo } from 'src/app/shared/pedidoMpreventiva/intervencaoPreventiva.model';
-
+import { IntervencaoPreventivo } from "src/app/shared/pedidoMpreventiva/intervencaoPreventiva.model";
+import { IntervencaoPreventivaAddComponent } from "../intervencao-preventiva-add/intervencao-preventiva-add.component";
 
 @Component({
   selector: "app-pedido-preventiva-list",
@@ -21,7 +21,10 @@ import { IntervencaoPreventivo } from 'src/app/shared/pedidoMpreventiva/interven
   styleUrls: ["./pedido-preventiva-list.component.css"],
 })
 export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
-  constructor(public pedidosService: PedidosPreventivosService, public dialog: MatDialog) {}
+  constructor(
+    public pedidosService: PedidosPreventivosService,
+    public dialog: MatDialog
+  ) {}
 
   isLoading = false;
   pedidos: PedidoPreventivo[] = [];
@@ -38,30 +41,30 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   pedidosPerPage = 2;
   currentPage = 1;
 
-  ngOnInit(){
+  ngOnInit() {
     this.isLoading = true;
     this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
-      .subscribe((pedidoData:{pedidos: PedidoPreventivo[], CountPedidos: number}) => {
-        this.isLoading = false;
-        this.pedidos = pedidoData.pedidos;
-        this.totalPedidos = pedidoData.CountPedidos;
-      });
+      .subscribe(
+        (pedidoData: { pedidos: PedidoPreventivo[]; CountPedidos: number }) => {
+          this.isLoading = false;
+          this.pedidos = pedidoData.pedidos;
+          this.totalPedidos = pedidoData.CountPedidos;
+        }
+      );
 
-      this.pedidosService.getIntervencoes();
-      this.intervencoesSub = this.pedidosService
-        .getIntervencaoUpdateListener()
-        .subscribe((intervencoes: IntervencaoPreventivo[]) => {
-          this.intervencoes = intervencoes;
-        });
-  
+    this.pedidosService.getIntervencoes();
+    this.intervencoesSub = this.pedidosService
+      .getIntervencaoUpdateListener()
+      .subscribe((intervencoes: IntervencaoPreventivo[]) => {
+        this.intervencoes = intervencoes;
+      });
 
     //Carregamento de outros métodos.
     this.loadEstadosIntervencao();
     this.loadEquip();
   }
-
 
   ngOnDestroy() {
     this.pedidosSub.unsubscribe();
@@ -74,7 +77,18 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
   }
 
+  openDialog(idPedido) {
+    console.log(idPedido, "passou na componente");
+    this.dialog.open(IntervencaoPreventivaAddComponent, {
+      data: { idPedido: idPedido },
+    });
+  }
+
   //## MÉTODOS ## //
+  //Delete intervenção, somente se o User registado na intervencao, for o mesmo da sessão em aberto
+  deleteIntervencao(ID) {
+    return this.pedidosService.DeleteIntervencao(ID).subscribe((res) => {});
+  }
 
   //Troca no front-end, o ID do equipamento pelo código interno da empresa
   changeIDtoInternalCode(equip: number) {
@@ -94,14 +108,16 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     }
   }
 
-   //Mostra os estados de intervenção ## melhorar esta parte.
+  //Mostra os estados de intervenção ## melhorar esta parte.
   checkStateOfIntervention(a: number) {
     if (this.intervencoesFiltradas.length > 0) {
       this.intervencoesFiltradas.length = 0;
     }
 
     for (let j = 0; j < this.intervencoes.length; j++) {
-      if (this.pedidos[a].IDPedido == this.intervencoes[j].PedidoManutPreventivaID) {
+      if (
+        this.pedidos[a].IDPedido == this.intervencoes[j].PedidoManutPreventivaID
+      ) {
         this.intervencoesFiltradas.push(this.intervencoes[j]);
       }
     }
@@ -123,12 +139,10 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
       return "Aguarda";
     else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
       return "Fechado";
-  } 
+  }
 
-
-
-   //lista estados de intervenção.
-   loadEstadosIntervencao() {
+  //lista estados de intervenção.
+  loadEstadosIntervencao() {
     return this.pedidosService
       .GetEstadosIntervencao()
       .subscribe((data: EstadoIntervencao[]) => {
@@ -144,4 +158,16 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
         this.equipamentosList = data;
       });
   }
+
+    //Troca o ID do estado de intervenção, pela sua descrição correspondente.
+    changeIDtoDescription(estado: number) {
+      for (let j = 0; j < this.equipamentosList.length; j++) {
+        if (
+          this.intervencoes[estado].IDEstadoIntervencao ==
+          this.estadoIntervencaoList[j].ID
+        ) {
+          return this.estadoIntervencaoList[j].Descr;
+        }
+      }
+    }
 }

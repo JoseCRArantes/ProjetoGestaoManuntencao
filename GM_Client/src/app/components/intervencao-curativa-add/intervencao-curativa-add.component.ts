@@ -16,7 +16,7 @@ import { MatSelectModule } from "@angular/material/select";
 })
 export class IntervencaoCurativaAddComponent implements OnInit {
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
-
+  
   estadoIntervencaoList: EstadoIntervencao[] = [];
 
   form: FormGroup;

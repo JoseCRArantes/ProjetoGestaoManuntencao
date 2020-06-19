@@ -1,0 +1,34 @@
+<div class="container wrapper wrapper2">
+    <div class="row">
+
+        <!-- Form -->
+        <div class="col-md-12">
+            <br>
+            <h3>Novo pedido preventivo</h3>
+            <div class="td"></div>
+            <br>
+
+            <label>Grupo de máquina</label>
+            <br>
+            <select [(ngModel)]="selectedOption" (click)="listJustgroupmachine()">           
+                <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.CodigoInterno }}-{{ item.Descr}}</option>
+            </select>
+            <br>
+            <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>   
+                <br><label>Equipamento</label><br>
+                <select  class="form-group" formControlName="IDEquipamento">
+                    <option value="0">Selecione o equipamento</option>   
+                    <option *ngFor="let item of equipamentosFiltrados" [value]="item.IDEquipamento">{{item.CodigoInterno}}-{{ item.Marca}} {{ item.Descr}}</option>                  
+                </select>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <br>
+                    <input type="text" formControlName="Descricao" class="form-control" class="myText" maxlength="100">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submeter</button>
+            </form>
+        </div>
+    </div>
+
+</div>

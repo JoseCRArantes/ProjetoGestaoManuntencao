@@ -1,9 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormBuilder, FormsModule, FormGroup } from "@angular/forms";
-import { MatSelectModule } from "@angular/material/select";
-import { MatFormFieldModule } from "@angular/material/form-field";
-
 import { AppRoutingModule } from "./app-routing.model";
 import { AppComponent } from "./app.component";
 
@@ -11,10 +8,7 @@ import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
 
 /* Service */
-import { EquipamentoService } from "./shared/equipamento/equipamento.service";
-import { GrupoMaquinaService } from "./shared/gruposmaquina/grupomaquina.service";
-import { AspNetUsersService } from "./shared/aspNetUsers/aspNetUsers.service";
-import { HeaderComponent } from "./components/header/header.component";
+
 
 /* Forms module */
 import { ReactiveFormsModule } from "@angular/forms";
@@ -34,9 +28,14 @@ import {
 } from "@angular-material-components/datetime-picker";
 import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import {MatMenuModule} from '@angular/material/menu';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import {  MatListModule } from  '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 /* Components */
-
 import { EquipListComponent } from "./components/equipamento-list/equip-list.component";
 import { EquipAddComponent } from "./components/equipamento-add/equip-add.component";
 import { GrupoMaquinaListComponent } from "./components/grupomaquina-list/grupomaquina-list.component";
@@ -44,25 +43,21 @@ import { EquipEditComponent } from "./components/equipamento-edit/equip-edit.com
 import { RegisterComponent } from "./components/register-add/register-add.component";
 import { AuthService } from "./TokenAuth/auth.service";
 import { LoginComponent } from "./Login-logout/logincomponent";
-import {MatMenuModule} from '@angular/material/menu';
-
-//import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
-
 import { AspNetUserListComponent } from "./components/asp-net-user-list/asp-net-user-list.component";
 import { AspNetUserEditComponent } from "./components/asp-net-user-edit/asp-net-user-edit.component";
 import { PedidoMcurativaListTesteComponent } from "./components/pedido-mcurativa-list/pedido-mcurativa-list-teste.component";
 import { PedidoMcurativaAddComponent } from "./components/pedido-mcurativa-add/pedido-mcurativa-add.component";
 import { IntervencaoCurativaAddComponent } from "./components/intervencao-curativa-add/intervencao-curativa-add.component";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-
-
-import {  MatListModule } from  '@angular/material/list';
-//import {MatSidenavModule} from '@angular/material/sidenav';
-
-
-import {MatSidenavModule} from '@angular/material/sidenav';
 import { PedidoPreventivaListComponent } from './components/pedido-preventiva-list/pedido-preventiva-list.component';
+import { PedidoMpreventivaAddComponent } from './components/pedido-mpreventiva-add/pedido-mpreventiva-add.component';
+import { EquipamentoService } from "./shared/equipamento/equipamento.service";
+import { GrupoMaquinaService } from "./shared/gruposmaquina/grupomaquina.service";
+import { AspNetUsersService } from "./shared/aspNetUsers/aspNetUsers.service";
+import { HeaderComponent } from "./components/header/header.component";
+import { IntervencaoPreventivaAddComponent } from './components/intervencao-preventiva-add/intervencao-preventiva-add.component';
+
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
+//import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
 
 @NgModule({
   declarations: [
@@ -81,9 +76,11 @@ import { PedidoPreventivaListComponent } from './components/pedido-preventiva-li
     IntervencaoCurativaAddComponent,
     HeaderComponent,
     PedidoPreventivaListComponent,
+    PedidoMpreventivaAddComponent,
+    IntervencaoPreventivaAddComponent,
  
   ],
-  entryComponents: [IntervencaoCurativaAddComponent],
+  entryComponents: [IntervencaoCurativaAddComponent, IntervencaoPreventivaAddComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
