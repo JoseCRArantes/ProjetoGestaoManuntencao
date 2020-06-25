@@ -24,7 +24,7 @@ namespace GMwebApi.Controllers
         public IQueryable<IntervencaoCurativaDto> GetIntervencaoCurativa()
         {
            
-            IQueryable<IntervencaoCurativaDto> intervencaoCurativa =
+            IQueryable<IntervencaoCurativaDto> intervencaoCurativa =           
                 from c in db.AspNetUsers
                 from p in db.IntervencaoCurativa
                 where p.UtilizadorIDUser == c.Id
@@ -37,8 +37,11 @@ namespace GMwebApi.Controllers
                     DataInicioIntervencao = p.DataInicioIntervencao,
                     DataFimIntervencao = p.DataFimIntervencao,
                     IDEstadoIntervencao = p.IDEstadoIntervencao
+                    //Duracao = Convert.ToString(DbFunctions.DiffMinutes(p.DataFimIntervencao, p.DataInicioIntervencao))
                 };
 
+            //Duracao = Convert.ToInt32(DbFunctions.DiffMinutes(p.DataFimIntervencao, p.DataInicioIntervencao))
+            //Duracao = ((p.DataFimIntervencao - p.DataInicioIntervencao).TotalMinutes).ToString()
             return intervencaoCurativa;
         }
         
@@ -133,7 +136,8 @@ namespace GMwebApi.Controllers
                 IDPedido = intervencaoCurativaDto.IDPedido,
                 IDEstadoIntervencao = intervencaoCurativaDto.IDEstadoIntervencao,
                 DataInicioIntervencao = intervencaoCurativaDto.DataInicioIntervencao,
-                DataFimIntervencao = intervencaoCurativaDto.DataFimIntervencao    
+                DataFimIntervencao = intervencaoCurativaDto.DataFimIntervencao, 
+                
             };
         }
 

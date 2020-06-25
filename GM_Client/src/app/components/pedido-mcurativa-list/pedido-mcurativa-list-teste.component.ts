@@ -37,18 +37,21 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   currentPage = 1;
 
   ngOnInit() {
-
     this.isLoading = true;
     this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
-    
 
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
-      .subscribe((pedidoData:{pedidos: PedidoManutCurativaTeste[], CountPedidos: number}) => {
-        this.isLoading = false;
-        this.pedidos = pedidoData.pedidos;
-        this.totalPedidos = pedidoData.CountPedidos;
-      });
+      .subscribe(
+        (pedidoData: {
+          pedidos: PedidoManutCurativaTeste[];
+          CountPedidos: number;
+        }) => {
+          this.isLoading = false;
+          this.pedidos = pedidoData.pedidos;
+          this.totalPedidos = pedidoData.CountPedidos;
+        }
+      );
     /*  this.pedidosSub = this.pedidosService.getPedidoUpdateListener().subscribe((pedidos: {PedidoManutCurativaList: PedidoManutCurativaTeste[], CountPedidos: number}) => {
         this.isLoading = false;
         this.totalPedidos = pedidos.CountPedidos;
@@ -65,6 +68,25 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     //Carregamento de outros métodos.
     this.loadEstadosIntervencao();
     this.loadEquip();
+  }
+
+  getTimeDiff(a: number) {
+    for (let j = 0; j < this.intervencoes.length; j++)
+    {
+      
+      if (this.intervencoes[j].ID == a) 
+      {
+        let endDate = new Date();
+        endDate = new Date(this.intervencoes[j].DataFimIntervencao);
+        let beginDate = new Date();
+        beginDate = new Date(this.intervencoes[j].DataInicioIntervencao);
+        let diffMs = endDate.getTime() - beginDate.getTime(); // milliseconds
+     
+        var diffMinutos = Math.round(diffMs / 60000); 
+      }
+    }
+      return diffMinutos + " minutos";
+
   }
 
   ngOnDestroy() {

@@ -15,6 +15,7 @@ namespace GMwebApi.DTO
         public System.DateTime DataInicioIntervencao { get; set; }
         public System.DateTime DataFimIntervencao { get; set; }
 
+
     }
 }
 
