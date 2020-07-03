@@ -17,6 +17,8 @@ import { IntervencaoCurativaAddComponent } from "./components/intervencao-curati
 import { PedidoPreventivaListComponent } from "./components/pedido-preventiva-list/pedido-preventiva-list.component";
 import { PedidoMpreventivaAddComponent } from "./components/pedido-mpreventiva-add/pedido-mpreventiva-add.component";
 import { IntervencaoPreventivaAddComponent } from "./components/intervencao-preventiva-add/intervencao-preventiva-add.component";
+import { ManutencaoPreventivaProgramadaComponent} from "./components/manutencao-preventiva-programada/manutencao-preventiva-programada.component";
+
 import { audit } from 'rxjs/operators';
 const routes: Routes = [
   {
@@ -81,6 +83,11 @@ const routes: Routes = [
     component: PedidoPreventivaListComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path:"manutencao-preventiva-programada", 
+    component: ManutencaoPreventivaProgramadaComponent,
+    canActivate:[AuthGuard],
+  }
 ];
 
 @NgModule({

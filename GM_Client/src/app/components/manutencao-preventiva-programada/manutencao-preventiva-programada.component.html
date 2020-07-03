@@ -1,0 +1,57 @@
+<div class="container wrapper wrapper2">
+  <div class="row">
+    <!-- Form -->
+    <div class="col-md-12">
+      <br />
+      <h3>Pedidos de manutenção preventiva em grupo</h3>
+      <div class="td"></div>
+      <br />
+
+      <label>Grupo de máquina</label>
+      <br />
+      <select [(ngModel)]="selectedOption" (click)="listJustgroupmachine()" style="width:300px">
+        <option
+          *ngFor="let item of gruposMaquinaList"
+          [value]="item.IDGrupoMaquinas"
+          >{{ item.CodigoInterno }} - {{ item.Descr }}</option
+        >
+      </select>
+
+      <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>
+        <br />
+        <label>Funcionário a realizar a tarefa</label>
+        <br />
+
+        <select class="form-group" formControlName="UtilizadorIDUser" style="width:300px"> 
+          <option *ngFor="let item1 of aspNetUsersList" [value]="item1.UserName"
+            >{{ item1.Nome }} {{ converterIDTipoParaDescr(item1.IDTipo) }}
+          </option>
+        </select>
+
+        <div class="form-group">
+          <label>Descrição</label>
+          <br />
+          <input
+            type="text"
+            formControlName="Descricao"
+            class="form-control"
+            class="myText"
+            maxlength="100"
+            style="width:300px"
+          />
+        </div>
+        <div class="form-group" >
+          <label>Data limite para realização da tarefa</label>
+          <input
+            type="Date"
+            formControlName="DataLimiteManutencaoPrev"
+            class="form-control"
+            style="width:300px"
+          />
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Submeter</button>
+      </form>
+    </div>
+  </div>
+</div>

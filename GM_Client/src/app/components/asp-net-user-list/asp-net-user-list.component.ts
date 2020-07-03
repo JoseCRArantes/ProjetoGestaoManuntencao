@@ -37,7 +37,9 @@ export class AspNetUserListComponent implements OnInit {
     this.tipoUtilizadorList = data;
    
  })
+
 }
+
 
 
 }

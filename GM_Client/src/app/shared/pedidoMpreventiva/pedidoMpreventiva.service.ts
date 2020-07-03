@@ -7,8 +7,10 @@ import { Equipamento } from "../equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../estadoIntervencao/estadoIntervencao.model";
 import { GrupoMaquina } from "../gruposmaquina/grupomaquinamodel";
 import { IntervencaoPreventivo } from "./intervencaoPreventiva.model";
+import { AspNetUsers } from './aspNetUsers.model'
 
 import { environment } from "./../environments/environments";
+
 const BACKEND_URL = environment.apiUrl;
 
 @Injectable({ providedIn: "root" })
@@ -33,6 +35,7 @@ export class PedidosPreventivosService {
   }>();
 
   intervencoes: IntervencaoPreventivo[] = [];
+  usersList: AspNetUsers[] = [];
   private intervencoesUpdated = new Subject<IntervencaoPreventivo[]>();
 
 
@@ -55,6 +58,28 @@ export class PedidosPreventivosService {
       CountPedidos: this.countPedidos,
     });
   }
+ 
+
+
+/*   getAspNetUsers() {
+    this.httpClient
+      .get<any[]>(BACKEND_URL + "/AspNetUsers", this.httpOptions)
+      .subscribe((usersList) => {
+        let transformedUsers: AspNetUsers[] = [];
+        for (let x = 0; x < usersList.length; x++) {
+          let transformedUser: AspNetUsers = {
+            UserName: usersList[x].UserName,
+            IDTipo: usersList[x].IDTipo,
+            NumeroUtilizador: usersList[x].NumeroUtilizador,
+            Nome: usersList[x].Nome
+          };
+          transformedUsers.push(transformedUser);
+        }
+        this.usersList = transformedUsers;
+        //this.UsersUpdated.next([...this.usersList]);
+      });
+  } */
+  
 
   getPedidoUpdateListener() {
     return this.pedidosUpdated.asObservable();
@@ -180,6 +205,13 @@ export class PedidosPreventivosService {
     return this.httpClient
       .get<Equipamento[]>(BACKEND_URL + "/Equipamentoes", this.httpOptions)
       .pipe(retry(1));
+  }
+
+  // GET
+  GetAspNetUsers(): Observable<AspNetUsers> {
+    return this.httpClient
+      .get<AspNetUsers>(BACKEND_URL + "/AspNetUsers", this.httpOptions)
+      .pipe(retry(1), catchError(this.errorHandl));
   }
 
   // GET
