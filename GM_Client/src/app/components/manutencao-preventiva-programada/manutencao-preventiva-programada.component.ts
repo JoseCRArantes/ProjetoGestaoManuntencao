@@ -96,25 +96,26 @@ export class ManutencaoPreventivaProgramadaComponent implements OnInit {
   
   addPedido() {
     this.pedidoForm = this.fb.group({
-      IDEquipamento : [0],
       Descricao: [''],
       DataLimiteManutencaoPrev: [''],
       UtilizadorIDUser: ['']
     })
   }
+
     //load utilizadores da DB 
     loadAspNetUsers() {
       return this.pedidoService.GetAspNetUsers().subscribe((data: {}) => {
         this.aspNetUsersList = data;
       })
     }
-
-/*   submitForm(){ 
-    var id = this.actRoute.snapshot.paramMap.get('id');
-    this.equipService.UpdateEquipamento(id, this.updateEquipForm.value).subscribe(res => {
-      this.ngZone.run(() => this.router.navigateByUrl('/equip-list'))
-    })
-  } */
+    
+    submitFormWithID(selectedOption:number){ 
+    console.log("Form ID SelectedOption", selectedOption);
+    //var id = this.actRoute.snapshot.paramMap.get('id');
+    this.pedidoService.postPedidoPerGrupoMaquinas(selectedOption, this.pedidoForm.value);
+      //this.ngZone.run(() => this.router.navigateByUrl('/pedido-preventiva-list'))
+    }
+  
 
   submitForm() {
     this.pedidoService.postPedido(this.pedidoForm.value);

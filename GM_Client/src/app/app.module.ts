@@ -56,6 +56,7 @@ import { AspNetUsersService } from "./shared/aspNetUsers/aspNetUsers.service";
 import { HeaderComponent } from "./components/header/header.component";
 import { IntervencaoPreventivaAddComponent } from './components/intervencao-preventiva-add/intervencao-preventiva-add.component';
 import { ManutencaoPreventivaProgramadaComponent } from './components/manutencao-preventiva-programada/manutencao-preventiva-programada.component';
+import { ManutencaoProgHomePageComponent } from './components/manutencao-prog-home-page/manutencao-prog-home-page.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 //import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
@@ -80,6 +81,7 @@ import { ManutencaoPreventivaProgramadaComponent } from './components/manutencao
     PedidoMpreventivaAddComponent,
     IntervencaoPreventivaAddComponent,
     ManutencaoPreventivaProgramadaComponent,
+    ManutencaoProgHomePageComponent,
  
   ],
   entryComponents: [IntervencaoCurativaAddComponent, IntervencaoPreventivaAddComponent],

@@ -40,6 +40,44 @@ namespace GMwebApi.Controllers
             return Ok(pedidoManutPreventiva);
         }
 
+
+    
+        /// <summary>
+        /// Método para retornar pedidos atribuidos ao user em sessão. 
+        /// O objetivo é que o User ao fazer sessão, saiba que trabalhos tem a fazer, até determinada data.
+        /// FALTA COMPLETAR
+        /// ##########################################
+        /// ##########################################
+        /// ##########################################
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<PedidoPreventivaDto> GetPedidoManutCurativaUser()
+        {
+            var user = User.Identity.GetUserId();
+  
+            IQueryable<PedidoPreventivaDto> pMpreventiva =
+                  from c in db.AspNetUsers
+                  from p in db.PedidoManutPreventiva
+                  where p.UtilizadorIDUser == user
+                  where p.UtilizadorIDUser == c.Id
+                  where p.DataLimiteManutencaoPrev.Value != null
+                  orderby p.DataPedido descending
+                  select new PedidoPreventivaDto
+                  {
+                      IDPedido = p.ID,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                  };
+            return pMpreventiva;
+        }
+
+
+
+
+
         //GET: api/PedidoManutCurativas
         public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage)
         {
@@ -55,7 +93,8 @@ namespace GMwebApi.Controllers
                       UtilizadorIDUser = c.Nome,
                       IDEquipamento = p.IDEquipamento,
                       Descricao = p.Descricao,
-                      DataPedido = p.DataPedido
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
                   };
 
             IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
@@ -99,14 +138,18 @@ namespace GMwebApi.Controllers
         {
             AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == manutPreventivaGrupoMaquina.UtilizadorIDUser);
 
-            return new PedidoManutPreventiva()
+            //var user = User.Identity.GetUserId();
+            
             {
-                UtilizadorIDUser = aspNetUsers.Id,
-                DataPedido = DateTime.Now,
-                DataLimiteManutencaoPrev = (DateTime)manutPreventivaGrupoMaquina.DataLimiteManutencaoPrev,
-                Descricao = manutPreventivaGrupoMaquina.Descricao
-                // IDEquipamento = (int)manutPreventivaGrupoMaquina.IDEquipamento,
-            };
+                return new PedidoManutPreventiva()
+                {
+                    UtilizadorIDUser = aspNetUsers.Id,
+                    DataPedido = DateTime.Now,
+                    DataLimiteManutencaoPrev = (DateTime)manutPreventivaGrupoMaquina.DataLimiteManutencaoPrev,
+                    Descricao = manutPreventivaGrupoMaquina.Descricao
+                    // IDEquipamento = (int)manutPreventivaGrupoMaquina.IDEquipamento,
+                };
+            }            
         }
 
         /// <summary>

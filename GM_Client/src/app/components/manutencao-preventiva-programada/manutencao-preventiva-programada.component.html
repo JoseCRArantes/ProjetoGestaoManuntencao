@@ -17,7 +17,7 @@
         >
       </select>
 
-      <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>
+      <form [formGroup]="pedidoForm" (ngSubmit)="submitFormWithID(selectedOption)" novalidate>
         <br />
         <label>Funcionário a realizar a tarefa</label>
         <br />
