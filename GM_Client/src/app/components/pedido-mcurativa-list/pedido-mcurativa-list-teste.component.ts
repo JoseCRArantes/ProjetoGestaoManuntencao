@@ -81,11 +81,25 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
         let beginDate = new Date();
         beginDate = new Date(this.intervencoes[j].DataInicioIntervencao);
         let diffMs = endDate.getTime() - beginDate.getTime(); // milliseconds
-     
         var diffMinutos = Math.round(diffMs / 60000); 
+        var hours = (diffMinutos/60);
+        var rhours = Math.floor(hours);
+        var minutes = (hours-rhours) * 60;
+        var rminutes = Math.round(minutes);
+     
+       
       }
     }
-      return diffMinutos + " minutos";
+    if(rhours==0)
+    {
+      return rminutes + "minuto(s)";
+    }
+    if(rhours>=1 && rminutes==0)
+      return rhours + "hora(s)";
+    if(rhours>=1 && rminutes>0)
+      return rhours + " hora(s)" + rminutes + " minutos";
+
+
 
   }
 

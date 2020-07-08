@@ -7,7 +7,7 @@ import { Equipamento } from "../equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../estadoIntervencao/estadoIntervencao.model";
 import { GrupoMaquina } from "../gruposmaquina/grupomaquinamodel";
 import { IntervencaoPreventivo } from "./intervencaoPreventiva.model";
-import { AspNetUsers } from './aspNetUsers.model'
+import { AspNetUsers } from "./aspNetUsers.model";
 
 import { environment } from "./../environments/environments";
 
@@ -29,6 +29,8 @@ export class PedidosPreventivosService {
   pedidos: PedidoPreventivo[] = [];
   countPedidos: number;
 
+  pedidosUser: PedidoPreventivo[] = [];
+
   private pedidosUpdated = new Subject<{
     pedidos: PedidoPreventivo[];
     CountPedidos: number;
@@ -37,12 +39,35 @@ export class PedidosPreventivosService {
   intervencoes: IntervencaoPreventivo[] = [];
   usersList: AspNetUsers[] = [];
   private intervencoesUpdated = new Subject<IntervencaoPreventivo[]>();
+  private pedidosUserUpdated = new Subject<PedidoPreventivo[]>();
 
 
-  //####################NÂO ESQUECER TERMINAR A PARTE DO iD GRUPOmAQUINA NO URL
-  //##########################
+  getPedidosUserUpdateListener() {
+    return this.pedidosUserUpdated.asObservable();
+  }
 
-  ///////////////////////////////
+  /*getPedidosEmEsperaUser() {
+    this.httpClient
+      .get<any[]>(BACKEND_URL + "/PedidosPreventivas", this.httpOptions)
+      .subscribe((pedidos) => {
+        let transformedPedidos: PedidoPreventivo[] = [];
+        for (let x = 0; x < pedidos.length; x++) {
+          let transformedPedido: PedidoPreventivo = {
+            IDPedido: pedidos[x].IDPedido,
+            IDEquipamento: pedidos[x].IDEquipamento,
+            UtilizadorIDUser: pedidos[x].UtilizadorIDUser,
+            DataLimiteManutencaoPrev: pedidos[x].DataLimiteManutencaoPrev,
+            FichaManutencaoID: pedidos[x].FichaManutencaoID,
+            Descricao: pedidos[x].Descricao,
+            DataPedido: pedidos[x].DataPedido,
+          };
+          transformedPedidos.push(transformedPedido);
+        }
+        this.pedidosUser = transformedPedidos;
+      });
+  }*/
+
+  //POST: manutenção em grupo, através do IdGrupoMaquina via link.
   postPedidoPerGrupoMaquinas(idGrupoMaquina, data) {
     this.httpClient
       .post<any>(
@@ -58,49 +83,27 @@ export class PedidosPreventivosService {
       CountPedidos: this.countPedidos,
     });
   }
- 
-
-
-/*   getAspNetUsers() {
-    this.httpClient
-      .get<any[]>(BACKEND_URL + "/AspNetUsers", this.httpOptions)
-      .subscribe((usersList) => {
-        let transformedUsers: AspNetUsers[] = [];
-        for (let x = 0; x < usersList.length; x++) {
-          let transformedUser: AspNetUsers = {
-            UserName: usersList[x].UserName,
-            IDTipo: usersList[x].IDTipo,
-            NumeroUtilizador: usersList[x].NumeroUtilizador,
-            Nome: usersList[x].Nome
-          };
-          transformedUsers.push(transformedUser);
-        }
-        this.usersList = transformedUsers;
-        //this.UsersUpdated.next([...this.usersList]);
-      });
-  } */
-  
 
   getPedidoUpdateListener() {
     return this.pedidosUpdated.asObservable();
   }
 
-    //POST PEDIDO
-    postPedido(data) {
-      this.httpClient
-        .post<any>(
-          BACKEND_URL + "/PedidosPreventivas",
-          JSON.stringify(data),
-          this.httpOptions
-        )
-        .toPromise();
-      this.pedidos.push(data);
-      this.countPedidos = this.countPedidos + 1;
-      this.pedidosUpdated.next({
-        pedidos: [...this.pedidos],
-        CountPedidos: this.countPedidos,
-      });
-    }
+  //POST PEDIDO
+  postPedido(data) {
+    this.httpClient
+      .post<any>(
+        BACKEND_URL + "/PedidosPreventivas",
+        JSON.stringify(data),
+        this.httpOptions
+      )
+      .toPromise();
+    this.pedidos.push(data);
+    this.countPedidos = this.countPedidos + 1;
+    this.pedidosUpdated.next({
+      pedidos: [...this.pedidos],
+      CountPedidos: this.countPedidos,
+    });
+  }
 
   //Método GET Pedidos.
   getPedidos(pedidosPerPage: number, currentPage: number) {
@@ -212,6 +215,19 @@ export class PedidosPreventivosService {
     return this.httpClient
       .get<AspNetUsers>(BACKEND_URL + "/AspNetUsers", this.httpOptions)
       .pipe(retry(1), catchError(this.errorHandl));
+  }
+
+
+
+  GetPedidosEmEsperaUser():Observable<PedidoPreventivo>{
+    return this.httpClient
+      .get<PedidoPreventivo>(
+        BACKEND_URL + "/PedidosPreventivas",
+        this.httpOptions
+      )
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl));
   }
 
   // GET

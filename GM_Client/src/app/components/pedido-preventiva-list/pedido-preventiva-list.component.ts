@@ -90,6 +90,39 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     return this.pedidosService.DeleteIntervencao(ID).subscribe((res) => {});
   }
 
+  getTimeDiff(a: number) {
+    for (let j = 0; j < this.intervencoes.length; j++)
+    {
+      
+      if (this.intervencoes[j].ID == a) 
+      {
+        let endDate = new Date();
+        endDate = new Date(this.intervencoes[j].DataFimIntervencao);
+        let beginDate = new Date();
+        beginDate = new Date(this.intervencoes[j].DataInicioIntervencao);
+        let diffMs = endDate.getTime() - beginDate.getTime(); // milliseconds
+        var diffMinutos = Math.round(diffMs / 60000); 
+        var hours = (diffMinutos/60);
+        var rhours = Math.floor(hours);
+        var minutes = (hours-rhours) * 60;
+        var rminutes = Math.round(minutes);
+     
+       
+      }
+    }
+    if(rhours==0)
+    {
+      return rminutes + "minuto(s)";
+    }
+    if(rhours>=1 && rminutes==0)
+      return rhours + "hora(s)";
+    if(rhours>=1 && rminutes>0)
+      return rhours + " hora(s)" + rminutes + " minutos";
+
+
+      
+  }
+
   //Troca no front-end, o ID do equipamento pelo código interno da empresa
   changeIDtoInternalCode(equip: number) {
     for (let j = 0; j < this.equipamentosList.length; j++) {

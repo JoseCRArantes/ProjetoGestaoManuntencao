@@ -85,6 +85,8 @@
                 <th scope="col" width="150">Estado</th>
                 <th scope="col" width="170">Inicio da intervenção</th>
                 <th scope="col" width="170">Fim da intervenção</th>
+                <th scope="col" width="100">Duração</th>
+
                <td>
                   <button
                     type="button"
@@ -121,6 +123,9 @@
                   <td class="tb-td-txt" width="170">
                     {{ inter.DataFimIntervencao | date: "dd/MM/yyyy HH:mm" }}
                   </td>
+                  <td class="tb-td-txt" width="100">
+                    {{ getTimeDiff(inter.ID) }} 
+                  </td>  
                   <td>
                     <button
                       type="button"

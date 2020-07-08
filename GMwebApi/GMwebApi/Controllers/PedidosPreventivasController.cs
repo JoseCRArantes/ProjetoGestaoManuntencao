@@ -61,7 +61,7 @@ namespace GMwebApi.Controllers
                   where p.UtilizadorIDUser == user
                   where p.UtilizadorIDUser == c.Id
                   where p.DataLimiteManutencaoPrev.Value != null
-                  orderby p.DataPedido descending
+                  orderby p.DataLimiteManutencaoPrev ascending
                   select new PedidoPreventivaDto
                   {
                       IDPedido = p.ID,
@@ -71,6 +71,22 @@ namespace GMwebApi.Controllers
                       DataPedido = p.DataPedido,
                       DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
                   };
+
+            //#$%#$$%$%%%%%%%%%%%%%%%%%%%%%%%%%%%%###################$$$$$$$$$$$$$$$$$$$$$$$$$
+            //Ver se dá para fazer isto. 
+
+
+            //foreach (PedidoPreventivaDto p in pMpreventiva)
+            //{
+            //    foreach (IntervencaoPreventiva i in db.IntervencaoPreventiva)
+            //    {
+            //        if (i.PedidoManutPreventivaID == p.IDPedido)
+            //        {
+
+            //        }
+            //    }
+            //}
+
             return pMpreventiva;
         }
 
