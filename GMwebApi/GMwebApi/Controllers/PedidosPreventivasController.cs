@@ -57,10 +57,15 @@ namespace GMwebApi.Controllers
   
             IQueryable<PedidoPreventivaDto> pMpreventiva =
                   from c in db.AspNetUsers
-                  from p in db.PedidoManutPreventiva
+                  from p in db.PedidoManutPreventiva// join i in db.IntervencaoPreventiva on p.ID equals i.PedidoManutPreventivaID
+                  from i in db.IntervencaoPreventiva
+                  where p.DataLimiteManutencaoPrev.Value != null
+                 // from s in context.shift
+                  where !p.ID.Equals(i.PedidoManutPreventivaID)
+                  where p.DataLimiteManutencaoPrev.Value != null
+       
                   where p.UtilizadorIDUser == user
                   where p.UtilizadorIDUser == c.Id
-                  where p.DataLimiteManutencaoPrev.Value != null
                   orderby p.DataLimiteManutencaoPrev ascending
                   select new PedidoPreventivaDto
                   {
@@ -71,23 +76,30 @@ namespace GMwebApi.Controllers
                       DataPedido = p.DataPedido,
                       DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
                   };
-
-            //#$%#$$%$%%%%%%%%%%%%%%%%%%%%%%%%%%%%###################$$$$$$$$$$$$$$$$$$$$$$$$$
-            //Ver se dá para fazer isto. 
-
-
-            //foreach (PedidoPreventivaDto p in pMpreventiva)
-            //{
-            //    foreach (IntervencaoPreventiva i in db.IntervencaoPreventiva)
-            //    {
-            //        if (i.PedidoManutPreventivaID == p.IDPedido)
-            //        {
-
-            //        }
-            //    }
-            //}
-
             return pMpreventiva;
+
+            /*
+             var user = User.Identity.GetUserId();
+  
+            IQueryable<PedidoPreventivaDto> pMpreventiva =
+                  from c in db.AspNetUsers
+                  from p in db.PedidoManutPreventiva
+                  from i in db.IntervencaoPreventiva
+                  where p.DataLimiteManutencaoPrev.Value != null
+                  where p.ID != i.PedidoManutPreventivaID // && i.IDEstadoIntervencao !=3 //&& i.IDEstadoIntervencao !=2
+                  where p.UtilizadorIDUser == user
+                  where p.UtilizadorIDUser == c.Id
+                  orderby p.DataLimiteManutencaoPrev ascending
+                  select new PedidoPreventivaDto
+                  {
+                      IDPedido = p.ID,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                  };
+            return pMpreventiva;*/
         }
 
 

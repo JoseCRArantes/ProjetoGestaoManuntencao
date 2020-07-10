@@ -1,0 +1,59 @@
+<h4>Inserir intervenção preventiva</h4>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input
+      formControlName="descricao"
+      matInput
+      placeholder="Descrição do processo"
+    />
+  </mat-form-field>
+  <br />
+
+  <mat-form-field>
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="estado">
+      <mat-option *ngFor="let item of estadoIntervencaoList" [value]="item.ID">
+        {{ item.Descr }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [ngxMatDatetimePicker]="pickerinicio"
+      placeholder="Data inicio"
+      formControlName="datainicio"
+    />
+
+    <br>
+
+    <mat-datepicker-toggle matSuffix [for]="pickerinicio">
+    </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerinicio> </ngx-mat-datetime-picker>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [ngxMatDatetimePicker]="pickerfim"
+      placeholder="Data fim"
+      formControlName="datafim"
+    />
+    <mat-datepicker-toggle matSuffix [for]="pickerfim"> </mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerfim> </ngx-mat-datetime-picker>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button class="close-icon" [mat-dialog-close]="true">
+    Fechar
+  </button>
+  <button
+    mat-button
+    class="close-icon"
+    [mat-dialog-close]="true"
+    (click)="onSubmit()"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>
+

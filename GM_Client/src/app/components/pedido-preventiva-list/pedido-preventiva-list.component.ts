@@ -105,9 +105,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
         var hours = (diffMinutos/60);
         var rhours = Math.floor(hours);
         var minutes = (hours-rhours) * 60;
-        var rminutes = Math.round(minutes);
-     
-       
+        var rminutes = Math.round(minutes);    
       }
     }
     if(rhours==0)
@@ -115,9 +113,11 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
       return rminutes + "minuto(s)";
     }
     if(rhours>=1 && rminutes==0)
-      return rhours + "hora(s)";
+      return rhours + "h";
     if(rhours>=1 && rminutes>0)
-      return rhours + " hora(s)" + rminutes + " minutos";
+      return rhours + " h:" + rminutes + "m";
+
+
 
 
       

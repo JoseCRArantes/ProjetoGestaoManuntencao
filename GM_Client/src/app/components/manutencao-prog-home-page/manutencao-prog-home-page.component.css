@@ -1,50 +1,51 @@
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: transparent;
+}
 
-  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-    background-color: transparent;
-  }
 
- 
-  
-  h5 {
-    margin-left: 10px;
-    display: inline-block;
-  }
-  
 
-  
-  .disable_ripple:hover {
-    background: currentColor !important;
-  }
-  
-  .mat-expansion-panel-header .mat-expanded {
-    background-color: none;
-  }
-  
-  td {
-    border: 0px solid white;
-  }
-  .table-responsive > .table {
-    padding: 0 32px 0 24px;
-  }
-  mat-expansion-panel-header .table td {
-    text-align: left;
-  }
-  
-  .mat-expansion-panel-header-label.mat-expanded:hover {
-    background: rgb(255, 255, 255);
-  }
-  
-  .mat-expansion-panel-header {
-    background-color: white;
-  }
-  
-  
-  .formatH5{
-    margin-left: 40px;
-  }
-  
-  
-  .col{
-    height: 50px;
-    background-color: slategrey;
-  }
+h5 {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+button {
+  margin-right: 30px;
+}
+
+.disable_ripple:hover {
+  background: currentColor !important;
+}
+
+.mat-expansion-panel-header .mat-expanded {
+  background-color: none;
+}
+
+td {
+  border: 0px solid white;
+}
+.table-responsive > .table {
+  padding: 0 32px 0 24px;
+}
+mat-expansion-panel-header .table td {
+  text-align: left;
+}
+
+.mat-expansion-panel-header-label.mat-expanded:hover {
+  background: rgb(255, 255, 255);
+}
+
+.mat-expansion-panel-header {
+  background-color: white;
+}
+
+
+.formatH5{
+  margin-left: 40px;
+}
+
+
+.col{
+  height: 50px;
+  background-color: slategrey;
+}

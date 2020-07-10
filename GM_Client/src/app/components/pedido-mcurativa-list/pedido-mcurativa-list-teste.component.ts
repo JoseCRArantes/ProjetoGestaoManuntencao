@@ -95,9 +95,9 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       return rminutes + "minuto(s)";
     }
     if(rhours>=1 && rminutes==0)
-      return rhours + "hora(s)";
+      return rhours + "h";
     if(rhours>=1 && rminutes>0)
-      return rhours + " hora(s)" + rminutes + " minutos";
+      return rhours + " h:" + rminutes + "m";
 
 
 
