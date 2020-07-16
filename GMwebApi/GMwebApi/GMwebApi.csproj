@@ -299,6 +299,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\AspNetUsersDto.cs" />
     <Compile Include="DTO\EquipamentoDto.cs" />
+    <Compile Include="DTO\GrupoMaquinaDto.cs" />
     <Compile Include="DTO\IntervencaoCurativaDto.cs" />
     <Compile Include="DTO\IntervencaoCurativaDtoCount.cs" />
     <Compile Include="DTO\IntervencaoPreventivaDto.cs" />

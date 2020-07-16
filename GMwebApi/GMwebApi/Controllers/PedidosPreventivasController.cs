@@ -40,8 +40,50 @@ namespace GMwebApi.Controllers
             return Ok(pedidoManutPreventiva);
         }
 
+        /// <summary>
+        /// Método para o USER saber o que faz ao abrir a App
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<PedidoManutPreventiva> GetPedidosPreventivaUserOK()
+        {
 
-    
+            #region ##### Código anterior #####
+            /*IQueryable<PedidoPreventivaDto> pMpreventiva = //from a in db.AspNetUsers
+                        from p in db.PedidoManutPreventiva
+                        from i in db.IntervencaoPreventiva.Where(o => o.PedidoManutPreventivaID == p.ID).DefaultIfEmpty()
+                        where p.DataLimiteManutencaoPrev.Value != null
+                        //where p.UtilizadorIDUser == user                           
+                        orderby p.DataLimiteManutencaoPrev ascending
+                        select new PedidoPreventivaDto
+                        {
+                            IDPedido = p.ID,
+                           // UtilizadorIDUser = a.Nome,
+                            IDEquipamento = p.IDEquipamento,
+                            Descricao = p.Descricao,
+                            DataPedido = p.DataPedido,
+                            DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                        };
+
+            */
+            // .Where(ped => ped.DataLimiteManutencaoPrev.Value != null)
+            #endregion
+
+            var user = User.Identity.GetUserId();
+
+            var inters = db.IntervencaoPreventiva
+                .Select(inter => inter.PedidoManutPreventivaID);
+
+            var peds = db.PedidoManutPreventiva
+                .Where(ped => !inters.Contains(ped.ID))
+                .Where(ped => ped.DataLimiteManutencaoPrev.Value != null)
+                .Where(ped => ped.UtilizadorIDUser == user)
+                .Select(ped => ped).Distinct();
+
+            return peds;
+
+        }
+
+        #region Código desativado, serviu para teste
         /// <summary>
         /// Método para retornar pedidos atribuidos ao user em sessão. 
         /// O objetivo é que o User ao fazer sessão, saiba que trabalhos tem a fazer, até determinada data.
@@ -51,57 +93,57 @@ namespace GMwebApi.Controllers
         /// ##########################################
         /// </summary>
         /// <returns></returns>
-        public IQueryable<PedidoPreventivaDto> GetPedidoManutCurativaUser()
-        {
-            var user = User.Identity.GetUserId();
-  
-            IQueryable<PedidoPreventivaDto> pMpreventiva =
-                  from c in db.AspNetUsers
-                  from p in db.PedidoManutPreventiva// join i in db.IntervencaoPreventiva on p.ID equals i.PedidoManutPreventivaID
-                  from i in db.IntervencaoPreventiva
-                  where p.DataLimiteManutencaoPrev.Value != null
-                 // from s in context.shift
-                  where !p.ID.Equals(i.PedidoManutPreventivaID)
-                  where p.DataLimiteManutencaoPrev.Value != null
-       
-                  where p.UtilizadorIDUser == user
-                  where p.UtilizadorIDUser == c.Id
-                  orderby p.DataLimiteManutencaoPrev ascending
-                  select new PedidoPreventivaDto
-                  {
-                      IDPedido = p.ID,
-                      UtilizadorIDUser = c.Nome,
-                      IDEquipamento = p.IDEquipamento,
-                      Descricao = p.Descricao,
-                      DataPedido = p.DataPedido,
-                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
-                  };
-            return pMpreventiva;
+        //public IQueryable<PedidoPreventivaDto> GetPedidoManutCurativaUser()
+        //{
+        //    var user = User.Identity.GetUserId();
 
-            /*
-             var user = User.Identity.GetUserId();
-  
-            IQueryable<PedidoPreventivaDto> pMpreventiva =
-                  from c in db.AspNetUsers
-                  from p in db.PedidoManutPreventiva
-                  from i in db.IntervencaoPreventiva
-                  where p.DataLimiteManutencaoPrev.Value != null
-                  where p.ID != i.PedidoManutPreventivaID // && i.IDEstadoIntervencao !=3 //&& i.IDEstadoIntervencao !=2
-                  where p.UtilizadorIDUser == user
-                  where p.UtilizadorIDUser == c.Id
-                  orderby p.DataLimiteManutencaoPrev ascending
-                  select new PedidoPreventivaDto
-                  {
-                      IDPedido = p.ID,
-                      UtilizadorIDUser = c.Nome,
-                      IDEquipamento = p.IDEquipamento,
-                      Descricao = p.Descricao,
-                      DataPedido = p.DataPedido,
-                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
-                  };
-            return pMpreventiva;*/
-        }
+        //    IQueryable<PedidoPreventivaDto> pMpreventiva =
+        //          from c in db.AspNetUsers
+        //          from p in db.PedidoManutPreventiva// join i in db.IntervencaoPreventiva on p.ID equals i.PedidoManutPreventivaID
+        //          from i in db.IntervencaoPreventiva
+        //          where p.DataLimiteManutencaoPrev.Value != null
+        //         // from s in context.shift
+        //          where !p.ID.Equals(i.PedidoManutPreventivaID)
+        //          where p.DataLimiteManutencaoPrev.Value != null
 
+        //          where p.UtilizadorIDUser == user
+        //          where p.UtilizadorIDUser == c.Id
+        //          orderby p.DataLimiteManutencaoPrev ascending
+        //          select new PedidoPreventivaDto
+        //          {
+        //              IDPedido = p.ID,
+        //              UtilizadorIDUser = c.Nome,
+        //              IDEquipamento = p.IDEquipamento,
+        //              Descricao = p.Descricao,
+        //              DataPedido = p.DataPedido,
+        //              DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+        //          };
+        //    return pMpreventiva;
+
+        //    /*
+        //     var user = User.Identity.GetUserId();
+
+        //    IQueryable<PedidoPreventivaDto> pMpreventiva =
+        //          from c in db.AspNetUsers
+        //          from p in db.PedidoManutPreventiva
+        //          from i in db.IntervencaoPreventiva
+        //          where p.DataLimiteManutencaoPrev.Value != null
+        //          where p.ID != i.PedidoManutPreventivaID // && i.IDEstadoIntervencao !=3 //&& i.IDEstadoIntervencao !=2
+        //          where p.UtilizadorIDUser == user
+        //          where p.UtilizadorIDUser == c.Id
+        //          orderby p.DataLimiteManutencaoPrev ascending
+        //          select new PedidoPreventivaDto
+        //          {
+        //              IDPedido = p.ID,
+        //              UtilizadorIDUser = c.Nome,
+        //              IDEquipamento = p.IDEquipamento,
+        //              Descricao = p.Descricao,
+        //              DataPedido = p.DataPedido,
+        //              DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+        //          };
+        //    return pMpreventiva;*/
+        //}
+        #endregion
 
 
 

@@ -18,14 +18,14 @@ export class IntervencaoAddUserHomePageComponent implements OnInit {
 
   estadoIntervencaoList: EstadoIntervencao[] = [];
   form: FormGroup;
-  idPedido: number;
+  IDPedido: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder,
     public pedidoServ: PedidosPreventivosService
   ) {
-    this.idPedido = this.data.idPedido;
+    this.IDPedido = this.data.IDPedido;
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class IntervencaoAddUserHomePageComponent implements OnInit {
       var values = this.form.getRawValue();
       var body = {
         Observacoes: values.descricao,
-        PedidoManutPreventivaID: this.idPedido,
+        PedidoManutPreventivaID: this.IDPedido,
         IDEstadoIntervencao: values.estado,
         DataInicioIntervencao: values.datainicio,
         DataFimIntervencao: values.datafim,

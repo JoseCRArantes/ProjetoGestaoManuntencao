@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Cors;
+using GMwebApi.DTO;
 
 
 using GMwebApi.Models;
@@ -27,9 +28,19 @@ namespace GMwebApi.Controllers
 
         // GET: api/GrupoMaquinas
         [Authorize]
-        public IQueryable<GrupoMaquina> GetGrupoMaquina()
+        public IQueryable<GrupoMaquinaDto> GetGrupoMaquina()
         {
-            return db.GrupoMaquina;
+            IQueryable<GrupoMaquinaDto> grupoMaquina =
+                from gp in db.GrupoMaquina
+                orderby gp.CodigoInterno ascending
+                select new GrupoMaquinaDto
+                {
+                    IDGrupoMaquinas = gp.IDGrupoMaquinas,
+                    CodigoInterno = gp.CodigoInterno,
+                    Descr = gp.Descr
+                };
+            return grupoMaquina;
+
         }
 
         // GET: api/GrupoMaquinas/5

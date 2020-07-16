@@ -27,6 +27,7 @@ export class PedidosPreventivosService {
   constructor(private httpClient: HttpClient) {}
 
   pedidos: PedidoPreventivo[] = [];
+ 
   countPedidos: number;
 
   pedidosUser: PedidoPreventivo[] = [];
@@ -39,6 +40,7 @@ export class PedidosPreventivosService {
   intervencoes: IntervencaoPreventivo[] = [];
   usersList: AspNetUsers[] = [];
   private intervencoesUpdated = new Subject<IntervencaoPreventivo[]>();
+
   private pedidosUserUpdated = new Subject<PedidoPreventivo[]>();
 
 
@@ -46,26 +48,7 @@ export class PedidosPreventivosService {
     return this.pedidosUserUpdated.asObservable();
   }
 
-  /*getPedidosEmEsperaUser() {
-    this.httpClient
-      .get<any[]>(BACKEND_URL + "/PedidosPreventivas", this.httpOptions)
-      .subscribe((pedidos) => {
-        let transformedPedidos: PedidoPreventivo[] = [];
-        for (let x = 0; x < pedidos.length; x++) {
-          let transformedPedido: PedidoPreventivo = {
-            IDPedido: pedidos[x].IDPedido,
-            IDEquipamento: pedidos[x].IDEquipamento,
-            UtilizadorIDUser: pedidos[x].UtilizadorIDUser,
-            DataLimiteManutencaoPrev: pedidos[x].DataLimiteManutencaoPrev,
-            FichaManutencaoID: pedidos[x].FichaManutencaoID,
-            Descricao: pedidos[x].Descricao,
-            DataPedido: pedidos[x].DataPedido,
-          };
-          transformedPedidos.push(transformedPedido);
-        }
-        this.pedidosUser = transformedPedidos;
-      });
-  }*/
+
 
   //POST: manutenção em grupo, através do IdGrupoMaquina via link.
   postPedidoPerGrupoMaquinas(idGrupoMaquina, data) {
@@ -218,6 +201,27 @@ export class PedidosPreventivosService {
   }
 
 
+  getPedidosUser() {
+    this.httpClient
+      .get<any[]>(BACKEND_URL + "/PedidosPreventivas", this.httpOptions)
+      .subscribe((pedidos) => {
+        let transformedpedidos: PedidoPreventivo[] = [];
+        for (let x = 0; x < pedidos.length; x++) {
+          let transformedPedido: PedidoPreventivo = {
+            IDPedido: pedidos[x].ID,
+            UtilizadorIDUser: pedidos[x].UtilizadorIDUser,
+            IDEquipamento: pedidos[x].IDEquipamento,
+            Descricao: pedidos[x].Descricao,
+            DataPedido: pedidos[x].DataPedido,
+            FichaManutencaoID: pedidos[x].FichaManutencaoID,
+            DataLimiteManutencaoPrev: pedidos[x].DataLimiteManutencaoPrev,
+          };
+          transformedpedidos.push(transformedPedido);
+        }
+        this.pedidosUser = transformedpedidos;
+        this.pedidosUserUpdated.next([...this.pedidosUser]);
+      });
+  }
 
   GetPedidosEmEsperaUser():Observable<PedidoPreventivo>{
     return this.httpClient

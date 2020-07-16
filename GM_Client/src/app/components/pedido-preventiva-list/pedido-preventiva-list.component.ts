@@ -14,7 +14,7 @@ import { PedidoPreventivo } from "../../shared/pedidoMpreventiva/pedidoMpreventi
 import { PedidosPreventivosService } from "../../shared/pedidoMpreventiva/pedidoMpreventiva.service";
 import { IntervencaoPreventivo } from "src/app/shared/pedidoMpreventiva/intervencaoPreventiva.model";
 import { IntervencaoPreventivaAddComponent } from "../intervencao-preventiva-add/intervencao-preventiva-add.component";
-
+import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-page/intervencao-add-user-home-page.component';
 @Component({
   selector: "app-pedido-preventiva-list",
   templateUrl: "./pedido-preventiva-list.component.html",
@@ -78,7 +78,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   }
 
   openDialog(idPedido) {
-    console.log(idPedido, "passou na componente");
+    console.log(idPedido, "Passou na componente, ID do Pedido");
     this.dialog.open(IntervencaoPreventivaAddComponent, {
       data: { idPedido: idPedido },
     });

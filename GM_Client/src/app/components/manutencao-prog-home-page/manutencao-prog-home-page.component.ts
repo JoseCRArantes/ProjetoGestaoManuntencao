@@ -20,6 +20,7 @@ import { IntervencaoPreventivo } from "src/app/shared/pedidoMpreventiva/interven
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { MatDialog } from "@angular/material/dialog";
 import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-page/intervencao-add-user-home-page.component';
+import {IntervencaoPreventivaAddComponent} from '../intervencao-preventiva-add/intervencao-preventiva-add.component';
 
 @Component({
   selector: "app-manutencao-prog-home-page",
@@ -27,6 +28,12 @@ import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-
   styleUrls: ["./manutencao-prog-home-page.component.css"],
 })
 export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
+  constructor(
+    public pedidoService: PedidosPreventivosService,
+    public tipoUtilizadorService: TipoUtilizadorService,
+    public dialog: MatDialog,
+
+  ) {}
   pedidoForm: FormGroup;
   selectedOption: number;
   selectedUser: string;
@@ -39,38 +46,36 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
   intervencoes: IntervencaoPreventivo[] = [];
   estadoIntervencaoList: EstadoIntervencao[] = [];
   intervencoesFiltradas: IntervencaoPreventivo[] = [];
-  pedidos: PedidoPreventivo[] = [];
+
   tipoUtilizadorList: any = [];
-  pedidosEsperaUser: any = [];
+  pedidosEsperaUser: PedidoPreventivo[] = [];
   isLoading = false;
   private intervencoesSub: Subscription;
+  private pedidosSub: Subscription;
+  private pedidosUserSub: Subscription;
 
-  constructor(
-    public pedidoService: PedidosPreventivosService,
-    public tipoUtilizadorService: TipoUtilizadorService,
-    public dialog: MatDialog,
-    public fb: FormBuilder,
-    private ngZone: NgZone,
-    private router: Router
-  ) {}
+ 
 
   ngOnDestroy() {
-    this.intervencoesSub.unsubscribe();
+    this.pedidosUserSub.unsubscribe();
   }
   ngOnInit() {
     this.loadEstadosIntervencao();
-    this.pedidoService.getIntervencoes();
-    this.intervencoesSub = this.pedidoService
-      .getIntervencaoUpdateListener()
-      .subscribe((intervencoes: IntervencaoPreventivo[]) => {
-        this.intervencoes = intervencoes;
-      });
 
-    this.addPedido();
+
+    this.pedidoService.getPedidosUser();
+    this.pedidosUserSub = this.pedidoService
+      .getPedidosUserUpdateListener()
+      .subscribe((pedidosuser: PedidoPreventivo[]) => {
+        this.pedidosEsperaUser = pedidosuser;
+      });
+  
+
+    //this.addPedido();
     this.loadGrupoMaquinas();
     this.loadEquipamentos();
     this.loadTiposUtilizador();
-    this.loadPedidosEsperaUser();
+   // this.loadPedidosEsperaUser();
   }
 
   //Troca no front-end, o ID do equipamento pelo código interno da empresa
@@ -91,10 +96,10 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDialogHPage(idPedido) {
-    console.log(idPedido, "passou na componente");
+  openDialog(IDPedido) {
+    console.log(IDPedido, "passou na componente");
     this.dialog.open(IntervencaoAddUserHomePageComponent, {
-      data: { idPedido: idPedido },
+      data: { IDPedido: IDPedido },
     });
   }
 
@@ -115,11 +120,12 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  loadPedidosEsperaUser() {
+/*   loadPedidosEsperaUser() {
     return this.pedidoService.GetPedidosEmEsperaUser().subscribe((data: {}) => {
       this.pedidosEsperaUser = data;
     });
-  }
+  } */
+
 
   loadGrupoMaquinas() {
     return this.pedidoService
@@ -130,13 +136,7 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  addPedido() {
-    this.pedidoForm = this.fb.group({
-      Descricao: [""],
-      DataLimiteManutencaoPrev: [""],
-      UtilizadorIDUser: [""],
-    });
-  }
+
 
       //Troca o ID do estado de intervenção, pela sua descrição correspondente.
       changeIDtoDescription(estado: number) {
@@ -150,38 +150,7 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
         }
       }
 
-       //Mostra os estados de intervenção ## melhorar esta parte.
-  checkStateOfIntervention(a: number) {
-    if (this.intervencoesFiltradas.length > 0) {
-      this.intervencoesFiltradas.length = 0;
-    }
-
-    for (let j = 0; j < this.intervencoes.length; j++) {
-      if (
-        this.pedidos[a].IDPedido == this.intervencoes[j].PedidoManutPreventivaID
-      ) {
-        this.intervencoesFiltradas.push(this.intervencoes[j]);
-      }
-    }
-
-    if (this.intervencoesFiltradas.length > 0) {
-      var max = this.intervencoesFiltradas[0].PedidoManutPreventivaID;
-      var maxIndex = 0;
-
-      for (var i = 1; i < this.intervencoesFiltradas.length; i++) {
-        if (this.intervencoesFiltradas[i].PedidoManutPreventivaID > max) {
-          maxIndex = i;
-          max = this.intervencoesFiltradas[i].PedidoManutPreventivaID;
-        }
-      }
-    }
-
-    if (this.intervencoesFiltradas.length == 0) return "S/I";
-    else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
-      return "Aguarda";
-    else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
-      return "Fechado";
-  }
+      
 
         //lista estados de intervenção.
   loadEstadosIntervencao() {
@@ -192,54 +161,6 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  /*   listJustgroupmachine() {
-    this.gmID = this.selectedOption;
-
-    if (this.equipamentosFiltrados.length > 0) {
-      this.equipamentosFiltrados.length = 0;
-    }
-
-    for (let j = 0; j < this.equipamentosList.length; j++) {
-      if (this.gmID == this.equipamentosList[j].IDGrupoM) {
-        this.equipamentosFiltrados.push(this.equipamentosList[j]);
-      }
-    }
-  } */
-  /* 
-  converterIDTipoParaDescr(a: number) {
-    for (let i = 0; i < this.tipoUtilizadorList.length; i++) {
-      if (a == this.tipoUtilizadorList[i].IDTipo)
-        return (
-          "(" +
-          this.tipoUtilizadorList[i].TipoDescr +
-          " - " +
-          this.tipoUtilizadorList[i].SeccaoTrabalho +
-          ")"
-        );
-    }
-  }
- */
  
 
-  //load utilizadores da DB
-  /*   loadAspNetUsers() {
-    return this.pedidoService.GetAspNetUsers().subscribe((data: {}) => {
-      this.aspNetUsersList = data;
-    });
-  } */
-
-  /*   submitFormWithID(selectedOption: number) {
-    console.log("Form ID SelectedOption", selectedOption);
-    //var id = this.actRoute.snapshot.paramMap.get('id');
-    this.pedidoService.postPedidoPerGrupoMaquinas(
-      selectedOption,
-      this.pedidoForm.value
-    );
-    //this.ngZone.run(() => this.router.navigateByUrl('/pedido-preventiva-list'))
-  } */
-
-  /*   submitForm() {
-    this.pedidoService.postPedido(this.pedidoForm.value);
-    this.router.navigateByUrl("/pedido-preventiva-list");
-  } */
 }

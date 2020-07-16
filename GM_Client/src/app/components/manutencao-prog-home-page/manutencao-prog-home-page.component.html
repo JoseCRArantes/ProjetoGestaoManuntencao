@@ -20,12 +20,12 @@
     <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
       <thead>
         <tr>
-          <th scope="col"width="80">User</th>
+         <th scope="col"width="80">ID</th>
           <th scope="col" width="350">Equipamento</th>
           <th scope="col" width="400">Descrição</th>
           <th scope="col" width="150">Data pedido</th>
           <th scope="col" width="150">Data limite</th>
-          <th scope="col" width="80">Estado</th>
+          <!--<th scope="col" width="80">Estado</th>-->
         </tr>
       </thead>
     </table>
@@ -38,12 +38,12 @@
           <tbody>
             <tr>
    
-              <td class="tb-td-txt" width="80">{{ item.UtilizadorIDUser }}</td>
-              <td class="tb-td-txt" width="350">
+              <td class="tb-td-txt" width="80">{{ item.IDPedido}}</td>
+              <td class="tb-td-txt" width="360">
                 {{ changeIDtoInternalCode(i) }}
               </td>
-              <td class="tb-td-txt" width="400">{{ item.Descricao }}</td>
-              <td class="tb-td-txt" width="150">
+              <td class="tb-td-txt" width="440">{{ item.Descricao }}</td>
+              <td class="tb-td-txt" width="165">
                 {{ item.DataPedido | date: "dd/MM/yyyy HH:mm" }}
               </td>
               <td class="tb-td-txt" width="150">
@@ -67,7 +67,7 @@
                <td>
                   <button
                     type="button"
-                    (click)="openDialogHPage(item.IDPedido)"
+                    (click)="openDialog(item.IDPedido)"
                     class="btn btn-success btn-sm move-right"
                     style="
                       position: absolute;
@@ -84,34 +84,7 @@
             <tbody>
               <tr></tr>
 
-              <tr *ngFor="let inter of intervencoes; let j = index">
-                <ng-container *ngIf="inter.PedidoManutPreventivaID == item.IDPedido">
-                  <th scope="row" width="25">{{ inter.ID }}</th>
-                  <td class="tb-td-txt" width="80">
-                    {{ inter.UtilizadorIDUser }}
-                  </td>
-                  <td class="tb-td-txt" width="250">{{ inter.Observacoes }}</td>
-                  <td class="tb-td-txt" width="150">
-                    {{ changeIDtoDescription(j) }}
-                  </td>
-                  <td class="tb-td-txt" width="170">
-                    {{ inter.DataInicioIntervencao | date: "dd/MM/yyyy HH:mm" }}
-                  </td>
-                  <td class="tb-td-txt" width="170">
-                    {{ inter.DataFimIntervencao | date: "dd/MM/yyyy HH:mm" }}
-                  </td>
-                  <td>
-                    <!--<button
-                      type="button"
-                      color="accent"
-                      (click)="deleteIntervencao(inter.ID)"
-                    >
-                    <mat-icon _ngcontent-oax-c0="" class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">delete</mat-icon>
-                    </button>-->
-                    
-                  </td>
-                </ng-container>
-              </tr>
+
             </tbody>
           </table>
         </body>
