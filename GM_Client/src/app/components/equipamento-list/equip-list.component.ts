@@ -3,6 +3,7 @@ import { EquipamentoService } from '../../shared/equipamento/equipamento.service
 import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
 import { Equipamento } from 'src/app/shared/equipamento/equipamentomodel';
 
+
 @Component({
   selector: 'app-equip-list',
   templateUrl: './equip-list.component.html',
@@ -35,6 +36,9 @@ export class EquipListComponent implements OnInit {
       this.EquipList = data;
     })
   }
+
+
+
 
   //load dos grupos de máquinas.
   loadGrupoMaquinas() {

@@ -71,36 +71,25 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   }
 
   getTimeDiff(a: number) {
-    for (let j = 0; j < this.intervencoes.length; j++)
-    {
-      
-      if (this.intervencoes[j].ID == a) 
-      {
+    for (let j = 0; j < this.intervencoes.length; j++) {
+      if (this.intervencoes[j].ID == a) {
         let endDate = new Date();
         endDate = new Date(this.intervencoes[j].DataFimIntervencao);
         let beginDate = new Date();
         beginDate = new Date(this.intervencoes[j].DataInicioIntervencao);
         let diffMs = endDate.getTime() - beginDate.getTime(); // milliseconds
-        var diffMinutos = Math.round(diffMs / 60000); 
-        var hours = (diffMinutos/60);
+        var diffMinutos = Math.round(diffMs / 60000);
+        var hours = diffMinutos / 60;
         var rhours = Math.floor(hours);
-        var minutes = (hours-rhours) * 60;
+        var minutes = (hours - rhours) * 60;
         var rminutes = Math.round(minutes);
-     
-       
       }
     }
-    if(rhours==0)
-    {
+    if (rhours == 0) {
       return rminutes + "minuto(s)";
     }
-    if(rhours>=1 && rminutes==0)
-      return rhours + "h";
-    if(rhours>=1 && rminutes>0)
-      return rhours + " h:" + rminutes + "m";
-
-
-
+    if (rhours >= 1 && rminutes == 0) return rhours + "h";
+    if (rhours >= 1 && rminutes > 0) return rhours + " h:" + rminutes + "m";
   }
 
   ngOnDestroy() {
@@ -160,7 +149,7 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       var max = this.intervencoesFiltradas[0].IDPedido;
       var maxIndex = 0;
 
-      for (var i = 1; i < this.intervencoesFiltradas.length; i++) {
+      for (var i = 0; i < this.intervencoesFiltradas.length; i++) {
         if (this.intervencoesFiltradas[i].IDPedido > max) {
           maxIndex = i;
           max = this.intervencoesFiltradas[i].IDPedido;
@@ -168,11 +157,16 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
       }
     }
 
+    if (this.intervencoesFiltradas.length > 0) {
+      var maxI = this.intervencoesFiltradas.reduce(function (prev, current) {
+        return prev.IDPedido > current.IDPedido ? prev : current;
+      });
+
+      
+    }
     if (this.intervencoesFiltradas.length == 0) return "S/I";
-    else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
-      return "Aguarda";
-    else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
-      return "Fechado";
+      else if (maxI.IDEstadoIntervencao == 2) return "Aguarda";
+      else if (maxI.IDEstadoIntervencao == 3) return "Fechado";
   }
 
   //Troca o ID do estado de intervenção, pela sua descrição correspondente.

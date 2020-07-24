@@ -14,17 +14,19 @@
                     
                   </div> 
                   <br>
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="text-align:center;">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Grupo de máquina</th>
-                            <th scope="col">Número de Série</th>
+                            <th scope="col">Codigo interno</th>
                             <th scope="col">Descrição</th>
                             <th scope="col">Marca</th>
+                            <th scope="col">Número de Série</th>
+                            
                             <th scope="col">Tipo</th>
                             <th scope="col">Data de compra</th>
-                            <th scope="col">Codigo interno</th>
+                            
                             <th scope="col">Estado do equipamento</th>
                             <th scope="col">Data fim atividade</th>
 
@@ -32,23 +34,28 @@
                     </thead>
                     <tbody>
                         <tr>
-                        <tr *ngFor="let equipamentos of EquipList">
-                            <th scope="row">{{equipamentos.IDEquipamento}}</th>
+                        <tr *ngFor="let equipamentos of EquipList;let i = index">
+                            <th scope="row">{{i+1}}</th>
                             <ng-container *ngFor="let gm of gruposMaquinaList">
                                 <td *ngIf="gm.IDGrupoMaquinas==equipamentos.IDGrupoM">{{gm.Descr}}</td>
                             </ng-container>
-                            <td>{{equipamentos.NumeroSerie}}</td>
+                            <td>{{equipamentos.CodigoInterno}}</td>  
                             <td>{{equipamentos.Descr}}</td>
                             <td>{{equipamentos.Marca}}</td>
+                            <td>{{equipamentos.NumeroSerie}}</td>
+                            
+                            
                             <td>{{equipamentos.Tipo}}</td>
                             <td>{{equipamentos.DataCompra | date:'yyyy'}}</td>
-                            <td>{{equipamentos.CodigoInterno}}</td>
+                            
                             <td *ngIf="equipamentos.EstadoEqui==1" >Ativo</td>
                             <td *ngIf="equipamentos.EstadoEqui==0" >Desativo</td>
                             <td>{{equipamentos.DataFimAtividade | date:'yyyy'}}</td>
                             <td>
-                               <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/edit-equip/', equipamentos.IDEquipamento]">Editar</button>
+                               <button type="button" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Editar" [routerLink]="['/edit-equip/', equipamentos.IDEquipamento]"></button>
                             </td>
+
+                           
                         </tr>
                     </tbody>
                 </table>

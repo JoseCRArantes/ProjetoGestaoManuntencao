@@ -26,11 +26,8 @@ export class LoginComponent {
   private authStatusSub: Subscription;
   form: FormGroup;
   tokenParam: TokenParams;
-  //aspNetUsersModel : AspNetUsers;
-  //aspNetUsersList: any = [];
 
   ngOnInit() {
-    //this.loadAspNetUsers();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {
@@ -50,14 +47,6 @@ export class LoginComponent {
     });
   }
 
-  /*  loadAspNetUsers() {
-        return this.aspNetUsersService.GetAspNetUsers().subscribe((data: {}) => {
-          this.aspNetUsersList = data;
-        })
-      } */
-
-  //Método que chama o pedido de Token
-
   login() {
     const val = this.form.value;
     if (this.form.invalid) {
@@ -65,7 +54,13 @@ export class LoginComponent {
     }
     this.isLoading = true;
     this.authService.login(val.username, val.password);
+
+    setTimeout(() => {
+      this.refresh();
+    }, 2000);
   }
 
-  
+  refresh(): void {
+    window.location.reload();
+  }
 }

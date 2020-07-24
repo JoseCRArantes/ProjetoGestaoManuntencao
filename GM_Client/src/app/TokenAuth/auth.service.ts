@@ -20,9 +20,6 @@ import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
 
-
-
-
 @Injectable()
 export class AuthService {
   private isAuthenticated = false;
@@ -172,33 +169,3 @@ export class AuthService {
     return throwError(errorMessage);
   }
 }
-
-/* 
-
-  logout(){
-    return this.http.post<TokenParams>("http://localhost:44334/api/Account/Logout", this.httpOptions)
-    .pipe(
-      retry(1),
-      catchError(this.errorHandl)
-    )
-  }   */
-
-/* logout() {
-    console.log("logout");
-    this.http
-      .post<TokenParams>(
-        "http://localhost:44334/api/Account/Logout",
-        this.httpOptions
-      )
-      .toPromise()
-      .then((res) => {
-        console.log(res, "Passei no logout");
-       this.isAuthenticated = false;
-       this.authStatusListener.next(false);
-       clearTimeout(this.tokenTimer);
-       localStorage.removeItem('token');
-      localStorage.removeItem('username');
-      this.router.navigate(["/"]);
-      })
-      .catch((err) => {console.log("Não fez logout");});
-  }  */

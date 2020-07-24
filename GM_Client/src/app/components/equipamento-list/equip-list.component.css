@@ -1,5 +1,6 @@
 #main {
     width: 200px;
+
    
   }
   h3 {
@@ -7,3 +8,8 @@
       display: inline-block;
   }
   
+  .but{
+    background-color: gold;
+  }
+  
+

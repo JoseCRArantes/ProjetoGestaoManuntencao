@@ -22,9 +22,25 @@ namespace GMwebApi.Controllers
 
         // GET: api/Equipamentoes
         [Authorize]
-        public IQueryable<Equipamento> GetEquipamento()
+        public IQueryable<EquipamentoGetDto> GetEquipamento()
         {
-            return db.Equipamento;
+            IQueryable<EquipamentoGetDto> equipamentos =             
+                from eq in db.Equipamento
+                orderby eq.IDGrupoM ascending
+                select new EquipamentoGetDto
+                {
+                    IDEquipamento = eq.IDEquipamento,
+                    IDGrupoM = eq.IDGrupoM,
+                    NumeroSerie = eq.NumeroSerie,
+                    Descr = eq.Descr,
+                    Marca = eq.Marca, 
+                    Tipo = eq.Tipo,
+                    DataCompra = eq.DataCompra,
+                    CodigoInterno = eq.CodigoInterno,
+                    EstadoEqui = eq.EstadoEqui, 
+                    DataFimAtividade = eq.DataFimAtividade
+                };
+            return equipamentos;
         }
 
         // GET: api/Equipamentoes/5
