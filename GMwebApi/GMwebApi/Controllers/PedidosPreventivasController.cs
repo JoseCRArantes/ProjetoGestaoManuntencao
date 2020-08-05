@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using Dapper;
 
 namespace GMwebApi.Controllers
 {
@@ -46,6 +47,7 @@ namespace GMwebApi.Controllers
         /// <returns></returns>
         public IQueryable<PedidoManutPreventiva> GetPedidosPreventivaUserOK()
         {
+            var result = db.Database.Connection.Query("Select * from PedidoManutPreventiva").AsList();
 
             #region ##### Código anterior #####
             /*IQueryable<PedidoPreventivaDto> pMpreventiva = //from a in db.AspNetUsers
@@ -83,76 +85,18 @@ namespace GMwebApi.Controllers
 
         }
 
-        #region Código desativado, serviu para teste
-        /// <summary>
-        /// Método para retornar pedidos atribuidos ao user em sessão. 
-        /// O objetivo é que o User ao fazer sessão, saiba que trabalhos tem a fazer, até determinada data.
-        /// FALTA COMPLETAR
-        /// ##########################################
-        /// ##########################################
-        /// ##########################################
-        /// </summary>
-        /// <returns></returns>
-        //public IQueryable<PedidoPreventivaDto> GetPedidoManutCurativaUser()
-        //{
-        //    var user = User.Identity.GetUserId();
-
-        //    IQueryable<PedidoPreventivaDto> pMpreventiva =
-        //          from c in db.AspNetUsers
-        //          from p in db.PedidoManutPreventiva// join i in db.IntervencaoPreventiva on p.ID equals i.PedidoManutPreventivaID
-        //          from i in db.IntervencaoPreventiva
-        //          where p.DataLimiteManutencaoPrev.Value != null
-        //         // from s in context.shift
-        //          where !p.ID.Equals(i.PedidoManutPreventivaID)
-        //          where p.DataLimiteManutencaoPrev.Value != null
-
-        //          where p.UtilizadorIDUser == user
-        //          where p.UtilizadorIDUser == c.Id
-        //          orderby p.DataLimiteManutencaoPrev ascending
-        //          select new PedidoPreventivaDto
-        //          {
-        //              IDPedido = p.ID,
-        //              UtilizadorIDUser = c.Nome,
-        //              IDEquipamento = p.IDEquipamento,
-        //              Descricao = p.Descricao,
-        //              DataPedido = p.DataPedido,
-        //              DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
-        //          };
-        //    return pMpreventiva;
-
-        //    /*
-        //     var user = User.Identity.GetUserId();
-
-        //    IQueryable<PedidoPreventivaDto> pMpreventiva =
-        //          from c in db.AspNetUsers
-        //          from p in db.PedidoManutPreventiva
-        //          from i in db.IntervencaoPreventiva
-        //          where p.DataLimiteManutencaoPrev.Value != null
-        //          where p.ID != i.PedidoManutPreventivaID // && i.IDEstadoIntervencao !=3 //&& i.IDEstadoIntervencao !=2
-        //          where p.UtilizadorIDUser == user
-        //          where p.UtilizadorIDUser == c.Id
-        //          orderby p.DataLimiteManutencaoPrev ascending
-        //          select new PedidoPreventivaDto
-        //          {
-        //              IDPedido = p.ID,
-        //              UtilizadorIDUser = c.Nome,
-        //              IDEquipamento = p.IDEquipamento,
-        //              Descricao = p.Descricao,
-        //              DataPedido = p.DataPedido,
-        //              DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
-        //          };
-        //    return pMpreventiva;*/
-        //}
-        #endregion
-
-
-
 
         //GET: api/PedidoManutCurativas
-        public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage)
+        public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim)
         {
 
-            IQueryable<PedidoPreventivaDto> pMpreventiva =
+            PedidoPreventivaDtoCount pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount();
+           
+            //Pesquisa sem filtros
+            if (grupoMaquina == 0 && dataInicio=="0" && dataFim=="0")
+            {
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+
                   from c in db.AspNetUsers
                   from p in db.PedidoManutPreventiva
                   where p.UtilizadorIDUser == c.Id
@@ -167,21 +111,263 @@ namespace GMwebApi.Controllers
                       DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
                   };
 
-            IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
-                pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
 
-            PedidoPreventivaDtoCount pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+
+            }
+
+            //Pesquisa sem grupo de máquina, mas com filtro "date a partir de"
+            if (grupoMaquina == 0 && dataInicio!="0" && dataFim =="0")
             {
-                PedidoManutPreventivoList = result,
-                CountPedidos = pMpreventiva.Count()
-            };
+                DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+
+                  from c in db.AspNetUsers
+                  from p in db.PedidoManutPreventiva
+                  where (p.UtilizadorIDUser == c.Id && p.DataPedido>=dataInicioConvertida)
+                  orderby p.DataPedido descending
+                  select new PedidoPreventivaDto
+                  {
+                      IDPedido = p.ID,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                  };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+
+            }
+
+            //Filtro com apenas DataFim 
+            if (grupoMaquina == 0 && dataInicio == "0" && dataFim != "0")
+            {
+                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+
+                  from c in db.AspNetUsers
+                  from p in db.PedidoManutPreventiva
+                  where (p.UtilizadorIDUser == c.Id && p.DataPedido <= dataFimConvertida)
+                  orderby p.DataPedido descending
+                  select new PedidoPreventivaDto
+                  {
+                      IDPedido = p.ID,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                  };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+
+            }
+
+            //Filtro com data inicio e data fim
+            if (grupoMaquina == 0 && dataInicio != "0" && dataFim != "0")
+            {
+                DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+
+                  from c in db.AspNetUsers
+                  from p in db.PedidoManutPreventiva
+                  where (p.UtilizadorIDUser == c.Id && p.DataPedido>=dataInicioConvertida &&  p.DataPedido <= dataFimConvertida)
+                  orderby p.DataPedido descending
+                  select new PedidoPreventivaDto
+                  {
+                      IDPedido = p.ID,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                  };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+
+            }
+
+
+            //Filtro apenas com grupo de máquina.
+            if (grupoMaquina>0 && dataInicio == "0" && dataFim == "0")
+            {
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+                    from eq in db.Equipamento
+                    from c in db.AspNetUsers
+                    from p in db.PedidoManutPreventiva
+                    where p.UtilizadorIDUser == c.Id
+                    where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina)
+                    
+                    orderby p.DataPedido descending
+                    select new PedidoPreventivaDto
+                  {
+                      IDPedido = p.ID,
+                      UtilizadorIDUser = c.Nome,
+                      IDEquipamento = p.IDEquipamento,
+                      Descricao = p.Descricao,
+                      DataPedido = p.DataPedido,
+                      DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                  };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+            }
+
+            //Pesquisa com todos os filtros ativos.
+            if (grupoMaquina > 0 && dataInicio != "0" && dataFim != "0")
+            {
+                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
+                         System.Globalization.CultureInfo.InvariantCulture);
+                DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+                    from eq in db.Equipamento
+                    from c in db.AspNetUsers
+                    from p in db.PedidoManutPreventiva
+                    where p.UtilizadorIDUser == c.Id
+                    where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina &&
+                    p.DataPedido >= dataInicioConvertida && p.DataPedido <= dataFimConvertida) 
+                    orderby p.DataPedido descending
+                    select new PedidoPreventivaDto
+                    {
+                        IDPedido = p.ID,
+                        UtilizadorIDUser = c.Nome,
+                        IDEquipamento = p.IDEquipamento,
+                        Descricao = p.Descricao,
+                        DataPedido = p.DataPedido,
+                        DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                    };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+            }
+
+            //Pesquisa com grupo maquina e data inicio.
+            if (grupoMaquina > 0 && dataInicio != "0" && dataFim == "0")
+            {
+
+                DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+                    from eq in db.Equipamento
+                    from c in db.AspNetUsers
+                    from p in db.PedidoManutPreventiva
+                    where p.UtilizadorIDUser == c.Id
+                    where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina &&
+                    p.DataPedido >= dataInicioConvertida)
+                    orderby p.DataPedido descending
+                    select new PedidoPreventivaDto
+                    {
+                        IDPedido = p.ID,
+                        UtilizadorIDUser = c.Nome,
+                        IDEquipamento = p.IDEquipamento,
+                        Descricao = p.Descricao,
+                        DataPedido = p.DataPedido,
+                        DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                    };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+            }
+
+            //Pesquisa com grupo maquina e data fim
+            if (grupoMaquina > 0 && dataInicio == "0" && dataFim != "0")
+            {
+
+                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                IQueryable<PedidoPreventivaDto> pMpreventiva =
+                    from eq in db.Equipamento
+                    from c in db.AspNetUsers
+                    from p in db.PedidoManutPreventiva
+                    where p.UtilizadorIDUser == c.Id
+                    where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina &&
+                    p.DataPedido <= dataFimConvertida)
+                    orderby p.DataPedido descending
+                    select new PedidoPreventivaDto
+                    {
+                        IDPedido = p.ID,
+                        UtilizadorIDUser = c.Nome,
+                        IDEquipamento = p.IDEquipamento,
+                        Descricao = p.Descricao,
+                        DataPedido = p.DataPedido,
+                        DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
+                    };
+
+                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
+                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
+
+                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
+                {
+                    PedidoManutPreventivoList = result,
+                    CountPedidos = pMpreventiva.Count()
+                };
+            }
+
 
             return pedidoPreventivaDtoCount;
-
-
     }
 
- 
+
+       
         /// DTO de um post simples para inserir num método POST.
         private PedidoManutPreventiva PedidoMPreventivaDtoTOPedidoMPreventiva(PedidoPreventivaDto pedidoManutPreventivaDto)
         {

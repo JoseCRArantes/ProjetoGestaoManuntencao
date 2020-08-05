@@ -15,6 +15,13 @@ import { PedidosPreventivosService } from "../../shared/pedidoMpreventiva/pedido
 import { IntervencaoPreventivo } from "src/app/shared/pedidoMpreventiva/intervencaoPreventiva.model";
 import { IntervencaoPreventivaAddComponent } from "../intervencao-preventiva-add/intervencao-preventiva-add.component";
 import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-page/intervencao-add-user-home-page.component';
+import { GrupoMaquina } from '../../shared/gruposmaquina/grupomaquinamodel';
+import { AspNetUsers } from '../../shared/pedidoMpreventiva/aspNetUsers.model';
+import {TipoUtilizadorService} from '../../shared/tipoUtilizador/tipoUtilizador.service';
+import { TipoUtilizador} from '../../shared/tipoUtilizador/tipoUtilizador.model';
+import {MatIconModule} from '@angular/material/icon'
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: "app-pedido-preventiva-list",
   templateUrl: "./pedido-preventiva-list.component.html",
@@ -23,15 +30,23 @@ import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-
 export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   constructor(
     public pedidosService: PedidosPreventivosService,
-    public dialog: MatDialog
+    public tipoUtilizadorService: TipoUtilizadorService,
+    public dialog: MatDialog,
+    private route: ActivatedRoute
   ) {}
-
+ 
+  
   isLoading = false;
   pedidos: PedidoPreventivo[] = [];
   equipamentosList: Equipamento[] = [];
   estadoIntervencaoList: EstadoIntervencao[] = [];
   intervencoesFiltradas: IntervencaoPreventivo[] = [];
   intervencoes: IntervencaoPreventivo[] = [];
+  gruposMaquinaList: GrupoMaquina[] = [];
+  equipamentosFiltrados: Equipamento[] = [];
+  aspNetUsersList: any = [];
+  tipoUtilizadorList: any = [];
+  gmID : number;
 
   private pedidosSub: Subscription;
   private intervencoesSub: Subscription;
@@ -40,10 +55,17 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   totalPedidos = 0;
   pedidosPerPage = 2;
   currentPage = 1;
+  selectedOptionGrupo = 0; 
+  selectedOptionDateInicio= "0";
+  selectedOptionDateFim = "0";
+  
+
+  
 
   ngOnInit() {
+
     this.isLoading = true;
-    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, 0, "0", "0");
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
       .subscribe(
@@ -64,7 +86,60 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     //Carregamento de outros métodos.
     this.loadEstadosIntervencao();
     this.loadEquip();
+    this.loadGrupoMaquinas();
+    this.loadAspNetUsers();
+    this.loadTiposUtilizador();
   }
+
+
+  limparFiltros()
+  {
+
+  }
+  
+  procuraAvancada()
+  {
+    console.log(this.selectedOptionGrupo, "Grupo elecionado");
+    this.isLoading = true;
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, this.selectedOptionGrupo, this.selectedOptionDateInicio, this.selectedOptionDateFim);
+    this.pedidosSub = this.pedidosService
+      .getPedidoUpdateListener()
+      .subscribe(
+        (pedidoData: { pedidos: PedidoPreventivo[]; CountPedidos: number }) => {
+          this.isLoading = false;
+          this.pedidos = pedidoData.pedidos;
+          this.totalPedidos = pedidoData.CountPedidos;
+        }
+      );
+  }
+
+
+     //load utilizadores da DB 
+     loadAspNetUsers() {
+      return this.pedidosService.GetAspNetUsers().subscribe((data: {}) => {
+        this.aspNetUsersList = data;
+      })
+    }
+    
+    //load tipos de utilizador da DB
+    loadTiposUtilizador() {
+      return this.tipoUtilizadorService.GetTiposUtilizador().subscribe((data: {}) => {
+      this.tipoUtilizadorList = data;
+     
+   })
+  }
+
+  
+  converterIDTipoParaDescr(a:number)
+  {
+    for(let i= 0; i<this.tipoUtilizadorList.length;i++)
+    {
+      if(a==this.tipoUtilizadorList[i].IDTipo)
+      return "(" + this.tipoUtilizadorList[i].TipoDescr + " - " + this.tipoUtilizadorList[i].SeccaoTrabalho +")";
+    }
+
+  }
+  
 
   ngOnDestroy() {
     this.pedidosSub.unsubscribe();
@@ -74,8 +149,16 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   onChangedPage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.pedidosPerPage = pageData.pageSize;
-    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, this.selectedOptionGrupo, this.selectedOptionDateInicio, this.selectedOptionDateFim);
   }
+
+  loadGrupoMaquinas() {
+    return this.pedidosService.GetGruposMaquina().subscribe((data: GrupoMaquina[]) => {
+      this.gruposMaquinaList = data;
+      console.log(this.gruposMaquinaList);
+    })
+  }
+
 
   openDialog(idPedido) {
     console.log(idPedido, "Passou na componente, ID do Pedido");
@@ -115,12 +198,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     if(rhours>=1 && rminutes==0)
       return rhours + "h";
     if(rhours>=1 && rminutes>0)
-      return rhours + " h:" + rminutes + "m";
-
-
-
-
-      
+      return rhours + " h:" + rminutes + "m";    
   }
 
   //Troca no front-end, o ID do equipamento pelo código interno da empresa

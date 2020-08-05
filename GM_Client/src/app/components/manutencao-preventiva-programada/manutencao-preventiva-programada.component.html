@@ -10,6 +10,8 @@
       <label>Grupo de máquina</label>
       <br />
       <select [(ngModel)]="selectedOption" (click)="listJustgroupmachine()" style="width:300px">
+        <!-- <select  class="form-group" formControlName="IDEquipamento"> -->
+          <option value="0">Grupo de máquina</option>  
         <option
           *ngFor="let item of gruposMaquinaList"
           [value]="item.IDGrupoMaquinas"

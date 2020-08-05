@@ -9,31 +9,71 @@
 <p>
 
 <hr />
+
 <div class="inner">
+  
   <div id="main">
     <div id="side_bar">
-    <h5 class="formatH5" style="text-align:left">Pedidos preventivos</h5>
-   <button
-      type="button"
-      class="btn btn-outline-primary"
-      style="float: right;"
-      [routerLink]="['/pedido-mpreventiva-add']"
-    >
-      Manutenção individual
-    </button>
-    
-    
+    <h5 class="formatH5" style="text-align:right">Pedidos preventivos </h5>
     <button
-      type="button"
-      class="btn btn-outline-primary"
-      style="float: right;"
-      [routerLink]="['/manutencao-preventiva-programada']"
-    >
-      Manutenção em grupo
-    </button>
+    type="button"
+    class="btn btn-outline-primary"
+    style="float: right;"
+    [routerLink]="['/pedido-mpreventiva-add']"
+  >
+    Manutenção individual
+  </button>
+  
+  
+  <button
+    type="button"
+    class="btn btn-outline-primary"
+    style="float: right;"
+    [routerLink]="['/manutencao-preventiva-programada']"
+  >
+    Manutenção em grupo
+  </button>
+    <br>
+
+    <div class="rowSelectTags">
+      <div class="column">
+        
+
+
+    <label class="AlignFilter" for="AlignFilter">Grupo de máquina</label><br>
+    <select class="AlignFilter" id="AlignFilter" [(ngModel)]="selectedOptionGrupo"  style="width:180px">
+      <option selected>0</option>
+
+      <option
+        *ngFor="let item of gruposMaquinaList"
+        [value]="item.IDGrupoMaquinas"
+        >{{ item.CodigoInterno }} - {{ item.Descr }}</option
+      >
+    </select>
+  </div>
+  <div class="column">
+    <label class="AlignFilter" for="AlignFilter">de:</label><br>
+      <input type="Date" [(ngModel)]="selectedOptionDateInicio" select class="AlignFilter" id="AlignFilter" style="width:180px">
+  </div>
+    <div class="column">
+      <label class="AlignFilter" for="AlignFilter">até:</label><br>
+        <input type="Date" [(ngModel)]="selectedOptionDateFim" select class="AlignFilter" id="AlignFilter" style="width:180px">
+    </div>
+    <div class="column2">
+ <br>
+  <button class="AlignFilter" (click)="procuraAvancada()" mat-icon-button > <mat-icon>search</mat-icon></button>
+  </div>
+  <div class="column2">
+    <br>
+    <button (click)="limparFiltros()" mat-icon-button > <mat-icon>delete_sweep</mat-icon></button>
+    </div>
+  
+     </div>
   </div>
   </div>
   <br />
+  <br>
+  <br>
   <div class="table-responsive">
     <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
       <thead>

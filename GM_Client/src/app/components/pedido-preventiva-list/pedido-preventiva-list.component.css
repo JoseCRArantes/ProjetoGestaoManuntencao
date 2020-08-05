@@ -47,9 +47,38 @@ mat-paginator {
   .formatH5{
     margin-left: 40px;
   }
+
+  .column {
+    float: left;
+    width: 15%;
+    padding: 1px;
+  }
+
+  .column2{
+    float: left;
+    width: 6%;
+    padding: 1px;
+  }
+  
+  /* Clear floats after image containers */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  
+  .AlignFilter{
+    margin-left: 40px;
+  }
+
+  .AlignFilter1{
+    margin-left:40px;
+  }
   
   
   .col{
     height: 50px;
     background-color: slategrey;
   }
+

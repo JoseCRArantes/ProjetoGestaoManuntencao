@@ -144,10 +144,10 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
         this.intervencoesFiltradas.push(this.intervencoes[j]);
       }
     }
-
+/* 
     if (this.intervencoesFiltradas.length > 0) {
       var max = this.intervencoesFiltradas[0].IDPedido;
-      var maxIndex = 0;
+      var maxIndex = 0;S
 
       for (var i = 0; i < this.intervencoesFiltradas.length; i++) {
         if (this.intervencoesFiltradas[i].IDPedido > max) {
@@ -155,13 +155,14 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
           max = this.intervencoesFiltradas[i].IDPedido;
         }
       }
-    }
+    } */
 
     if (this.intervencoesFiltradas.length > 0) {
       var maxI = this.intervencoesFiltradas.reduce(function (prev, current) {
         return prev.IDPedido > current.IDPedido ? prev : current;
       });
 
+      
       
     }
     if (this.intervencoesFiltradas.length == 0) return "S/I";

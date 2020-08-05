@@ -23,13 +23,13 @@ export class ManutencaoPreventivaProgramadaComponent implements OnInit {
   gmID : number;
 
   gruposMaquinaList: GrupoMaquina[] = [];
-  equipamentosList: Equipamento[] = [];
   equipamentosFiltrados: Equipamento[] = [];
+  equipamentosList: Equipamento[] = [];
+  
   aspNetUsersList: any = [];
   tipoUtilizadorList: any = [];
 
   constructor(public pedidoService: PedidosPreventivosService, 
-   // public aspNetUserService: AspNetUsers,
     public tipoUtilizadorService: TipoUtilizadorService,
     public fb: FormBuilder,
     private ngZone: NgZone,
