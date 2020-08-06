@@ -56,8 +56,9 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   pedidosPerPage = 2;
   currentPage = 1;
   selectedOptionGrupo = 0; 
-  selectedOptionDateInicio= "0";
-  selectedOptionDateFim = "0";
+  selectedOptionDateInicio= "01-01-1990";
+  selectedOptionDateFim = "01-01-1990";
+  model: any = {};
   
 
   
@@ -65,7 +66,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.isLoading = true;
-    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, 0, "0", "0");
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, 0, "01-01-1990", "01-01-1990");
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
       .subscribe(
@@ -94,12 +95,15 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
 
   limparFiltros()
   {
-
+    this.ngOnInit();
+    this.selectedOptionGrupo = 0;
+    this.selectedOptionDateInicio = "01-01-1990";
+    this.selectedOptionDateFim = "01-01-1990";
   }
   
   procuraAvancada()
   {
-    console.log(this.selectedOptionGrupo, "Grupo elecionado");
+    console.log(this.selectedOptionGrupo, "Grupo selecionado");
     this.isLoading = true;
     this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, this.selectedOptionGrupo, this.selectedOptionDateInicio, this.selectedOptionDateFim);
     this.pedidosSub = this.pedidosService
@@ -129,7 +133,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
    })
   }
 
-  
+  /* 
   converterIDTipoParaDescr(a:number)
   {
     for(let i= 0; i<this.tipoUtilizadorList.length;i++)
@@ -138,7 +142,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
       return "(" + this.tipoUtilizadorList[i].TipoDescr + " - " + this.tipoUtilizadorList[i].SeccaoTrabalho +")";
     }
 
-  }
+  } */
   
 
   ngOnDestroy() {
@@ -219,6 +223,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     }
   }
 
+
   //Mostra os estados de intervenção ## melhorar esta parte.
   checkStateOfIntervention(a: number) {
     if (this.intervencoesFiltradas.length > 0) {
@@ -233,23 +238,15 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.intervencoesFiltradas.length > 0) {
-      var max = this.intervencoesFiltradas[0].PedidoManutPreventivaID;
-      var maxIndex = 0;
-
-      for (var i = 1; i < this.intervencoesFiltradas.length; i++) {
-        if (this.intervencoesFiltradas[i].PedidoManutPreventivaID > max) {
-          maxIndex = i;
-          max = this.intervencoesFiltradas[i].PedidoManutPreventivaID;
-        }
+      if (this.intervencoesFiltradas.length > 0) {
+        var maxI = this.intervencoesFiltradas.reduce(function (prev, current) {
+          return prev.PedidoManutPreventivaID > current.PedidoManutPreventivaID ? prev : current;
+        });
+       
       }
-    }
-
-    if (this.intervencoesFiltradas.length == 0) return "S/I";
-    else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 2)
-      return "Aguarda";
-    else if (this.intervencoesFiltradas[maxIndex].IDEstadoIntervencao == 3)
-      return "Fechado";
+      if (this.intervencoesFiltradas.length == 0) return "S/I";
+        else if (maxI.IDEstadoIntervencao == 2) return "Aguarda";
+        else if (maxI.IDEstadoIntervencao == 3) return "Fechado";
   }
 
   //lista estados de intervenção.

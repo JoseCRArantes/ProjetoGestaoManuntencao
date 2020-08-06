@@ -93,7 +93,7 @@ namespace GMwebApi.Controllers
             PedidoPreventivaDtoCount pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount();
            
             //Pesquisa sem filtros
-            if (grupoMaquina == 0 && dataInicio=="0" && dataFim=="0")
+            if (grupoMaquina == 0 && dataInicio== "01-01-1990" && dataFim== "01-01-1990")
             {
                 IQueryable<PedidoPreventivaDto> pMpreventiva =
 
@@ -156,7 +156,7 @@ namespace GMwebApi.Controllers
             }
 
             //Filtro com apenas DataFim 
-            if (grupoMaquina == 0 && dataInicio == "0" && dataFim != "0")
+            if (grupoMaquina == 0 && dataInicio == "01-01-1990" && dataFim != "01-01-1990")
             {
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
@@ -189,7 +189,7 @@ namespace GMwebApi.Controllers
             }
 
             //Filtro com data inicio e data fim
-            if (grupoMaquina == 0 && dataInicio != "0" && dataFim != "0")
+            if (grupoMaquina == 0 && dataInicio != "01-01-1990" && dataFim != "01-01-1990")
             {
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
@@ -225,7 +225,7 @@ namespace GMwebApi.Controllers
 
 
             //Filtro apenas com grupo de máquina.
-            if (grupoMaquina>0 && dataInicio == "0" && dataFim == "0")
+            if (grupoMaquina>0 && dataInicio == "01-01-1990" && dataFim == "01-01-1990")
             {
 
                 IQueryable<PedidoPreventivaDto> pMpreventiva =
@@ -257,7 +257,7 @@ namespace GMwebApi.Controllers
             }
 
             //Pesquisa com todos os filtros ativos.
-            if (grupoMaquina > 0 && dataInicio != "0" && dataFim != "0")
+            if (grupoMaquina > 0 && dataInicio != "01-01-1990" && dataFim != "01-01-1990")
             {
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
                          System.Globalization.CultureInfo.InvariantCulture);
@@ -293,7 +293,7 @@ namespace GMwebApi.Controllers
             }
 
             //Pesquisa com grupo maquina e data inicio.
-            if (grupoMaquina > 0 && dataInicio != "0" && dataFim == "0")
+            if (grupoMaquina > 0 && dataInicio != "01-01-1990" && dataFim == "01-01-1990")
             {
 
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
@@ -328,7 +328,7 @@ namespace GMwebApi.Controllers
             }
 
             //Pesquisa com grupo maquina e data fim
-            if (grupoMaquina > 0 && dataInicio == "0" && dataFim != "0")
+            if (grupoMaquina > 0 && dataInicio == "01-01-1990" && dataFim != "01-01-1990")
             {
 
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",

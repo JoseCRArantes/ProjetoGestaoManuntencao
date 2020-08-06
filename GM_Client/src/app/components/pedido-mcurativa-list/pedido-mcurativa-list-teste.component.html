@@ -5,38 +5,114 @@
   *ngIf="isLoading"
 >
 </mat-spinner>
-<p style="text-align:center" *ngIf="isLoading">aguarde ...</p>
-<p>
+<p style="text-align: center;" *ngIf="isLoading">aguarde ...</p>
+<p></p>
 
 <hr />
 <div class="inner">
   <div id="main">
     <div id="side_bar">
-    <h5 class="formatH5" style="text-align:left">Pedidos curativos</h5>
-    <button
-      type="button"
-      class="btn btn-outline-primary"
-      style="float: right;"
-      [routerLink]="['/pedido-mcurativa-add']"
-    >
-      Novo pedido
-    </button>
-  </div>
+      <h5 class="formatH5" style="text-align: right;">Pedidos curativos</h5>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        style="float: right;"
+        [routerLink]="['/pedido-mcurativa-add']"
+      >
+        Novo pedido
+      </button>
+      <br />
+
+      <div class="rowSelectTags">
+        <div class="column">
+          <label class="AlignFilter" for="AlignFilter">Grupo de máquina:</label
+          ><br />
+          <select
+            class="AlignFilter"
+            id="AlignFilter"
+            [(ngModel)]="selectedOptionGrupo"
+            style="width: 180px;"
+          >
+
+          <option selected>0</option>
+
+            <option
+              *ngFor="let item of gruposMaquinaList"
+              [value]="item.IDGrupoMaquinas"
+              >{{ item.CodigoInterno }} - {{ item.Descr }}</option
+            >
+          </select>
+        </div>
+        <div class="column">
+          <label class="AlignFilter" for="AlignFilter">de:</label><br />
+          <input
+            type="Date"
+            [(ngModel)]="selectedOptionDateInicio"
+            select
+            class="AlignFilter"
+            id="AlignFilter"
+            style="width: 180px;"
+          />
+        </div>
+        <div class="column">
+          <label class="AlignFilter" for="AlignFilter">até:</label><br />
+          <input
+            type="Date"
+            [(ngModel)]="selectedOptionDateFim"
+            select
+            class="AlignFilter"
+            id="AlignFilter"
+            style="width: 180px;"
+          />
+        </div>
+        <div class="column2">
+          <br />
+          <button
+            class="AlignFilter"
+            (click)="procuraAvancada()"
+            mat-icon-button
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div class="column2">
+          <br />
+          <button (click)="limparFiltros()" mat-icon-button>
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   <br />
-  <div class="table-responsive">
-    <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
-      <thead>
-        <tr>
-          <!--<th scope="col" width="20">#</th>-->
-          <th scope="col" width="80">Utilizador</th>
-          <th scope="col" width="220">Equipamento</th>
-          <th scope="col" width="320">Descrição</th>
-          <th scope="col" width="150">Data de avaria</th>
-          <th scope="col" width="80">Estado</th>
-        </tr>
-      </thead>
-    </table>
+  <br />
+  <br />
+
+  <ng-container *ngIf="totalPedidos == 0">
+    <br /><br /><br />
+    <p style="text-align: center;"><strong>SEM RESULTADOS</strong></p>
+    <br /><br /><br />
+  </ng-container>
+
+  <div *ngIf="totalPedidos > 0">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        style="width: 100%;"
+        [hidden]="isLoading"
+      >
+        <thead>
+          <tr>
+            <!--<th scope="col" width="20">#</th>-->
+            <th scope="col" width="80">Utilizador</th>
+            <th scope="col" width="220">Equipamento</th>
+            <th scope="col" width="320">Descrição</th>
+            <th scope="col" width="150">Data de avaria</th>
+            <th scope="col" width="80">Estado</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
 
   <mat-accordion multi="false">
@@ -57,7 +133,6 @@
               <td class="tb-td-txt" width="80">
                 {{ checkStateOfIntervention(i) }}
               </td>
-              
             </tr>
           </tbody>
         </table>
@@ -111,7 +186,7 @@
                     {{ inter.DataFimIntervencao | date: "dd/MM/yyyy HH:mm" }}
                   </td>
                   <td class="tb-td-txt" width="100">
-                    {{ getTimeDiff(inter.ID) }} 
+                    {{ getTimeDiff(inter.ID) }}
                   </td>
                   <td>
                     <button
@@ -119,9 +194,14 @@
                       color="accent"
                       (click)="deleteIntervencao(inter.ID)"
                     >
-                    <mat-icon _ngcontent-oax-c0="" class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">delete</mat-icon>
+                      <mat-icon
+                        _ngcontent-oax-c0=""
+                        class="mat-icon notranslate material-icons mat-icon-no-color"
+                        role="img"
+                        aria-hidden="true"
+                        >delete</mat-icon
+                      >
                     </button>
-                    
                   </td>
                 </ng-container>
               </tr>
@@ -131,6 +211,12 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <mat-paginator class="col" [length]="totalPedidos" [pageSize]="pedidosPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="pedidos.length > 0"></mat-paginator>
-
+  <mat-paginator
+    class="col"
+    [length]="totalPedidos"
+    [pageSize]="pedidosPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+    *ngIf="pedidos.length > 0"
+  ></mat-paginator>
 </div>

@@ -9,36 +9,45 @@ import { IntervencaoCurativa } from "src/app/shared/pedidoMcurativa-teste/interv
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { IntervencaoCurativaAddComponent } from "../intervencao-curativa-add/intervencao-curativa-add.component";
-
+import { GrupoMaquina } from '../../shared/gruposmaquina/grupomaquinamodel'; 
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: "app-pedido-mcurativa-list-teste",
   templateUrl: "./pedido-mcurativa-list-teste.component.html",
   styleUrls: ["./pedido-mcurativa-list-teste.component.css"],
 })
 export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
+
+  constructor(
+    public pedidosService: PedidosService,
+    public dialog: MatDialog, 
+    private route: ActivatedRoute
+  ) {}
+
+  private pedidosSub: Subscription;
+  private intervencoesSub: Subscription;
+
   isLoading = false;
   pedidos: PedidoManutCurativaTeste[] = [];
   equipamentosList: Equipamento[] = [];
   estadoIntervencaoList: EstadoIntervencao[] = [];
   intervencoes: IntervencaoCurativa[] = [];
   intervencoesFiltradas: IntervencaoCurativa[] = [];
+  gruposMaquinaList: GrupoMaquina[] = [];
 
-  constructor(
-    public pedidosService: PedidosService,
-    public dialog: MatDialog
-  ) {}
-
-  private pedidosSub: Subscription;
-  private intervencoesSub: Subscription;
+ 
 
   pageSizeOptions = [5, 8, 12];
   totalPedidos = 0;
   pedidosPerPage = 2;
   currentPage = 1;
+  selectedOptionGrupo = 0; 
+  selectedOptionDateInicio= "01-01-1990";
+  selectedOptionDateFim = "01-01-1990";
 
   ngOnInit() {
     this.isLoading = true;
-    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, 0, "01-01-1990","01-01-1990");
 
     this.pedidosSub = this.pedidosService
       .getPedidoUpdateListener()
@@ -52,11 +61,7 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
           this.totalPedidos = pedidoData.CountPedidos;
         }
       );
-    /*  this.pedidosSub = this.pedidosService.getPedidoUpdateListener().subscribe((pedidos: {PedidoManutCurativaList: PedidoManutCurativaTeste[], CountPedidos: number}) => {
-        this.isLoading = false;
-        this.totalPedidos = pedidos.CountPedidos;
-        this.pedidos = pedidos.PedidoManutCurativaList;
-      }); */
+
 
     this.pedidosService.getIntervencoes();
     this.intervencoesSub = this.pedidosService
@@ -68,7 +73,38 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     //Carregamento de outros métodos.
     this.loadEstadosIntervencao();
     this.loadEquip();
+    this.loadGrupoMaquinas();
   }
+
+  limparFiltros()
+  {
+    this.ngOnInit();
+    this.selectedOptionGrupo = 0;
+    this.selectedOptionDateInicio = "01-01-1990";
+    this.selectedOptionDateFim = "01-01-1990";
+  }
+
+  procuraAvancada()
+  {
+    console.log(this.selectedOptionGrupo, "Grupo selecionado");
+    this.isLoading = true;
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, this.selectedOptionGrupo, this.selectedOptionDateInicio, this.selectedOptionDateFim);
+
+    this.pedidosSub = this.pedidosService
+      .getPedidoUpdateListener()
+      .subscribe(
+        (pedidoData: {
+          pedidos: PedidoManutCurativaTeste[];
+          CountPedidos: number;
+        }) => {
+          this.isLoading = false;
+          this.pedidos = pedidoData.pedidos;
+          this.totalPedidos = pedidoData.CountPedidos;
+        }
+      );
+
+  }
+
 
   getTimeDiff(a: number) {
     for (let j = 0; j < this.intervencoes.length; j++) {
@@ -100,7 +136,7 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
   onChangedPage(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.pedidosPerPage = pageData.pageSize;
-    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage);
+    this.pedidosService.getPedidos(this.pedidosPerPage, this.currentPage, this.selectedOptionGrupo, this.selectedOptionDateInicio, this.selectedOptionDateFim);
   }
 
   openDialog(idPedido) {
@@ -113,8 +149,16 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     return this.pedidosService.DeleteIntervencao(ID).subscribe((res) => {});
   }
 
+  loadGrupoMaquinas() {
+    return this.pedidosService.GetGruposMaquina().subscribe((data: GrupoMaquina[]) => {
+      this.gruposMaquinaList = data;
+      console.log(this.gruposMaquinaList);
+    })
+  }
+
   //## MÉTODOS ## //
 
+  
   //Troca no front-end, o ID do equipamento pelo código interno da empresa
   changeIDtoInternalCode(equip: number) {
     for (let j = 0; j < this.equipamentosList.length; j++) {
@@ -126,8 +170,7 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
           this.equipamentosList[j].CodigoInterno +
           " - " +
           this.equipamentosList[j].Marca // +
-          //" " +
-          //this.equipamentosList[j].Descr
+
         );
       }
     }
@@ -144,26 +187,12 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
         this.intervencoesFiltradas.push(this.intervencoes[j]);
       }
     }
-/* 
-    if (this.intervencoesFiltradas.length > 0) {
-      var max = this.intervencoesFiltradas[0].IDPedido;
-      var maxIndex = 0;S
-
-      for (var i = 0; i < this.intervencoesFiltradas.length; i++) {
-        if (this.intervencoesFiltradas[i].IDPedido > max) {
-          maxIndex = i;
-          max = this.intervencoesFiltradas[i].IDPedido;
-        }
-      }
-    } */
 
     if (this.intervencoesFiltradas.length > 0) {
       var maxI = this.intervencoesFiltradas.reduce(function (prev, current) {
         return prev.IDPedido > current.IDPedido ? prev : current;
       });
-
-      
-      
+     
     }
     if (this.intervencoesFiltradas.length == 0) return "S/I";
       else if (maxI.IDEstadoIntervencao == 2) return "Aguarda";

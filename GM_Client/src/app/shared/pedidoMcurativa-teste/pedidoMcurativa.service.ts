@@ -35,8 +35,8 @@ export class PedidosService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getPedidos(pedidosPerPage: number, currentPage: number) {
-    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}`;
+  getPedidos(pedidosPerPage: number, currentPage: number, selectOptionGrupo:number, selectedOptionDateInicio: string, selectedOptionDateFim: string) {
+    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}&grupoMaquina=${selectOptionGrupo}&dataInicio=${selectedOptionDateInicio}&dataFim=${selectedOptionDateFim}`;
     this.httpClient
       .get<{
         PedidoManutCurativaList: PedidoManutCurativaTeste[];
@@ -61,18 +61,6 @@ export class PedidosService {
         })
       )
       .subscribe((pedidosCurativa) => {
-        /*  let transformedpedidos: PedidoManutCurativaTeste[] = [];
-        console.log(pedidos);
-        for (let x = 0; x < pedidos.PedidoManutCurativaList.length; x++) {
-          let transformedpedido: PedidoManutCurativaTeste = {
-            IDPedido: pedidos.PedidoManutCurativaList[x].IDPedido,
-            UtilizadorIDUser: pedidos.PedidoManutCurativaList[x].UtilizadorIDUser,
-            IDEquipamento: pedidos.PedidoManutCurativaList[x].IDEquipamento,
-            Descricao: pedidos.PedidoManutCurativaList[x].Descricao,
-            DataPedido: pedidos.PedidoManutCurativaList[x].DataPedido,
-          };
-          transformedpedidos.push(transformedpedido);
-        } */
         this.countPedidos = pedidosCurativa.pedidoCurativoCount;
         console.log("numero de pedidos", pedidosCurativa.pedidoCurativoCount);
         this.pedidos = pedidosCurativa.PedidoManutCurativaList;
