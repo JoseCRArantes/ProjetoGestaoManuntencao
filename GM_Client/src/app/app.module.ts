@@ -58,6 +58,8 @@ import { IntervencaoPreventivaAddComponent } from './components/intervencao-prev
 import { ManutencaoPreventivaProgramadaComponent } from './components/manutencao-preventiva-programada/manutencao-preventiva-programada.component';
 import { ManutencaoProgHomePageComponent } from './components/manutencao-prog-home-page/manutencao-prog-home-page.component';
 import { IntervencaoAddUserHomePageComponent } from './components/intervencao-add-user-home-page/intervencao-add-user-home-page.component';
+import { EditPermissaoComponent } from './components/edit-permissao/edit-permissao.component';
+import { ListPermissaoComponent } from './components/list-permissao/list-permissao.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 //import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
@@ -83,6 +85,8 @@ import { IntervencaoAddUserHomePageComponent } from './components/intervencao-ad
     ManutencaoPreventivaProgramadaComponent,
     ManutencaoProgHomePageComponent,
     IntervencaoAddUserHomePageComponent,
+    EditPermissaoComponent,
+    ListPermissaoComponent,
  
   ],
   entryComponents: [IntervencaoCurativaAddComponent, IntervencaoPreventivaAddComponent],

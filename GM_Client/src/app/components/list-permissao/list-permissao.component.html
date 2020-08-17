@@ -1,0 +1,43 @@
+<div class="container wrapper">
+    <div class="row">
+
+        
+        <!-- Roles table -->
+        <div class="col-md-12">
+
+            <div class="inner">
+                <div id="main">
+                    <br>
+                    <h3>Permissão dos utilizadores</h3>
+                    
+                  </div> 
+                  <br>
+                <table class="table table-bordered" style="text-align:center;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tipo de permissão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr></tr>
+                        <tr *ngFor="let aspnet of aspNetRolesList;let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{aspnet.Nome}}</td>  
+                            <td>{{aspnet.Email}}</td>
+                            <td>{{aspnet.Name}}</td>
+                            <td>
+                               <button type="button" class="btn btn-success btn-sm rounded-0" [routerLink]="['/edit-permissao/', aspnet.Email]">Editar</button>
+                            </td>
+
+                           
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

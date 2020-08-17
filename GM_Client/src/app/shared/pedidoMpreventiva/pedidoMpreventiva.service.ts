@@ -89,10 +89,6 @@ export class PedidosPreventivosService {
   }
 
 
-  //Método GET Pedidos.
-
- // /PedidosPreventivas?pedidosPerPage={pedidosPerPage}&currentPage={currentPage}&grupoMaquina={grupoMaquina}&dataInicio={dataInicio}&dataFim={dataFim}
-
   getPedidos(pedidosPerPage: number, currentPage: number, selectOptionGrupo:number, selectedOptionDateInicio: string, selectedOptionDateFim: string) {
     const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}&grupoMaquina=${selectOptionGrupo}&dataInicio=${selectedOptionDateInicio}&dataFim=${selectedOptionDateFim}`;
     this.httpClient

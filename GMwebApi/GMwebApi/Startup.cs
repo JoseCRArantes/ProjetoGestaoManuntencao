@@ -19,17 +19,10 @@ namespace GMwebApi
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             
+            ConfigureAuth(app);            
 
 
-            ConfigureAuth(app);
-
-
-            //app.UseCors(builder => builder.WithOrigins("*"));
-            #region Old CORS
-            //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
-            
-
-            #endregion
         }
+
     }
 }

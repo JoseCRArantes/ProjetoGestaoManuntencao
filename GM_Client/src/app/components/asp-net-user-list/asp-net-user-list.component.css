@@ -3,3 +3,13 @@
 margin: auto;
 
 }
+
+.column {
+    float: left;
+    width: 15%;
+    padding: 1px;
+  }
+
+
+
+  

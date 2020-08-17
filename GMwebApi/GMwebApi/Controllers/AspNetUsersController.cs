@@ -15,6 +15,8 @@ using System.Web;
 using System.Web.Security;
 using System.Threading;
 using System.Data.Entity.Validation;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GMwebApi.Controllers
 {
@@ -22,10 +24,13 @@ namespace GMwebApi.Controllers
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
+       
+        ApplicationDbContext context = new ApplicationDbContext();
 
         //Retorna apenas os atributos do objeto essenciais
         // GET: api/AspNetUsers
         [Authorize]
+        [Authorize(Roles = "Admin")]
         public IQueryable<AspNetUsersDto> GetAspNetUsers()
         {
             return db.AspNetUsers.ToList().Select(

@@ -4,3 +4,5 @@ export class AspNetUsers {
   NumeroUtilizador: number;
   Nome: string;
 }
+
+

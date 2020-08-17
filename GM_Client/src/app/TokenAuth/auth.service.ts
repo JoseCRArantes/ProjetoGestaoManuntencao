@@ -89,6 +89,8 @@ export class AuthService {
     );
   }
 
+
+  
   logout() {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);

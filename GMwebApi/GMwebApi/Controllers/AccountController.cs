@@ -312,7 +312,7 @@ namespace GMwebApi.Controllers
             {
                 state = null;
             }
-
+            
             foreach (AuthenticationDescription description in descriptions)
             {
                 ExternalLoginViewModel login = new ExternalLoginViewModel

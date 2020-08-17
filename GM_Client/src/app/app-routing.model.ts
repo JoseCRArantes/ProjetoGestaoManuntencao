@@ -19,6 +19,9 @@ import { PedidoMpreventivaAddComponent } from "./components/pedido-mpreventiva-a
 import { IntervencaoPreventivaAddComponent } from "./components/intervencao-preventiva-add/intervencao-preventiva-add.component";
 import { ManutencaoPreventivaProgramadaComponent} from "./components/manutencao-preventiva-programada/manutencao-preventiva-programada.component";
 import {ManutencaoProgHomePageComponent } from "./components/manutencao-prog-home-page/manutencao-prog-home-page.component";
+import {ListPermissaoComponent} from "./components/list-permissao/list-permissao.component";
+import {EditPermissaoComponent } from "./components/edit-permissao/edit-permissao.component";
+
 import { audit } from 'rxjs/operators';
 const routes: Routes = [
   {
@@ -26,6 +29,7 @@ const routes: Routes = [
     component: EquipEditComponent,
     canActivate: [AuthGuard],
   },
+
   {
     path: "equip-list",
     component: EquipListComponent,
@@ -91,6 +95,16 @@ const routes: Routes = [
   {
     path:"manutencao-prog-home-page",
     component: ManutencaoProgHomePageComponent,
+    canActivate:[AuthGuard],
+  },
+  {
+    path:"list-permissao",
+    component:ListPermissaoComponent, 
+    canActivate:[AuthGuard],
+  },
+  {
+    path:"edit-permissao/:id",
+    component: EditPermissaoComponent,
     canActivate:[AuthGuard],
   }
 ];

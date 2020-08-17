@@ -28,7 +28,9 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
 
+
         // GET: api/PedidosPreventivas/5
+        [Authorize(Roles = "Admin, Membro")]
         [ResponseType(typeof(PedidoManutPreventiva))]
         public async Task<IHttpActionResult> GetPedidoManutPreventiva(int id)
         {
@@ -45,9 +47,10 @@ namespace GMwebApi.Controllers
         /// Método para o USER saber o que faz ao abrir a App
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "Admin, Membro")]
         public IQueryable<PedidoManutPreventiva> GetPedidosPreventivaUserOK()
         {
-            var result = db.Database.Connection.Query("Select * from PedidoManutPreventiva").AsList();
+           
 
             #region ##### Código anterior #####
             /*IQueryable<PedidoPreventivaDto> pMpreventiva = //from a in db.AspNetUsers
@@ -87,6 +90,7 @@ namespace GMwebApi.Controllers
 
 
         //GET: api/PedidoManutCurativas
+        [Authorize(Roles = "Admin, Membro")]
         public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim)
         {
 
@@ -390,12 +394,10 @@ namespace GMwebApi.Controllers
         /// </summary>
         /// <param name="manutPreventivaGrupoMaquina"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin, Membro")]
         private PedidoManutPreventiva PedidosPrevDtoToManutPreventivaGrMaquina(ManutPreventivaGrupoMaquina manutPreventivaGrupoMaquina)
         {
             AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == manutPreventivaGrupoMaquina.UtilizadorIDUser);
-
-            //var user = User.Identity.GetUserId();
-            
             {
                 return new PedidoManutPreventiva()
                 {
