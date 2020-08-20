@@ -34,7 +34,7 @@ namespace GMwebApi.Controllers
         public List<AspNetRolesDto> GetAspNetRoles()
         {
 
-            string query = "select Nome, Email, RoleId, Name from AspNetUsers, AspNetUserRoles, AspNetRoles where AspNetUsers.Id = AspNetUserRoles.UserId AND AspNetUserRoles.RoleId = AspNetRoles.Id";
+            string query = "select Nome, Email, Name from AspNetUsers left join AspNetUserRoles on(AspNetUsers.Id=AspNetUserRoles.UserId) left join AspNetRoles on(AspNetUserRoles.RoleId= AspNetRoles.Id)";
 
             AspNetRolesDto asp = new AspNetRolesDto();
             List<AspNetRolesDto> lista = new List<AspNetRolesDto>();
@@ -62,28 +62,35 @@ namespace GMwebApi.Controllers
 
         // GET: api/AspNetRoles/5
         [ResponseType(typeof(AspNetRolesDto))]
-        public List<AspNetRolesDto> GetAspNetRoles(string username)
+        public async Task<IHttpActionResult> GetAspNetRoles(string email)
         {
 
-            string query = "select Nome, Email, RoleId, Name from AspNetUsers, AspNetUserRoles, AspNetRoles where AspNetUsers.Id = AspNetUserRoles.UserId AND AspNetUsers.Email = 'catalo@acatel.pt' AND AspNetUserRoles.RoleId = AspNetRoles.Id";
+            string query = "select Nome, Email, RoleId, Name from AspNetUsers, AspNetUserRoles, AspNetRoles where AspNetUsers.Id = AspNetUserRoles.UserId AND AspNetUsers.Email = '" + email+"' AND AspNetUserRoles.RoleId = AspNetRoles.Id";
 
-                AspNetRolesDto asp = new AspNetRolesDto();
-                List<AspNetRolesDto> lista = new List<AspNetRolesDto>();
+            AspNetRolesDto asp = new AspNetRolesDto();
+            List<AspNetRolesDto> lista = new List<AspNetRolesDto>();
 
-                using (var connection = db.Database.Connection)
+            using (var connection = db.Database.Connection)
+            {
+                var resultado = connection.Query<AspNetRolesDto>(query).ToList();
+                foreach (var res in resultado)
                 {
-                    var resultado = connection.Query<AspNetRolesDto>(query).ToList();
-                    foreach (var res in resultado)
-                    {
-                        asp.Nome = res.Nome;
-                        asp.RoleId = res.RoleId;
-                        asp.Name = res.Name;
-                        asp.Email = res.Email;
-                        lista.Add(res);
+                    asp.Nome = res.Nome;
+                    asp.Name = res.Name;
+                    asp.Email = res.Email;
+                    lista.Add(res);
 
-                    }
                 }
-            return lista;
+            }
+
+            var firstElement = lista.First();
+
+            asp.Name = firstElement.Name;
+            asp.Nome = firstElement.Nome;
+            asp.Email = firstElement.Email;
+
+            return Ok(asp);
+            
         }
 
         /// <summary>

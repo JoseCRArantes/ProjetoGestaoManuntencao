@@ -32,10 +32,10 @@ export class AspNetRolesService {
 
 
   //GET ONE
-  GetOneUser(id): Observable<AspNetRoles> {
+  GetOneUser(email): Observable<AspNetRoles> {
     return this.http
       .get<AspNetRoles>(
-        BACKEND_URL + "/AspNetRoles?username=" + id,
+        BACKEND_URL + "/AspNetRoles?email=" + email,
         this.httpOptions
       )
       .pipe(retry(1), catchError(this.errorHandl));

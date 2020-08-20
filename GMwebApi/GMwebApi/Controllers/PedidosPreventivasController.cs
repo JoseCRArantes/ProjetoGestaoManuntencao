@@ -117,7 +117,7 @@ namespace GMwebApi.Controllers
 
                 IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
                     pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
-
+                
                 pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
                 {
                     PedidoManutPreventivoList = result,
@@ -398,6 +398,7 @@ namespace GMwebApi.Controllers
         private PedidoManutPreventiva PedidosPrevDtoToManutPreventivaGrMaquina(ManutPreventivaGrupoMaquina manutPreventivaGrupoMaquina)
         {
             AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == manutPreventivaGrupoMaquina.UtilizadorIDUser);
+            
             {
                 return new PedidoManutPreventiva()
                 {

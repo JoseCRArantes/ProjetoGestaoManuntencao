@@ -344,10 +344,13 @@ namespace GMwebApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            ApplicationDbContext context = new ApplicationDbContext();
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
             var user = new ApplicationUser() {
                 UserName = model.Email, Email = model.Email, IDTipo = model.IDTipo,
                 NumeroUtilizador = model.NumeroUtilizador, Nome = model.Nome
-                //DataInativacao = model.DataInativacao 
+                
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -356,6 +359,10 @@ namespace GMwebApi.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            //Atribuir Role por definição. Permissão mais baixa aquando o registo de um novo user.
+            UserManager.AddToRole(user.Id, "Utilizador");
+            context.SaveChanges();
 
             return Ok();
         }

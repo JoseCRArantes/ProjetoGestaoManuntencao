@@ -54,10 +54,11 @@ export class LoginComponent {
     }
     this.isLoading = true;
     this.authService.login(val.username, val.password);
+    
 
-    setTimeout(() => {
+ /*    setTimeout(() => {
       this.refresh();
-    }, 2000);
+    },3000);  */
   }
 
   refresh(): void {

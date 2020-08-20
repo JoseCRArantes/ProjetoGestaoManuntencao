@@ -28,6 +28,8 @@ namespace GMwebApi.Controllers
         ApplicationDbContext context = new ApplicationDbContext();
 
 
+
+
         //[Authorize]
         //public List<UserRoleModel> GetUsersAndRoles()
         //{

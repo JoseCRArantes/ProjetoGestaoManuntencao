@@ -28,13 +28,14 @@ export class EditPermissaoComponent implements OnInit {
    { 
 
     console.log("edit component antes de chamar o getOneUser");
-    var email = this.actRoute.snapshot.paramMap.get('Email');
-    this.aspNetRolesService.GetOneUser(email).subscribe((data) => {
+    var id = this.actRoute.snapshot.paramMap.get('id');
+    this.aspNetRolesService.GetOneUser(id).subscribe((data) => {
       this.updatePermissaoForm = this.fb.group({
         Email: [data.Email],
-        RoleId: [data.RoleId],
         Name:[data.Name],
-        Nome:[data.Nome],     
+        Nome:[data.Nome],    
+        
+        
       })
       console.log(data);
     })
@@ -43,7 +44,6 @@ export class EditPermissaoComponent implements OnInit {
   updateForm(){
     this.updatePermissaoForm = this.fb.group({
     Email: [''],
-    RoleId : [''],
     Name : [''],
     Nome : ['']
     })   
@@ -52,11 +52,11 @@ export class EditPermissaoComponent implements OnInit {
 
 
 submitForm(){ 
-  var email = this.actRoute.snapshot.paramMap.get('email');
+var id = this.actRoute.snapshot.paramMap.get('id');
   var rolename = this.actRoute.snapshot.paramMap.get('name');
-  this.aspNetRolesService.UpdateAspNetRole(email, rolename , this.updatePermissaoForm.value).subscribe(res => {
+  this.aspNetRolesService.UpdateAspNetRole(id, rolename , this.updatePermissaoForm.value).subscribe(res => {
     this.ngZone.run(() => this.router.navigateByUrl('/list-permissao'))
-  })
+  }) 
 }
 
 
