@@ -5,5 +5,6 @@ export class TokenParams{
     userName: string;
     ".issued": string;
     ".expires": string;
+    roleId: string;
 
 }

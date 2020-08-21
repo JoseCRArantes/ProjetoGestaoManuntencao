@@ -7,7 +7,7 @@ namespace GMwebApi.DTO
 {
     public class AspNetRolesDto
     {
-        public string RoleId { get; set; }
+       
         public string Name { get; set; }
 
         public string Email { get; set; }

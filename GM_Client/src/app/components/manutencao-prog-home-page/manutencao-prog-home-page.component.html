@@ -55,30 +55,26 @@
       </mat-expansion-panel-header>
       <div class="table-responsive">
         <body style="text-align: center;">
-          <table class="table" style="width: 80%;">
+          <table class="table" style="width: 100%;">
             <thead>
               <tr>
-                <th scope="col" width="25">#</th>
-                <th scope="col" width="80">Utilizador</th>
-                <th scope="col" width="250">Descrição</th>
-                <th scope="col" width="150">Estado</th>
-                <th scope="col" width="170">Inicio da intervenção</th>
-                <th scope="col" width="170">Fim da intervenção</th>
-               <td>
-                  <button
-                    type="button"
-                    (click)="openDialog(item.IDPedido)"
-                    class="btn btn-success btn-sm move-right"
-                    style="
-                      position: absolute;
-                      right: 0;
-                      height: 30px;
-                      width: 30px;
-                    "
-                  >
-                    +
-                  </button>
-                </td>
+                <br>
+                
+                <button
+                type="button"
+                (click)="openDialog(item.IDPedido)"
+                class="btn btn-success btn-sm move-right"
+                style="
+                  position: center;
+                  right: 0;
+                  height: 40px;
+                  width: 150px;
+                "
+              >
+                Fechar pedido
+              </button>
+              <br>
+              <br>
               </tr>
             </thead>
             <tbody>

@@ -45,7 +45,6 @@ namespace GMwebApi.Controllers
                 foreach (var res in resultado)
                 {
                     asp.Nome = res.Nome;
-                    asp.RoleId = res.RoleId;
                     asp.Name = res.Name;
                     asp.Email = res.Email;
                     lista.Add(res);
@@ -101,17 +100,29 @@ namespace GMwebApi.Controllers
         /// <returns></returns>
         // PUT: api/AspNetRoles/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAspNetRoles(string userName, string roleName)
+        public async Task<IHttpActionResult> PutAspNetRoles(string userName, string roleName, string oldRoleName, AspNetRolesDto aspNetRolesDto)
         {
+            AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == userName);
 
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));     
+            var idUser = aspNetUsers.Id;
 
-                try
+            try
+            {
+                UserManager.RemoveFromRole(idUser, oldRoleName);
+                //context.SaveChanges();
+            }
+                catch
                 {
-                    var user = UserManager.FindByName(userName);
-                    UserManager.AddToRole(user.Id, roleName);
-                    context.SaveChanges();
+                    throw;
                 }
+
+            try
+            {
+                    // var user = UserManager.FindByName(userName);
+                    UserManager.AddToRole(idUser, roleName);
+                    context.SaveChanges();
+            }
                 catch
                 {
                     throw;

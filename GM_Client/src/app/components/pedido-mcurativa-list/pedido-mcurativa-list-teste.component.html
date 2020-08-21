@@ -1,9 +1,4 @@
-<mat-spinner
-  style="margin: 0 auto;"
-  mode="indeterminate"
-  color="accent"
-  *ngIf="isLoading"
->
+<mat-spinner style="margin: 0 auto;" mode="indeterminate" color="accent" *ngIf="isLoading">
 </mat-spinner>
 <p style="text-align: center;" *ngIf="isLoading">aguarde ...</p>
 <p></p>
@@ -13,65 +8,36 @@
   <div id="main">
     <div id="side_bar">
       <h5 class="formatH5" style="text-align: right;">Pedidos curativos</h5>
-      <button
-        type="button"
-        class="btn btn-outline-primary"
-        style="float: right;"
-        [routerLink]="['/pedido-mcurativa-add']"
-      >
+      <button type="button" class="btn btn-outline-primary" style="float: right;"
+        [routerLink]="['/pedido-mcurativa-add']">
         Novo pedido
       </button>
       <br />
 
       <div class="rowSelectTags">
         <div class="column">
-          <label class="AlignFilter" for="AlignFilter">Grupo de máquina:</label
-          ><br />
-          <select
-            class="AlignFilter"
-            id="AlignFilter"
-            [(ngModel)]="selectedOptionGrupo"
-            style="width: 180px;"
-          >
+          <label class="AlignFilter" for="AlignFilter">Grupo de máquina:</label><br />
+          <select class="AlignFilter" id="AlignFilter" [(ngModel)]="selectedOptionGrupo" style="width: 180px;">
 
-          <option selected>0</option>
+            <option selected>0</option>
 
-            <option
-              *ngFor="let item of gruposMaquinaList"
-              [value]="item.IDGrupoMaquinas"
-              >{{ item.CodigoInterno }} - {{ item.Descr }}</option
-            >
+            <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{ item.CodigoInterno }} -
+              {{ item.Descr }}</option>
           </select>
         </div>
         <div class="column">
           <label class="AlignFilter" for="AlignFilter">de:</label><br />
-          <input
-            type="Date"
-            [(ngModel)]="selectedOptionDateInicio"
-            select
-            class="AlignFilter"
-            id="AlignFilter"
-            style="width: 180px;"
-          />
+          <input type="Date" [(ngModel)]="selectedOptionDateInicio" select class="AlignFilter" id="AlignFilter"
+            style="width: 180px;" />
         </div>
         <div class="column">
           <label class="AlignFilter" for="AlignFilter">até:</label><br />
-          <input
-            type="Date"
-            [(ngModel)]="selectedOptionDateFim"
-            select
-            class="AlignFilter"
-            id="AlignFilter"
-            style="width: 180px;"
-          />
+          <input type="Date" [(ngModel)]="selectedOptionDateFim" select class="AlignFilter" id="AlignFilter"
+            style="width: 180px;" />
         </div>
         <div class="column2">
           <br />
-          <button
-            class="AlignFilter"
-            (click)="procuraAvancada()"
-            mat-icon-button
-          >
+          <button class="AlignFilter" (click)="procuraAvancada()" mat-icon-button>
             <mat-icon>search</mat-icon>
           </button>
         </div>
@@ -96,11 +62,7 @@
 
   <div *ngIf="totalPedidos > 0">
     <div class="table-responsive">
-      <table
-        class="table table-bordered"
-        style="width: 100%;"
-        [hidden]="isLoading"
-      >
+      <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
         <thead>
           <tr>
             <!--<th scope="col" width="20">#</th>-->
@@ -138,6 +100,7 @@
         </table>
       </mat-expansion-panel-header>
       <div class="table-responsive">
+
         <body style="text-align: center;">
           <table class="table" style="width: 80%;">
             <thead>
@@ -150,17 +113,13 @@
                 <th scope="col" width="170">Fim da intervenção</th>
                 <th scope="col" width="100">Duração</th>
                 <td>
-                  <button
-                    type="button"
-                    (click)="openDialog(item.IDPedido)"
-                    class="btn btn-success btn-sm move-right"
+                  <button type="button" (click)="openDialog(item.IDPedido)" class="btn btn-success btn-sm move-right"
                     style="
                       position: absolute;
                       right: 0;
                       height: 30px;
                       width: 30px;
-                    "
-                  >
+                    ">
                     +
                   </button>
                 </td>
@@ -189,18 +148,9 @@
                     {{ getTimeDiff(inter.ID) }}
                   </td>
                   <td>
-                    <button
-                      type="button"
-                      color="accent"
-                      (click)="deleteIntervencao(inter.ID)"
-                    >
-                      <mat-icon
-                        _ngcontent-oax-c0=""
-                        class="mat-icon notranslate material-icons mat-icon-no-color"
-                        role="img"
-                        aria-hidden="true"
-                        >delete</mat-icon
-                      >
+                    <button type="button" color="accent" (click)="deleteIntervencao(inter.ID)">
+                      <mat-icon _ngcontent-oax-c0="" class="mat-icon notranslate material-icons mat-icon-no-color"
+                        role="img" aria-hidden="true">delete</mat-icon>
                     </button>
                   </td>
                 </ng-container>
@@ -211,12 +161,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <mat-paginator
-    class="col"
-    [length]="totalPedidos"
-    [pageSize]="pedidosPerPage"
-    [pageSizeOptions]="pageSizeOptions"
-    (page)="onChangedPage($event)"
-    *ngIf="pedidos.length > 0"
-  ></mat-paginator>
+  <mat-paginator class="col" [length]="totalPedidos" [pageSize]="pedidosPerPage" [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)" *ngIf="pedidos.length > 0"></mat-paginator>
 </div>

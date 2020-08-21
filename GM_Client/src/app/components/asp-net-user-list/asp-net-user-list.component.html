@@ -9,8 +9,18 @@
         <br />
         <h3>Resumo dos utilizadores</h3>
        
-        <button type="button"  class="btn btn-success btn-sm move-right" style="float: right;"
+        <button type="button"  class="btn btn-success btn-sm move-right"  style="float: left"
         [routerLink]="['/list-permissao']">Gerir permissões</button>  
+
+          <button
+            type="button"
+            class="btn btn-success btn-sm move-right"
+            style="float:right;"
+            [routerLink]="['/add-register']"
+          >
+            Novo registo
+          </button>
+
         <br>
         <br />
         <table class="table table-bordered" style="text-align:center">
@@ -22,16 +32,7 @@
               <th scope="col">Email</th>
               <th scope="col" width="165">Nº de funcionário</th>
               <th scope="col">Cargo</th>
-              <th>
-                <button
-                  type="button"
-                  class="btn btn-success btn-sm move-right"
-                  class="alinharButton"
-                  [routerLink]="['/add-register']"
-                >
-                  +
-                </button>
-              </th>
+
             </tr>
           </thead>
           <tbody>

@@ -42,10 +42,10 @@ export class AspNetRolesService {
   }
 
   //PUT
-  UpdateAspNetRole(userName, roleName ,data): Observable<AspNetRoles> {
+  UpdateAspNetRole(userName, roleName, oldRoleName, data): Observable<AspNetRoles> {
     return this.http
       .put<AspNetRoles>(
-        BACKEND_URL + "/AspNetRoles?userName=" + userName + "&roleName=" + roleName,
+        BACKEND_URL + "/AspNetRoles?userName=" + userName + "&roleName=" + roleName+"&oldRoleName=" + oldRoleName,
         JSON.stringify(data),
         this.httpOptions
       )

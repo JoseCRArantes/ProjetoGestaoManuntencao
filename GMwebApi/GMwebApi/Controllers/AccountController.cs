@@ -17,6 +17,7 @@ using GMwebApi.Models;
 using GMwebApi.Providers;
 using GMwebApi.Results;
 using System.Web.Http.Cors;
+using System.Linq;
 
 
 namespace GMwebApi.Controllers
@@ -280,7 +281,9 @@ namespace GMwebApi.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                var userRole = user.Roles.FirstOrDefault();
+                
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, userRole.RoleId);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else

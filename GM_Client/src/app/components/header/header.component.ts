@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
+  userPermission = 0;
 
   userNow() {
     //this.user = this.authService.getUserName();
@@ -31,6 +32,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  
+    this.userPermission = this.authService.getCurrentUserRoleId();
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
