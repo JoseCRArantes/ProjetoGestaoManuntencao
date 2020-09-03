@@ -163,7 +163,6 @@ export class AuthService {
 
   getCurrentUserRoleId()
   {
-    console.log(this.roleId, "roleName");
     return this.roleId;
 
   }

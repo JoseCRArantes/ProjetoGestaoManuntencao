@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AspNetUsers } from "../shared/aspNetUsers/aspNetUsers.model";
 import { AspNetUsersService } from "../shared/aspNetUsers/aspNetUsers.service";
 import { Subscription } from "rxjs";
+import { ActivatedRoute } from '@angular/router';
 
 //import * as moment from "moment";
 
@@ -35,6 +36,7 @@ export class LoginComponent {
       });
   }
   constructor(
+    private actRoute: ActivatedRoute,   
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,

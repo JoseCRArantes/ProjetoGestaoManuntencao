@@ -30,7 +30,7 @@ namespace GMwebApi.Controllers
 
 
         // GET: api/PedidosPreventivas/5
-        [Authorize(Roles = "Admin, Membro")]
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(PedidoManutPreventiva))]
         public async Task<IHttpActionResult> GetPedidoManutPreventiva(int id)
         {
@@ -44,34 +44,12 @@ namespace GMwebApi.Controllers
         }
 
         /// <summary>
-        /// Método para o USER saber o que faz ao abrir a App
+        /// Método para o USER saber o que tem a fazer.
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "Admin, Membro")]
+        [Authorize(Roles = "Admin, Utilizador")]
         public IQueryable<PedidoManutPreventiva> GetPedidosPreventivaUserOK()
         {
-           
-
-            #region ##### Código anterior #####
-            /*IQueryable<PedidoPreventivaDto> pMpreventiva = //from a in db.AspNetUsers
-                        from p in db.PedidoManutPreventiva
-                        from i in db.IntervencaoPreventiva.Where(o => o.PedidoManutPreventivaID == p.ID).DefaultIfEmpty()
-                        where p.DataLimiteManutencaoPrev.Value != null
-                        //where p.UtilizadorIDUser == user                           
-                        orderby p.DataLimiteManutencaoPrev ascending
-                        select new PedidoPreventivaDto
-                        {
-                            IDPedido = p.ID,
-                           // UtilizadorIDUser = a.Nome,
-                            IDEquipamento = p.IDEquipamento,
-                            Descricao = p.Descricao,
-                            DataPedido = p.DataPedido,
-                            DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
-                        };
-
-            */
-            // .Where(ped => ped.DataLimiteManutencaoPrev.Value != null)
-            #endregion
 
             var user = User.Identity.GetUserId();
 
@@ -85,12 +63,11 @@ namespace GMwebApi.Controllers
                 .Select(ped => ped).Distinct();
 
             return peds;
-
         }
 
 
         //GET: api/PedidoManutCurativas
-        [Authorize(Roles = "Admin, Membro")]
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim)
         {
 
@@ -381,9 +358,7 @@ namespace GMwebApi.Controllers
                 UtilizadorIDUser = (string)user,
                 IDEquipamento = pedidoManutPreventivaDto.IDEquipamento,
                 Descricao = pedidoManutPreventivaDto.Descricao,
-                DataPedido = DateTime.Now //pedidoManutCurativaDto.DataPedido
-                //public Nullable<int> FichaManutencaoID { get; set; }
-                //public Nullable<System.DateTime> DataLimiteManutencaoPrev { get; set; }
+                DataPedido = DateTime.Now 
             };
         }
 
@@ -394,7 +369,7 @@ namespace GMwebApi.Controllers
         /// </summary>
         /// <param name="manutPreventivaGrupoMaquina"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin, Membro")]
+        [Authorize(Roles = "Admin")]
         private PedidoManutPreventiva PedidosPrevDtoToManutPreventivaGrMaquina(ManutPreventivaGrupoMaquina manutPreventivaGrupoMaquina)
         {
             AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == manutPreventivaGrupoMaquina.UtilizadorIDUser);
@@ -416,6 +391,7 @@ namespace GMwebApi.Controllers
         /// </summary>
         /// <param name="pedidoManutCurativaDto"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin, Utilizador,Convidado")]
         [ResponseType(typeof(PedidoManutPreventiva))]
         public async Task<IHttpActionResult> PostPedidoManutPreventivaSimples(PedidoPreventivaDto pedidoManutPreventivaDto)
         {
@@ -442,7 +418,6 @@ namespace GMwebApi.Controllers
                     throw;
                 }
             }
-
             return CreatedAtRoute("DefaultApi", new { id = pedidoManutPreventiva.ID }, pedidoManutPreventiva);
         }
 
@@ -456,6 +431,7 @@ namespace GMwebApi.Controllers
         /// <param name="manPrevGrMaquina"></param>
         /// <returns></returns>
         [ResponseType(typeof(int))]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> PostPedidoManutPreventivaMultiplos(int grupoMaquina, ManutPreventivaGrupoMaquina manPrevGrMaquina)
         {
             int count = 0;
@@ -487,57 +463,8 @@ namespace GMwebApi.Controllers
 
 
 
-        //POST: api/PedidosPreventivas
-        //[ResponseType(typeof(PedidoManutPreventiva))]
-        // public async Task<IHttpActionResult> PostPedidoManutPreventivaSingle(PedidoManutPreventiva pedidoManutPreventiva)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
-
-        //     db.PedidoManutPreventiva.Add(pedidoManutPreventiva);
-        //     await db.SaveChangesAsync();
-
-        //     return CreatedAtRoute("DefaultApi", new { id = pedidoManutPreventiva.ID }, pedidoManutPreventiva);
-        // }
-
-        // PUT: api/PedidosPreventivas/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPedidoManutPreventiva(int id, PedidoManutPreventiva pedidoManutPreventiva)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != pedidoManutPreventiva.ID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(pedidoManutPreventiva).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PedidoManutPreventivaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // DELETE: api/PedidosPreventivas/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(PedidoManutPreventiva))]
         public async Task<IHttpActionResult> DeletePedidoManutPreventiva(int id)
         {

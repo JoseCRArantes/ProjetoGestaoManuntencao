@@ -25,6 +25,7 @@ namespace GMwebApi.Controllers
         /// Método GET com intervenções curativas.
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public IQueryable<IntervencaoPreventivaDto> GetIntervencaoCurativa()
         {
             IQueryable<IntervencaoPreventivaDto> intervencaoPreventiva =
@@ -46,6 +47,7 @@ namespace GMwebApi.Controllers
 
 
         // GET: api/IntervencaoPreventivas/5
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(IntervencaoPreventiva))]
         public async Task<IHttpActionResult> GetIntervencaoPreventiva(int id)
         {
@@ -80,6 +82,7 @@ namespace GMwebApi.Controllers
         }
 
         // POST: api/IntervencaoPreventivas
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(IntervencaoPreventiva))]
         public async Task<IHttpActionResult> PostIntervencaoPreventiva(IntervencaoPreventivaDto intervencaoPreventivaDto)
         {
@@ -127,6 +130,7 @@ namespace GMwebApi.Controllers
 
 
         // PUT: api/IntervencaoPreventivas/5
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutIntervencaoPreventiva(int id, IntervencaoPreventiva intervencaoPreventiva)
         {
@@ -167,6 +171,7 @@ namespace GMwebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE: api/IntervencaoPreventivas/5
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(IntervencaoPreventiva))]
         public async Task<IHttpActionResult> DeleteIntervencaoPreventiva(int id)
         {
@@ -190,13 +195,6 @@ namespace GMwebApi.Controllers
             else
                 return NotFound();
         }
-
-
-
-
-
-
-
 
         protected override void Dispose(bool disposing)
         {

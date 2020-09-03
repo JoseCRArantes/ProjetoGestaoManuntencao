@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { GrupoMaquina } from '../../shared/gruposmaquina/grupomaquinamodel';
 import {Equipamento} from '../../shared/equipamento/equipamentomodel';
 import { NgForm } from '@angular/forms';
+import {  ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pedido-mpreventiva-add',
@@ -25,7 +26,8 @@ export class PedidoMpreventivaAddComponent implements OnInit {
   constructor(public pedidoService: PedidosPreventivosService, 
     public fb: FormBuilder,
     private ngZone: NgZone,
-    private router: Router) { }
+    private router: Router,
+    private actRoute: ActivatedRoute   ) { }
 
   ngOnInit(){
     this.addPedido();

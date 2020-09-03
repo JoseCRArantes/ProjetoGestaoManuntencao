@@ -18,6 +18,7 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/TipoUtilizadors
+        [Authorize(Roles = "Admin")]
         [Authorize]
         public IQueryable<TipoUtilizador> GetTipoUtilizador()
         {
@@ -26,6 +27,7 @@ namespace GMwebApi.Controllers
 
         // GET: api/TipoUtilizadors/5
         [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(TipoUtilizador))]
         public async Task<IHttpActionResult> GetTipoUtilizador(int id)
         {
@@ -40,6 +42,7 @@ namespace GMwebApi.Controllers
 
         // PUT: api/TipoUtilizadors/5
         [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutTipoUtilizador(int id, TipoUtilizador tipoUtilizador)
         {
@@ -76,6 +79,7 @@ namespace GMwebApi.Controllers
 
         // POST: api/TipoUtilizadors
         [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(TipoUtilizador))]
         public async Task<IHttpActionResult> PostTipoUtilizador(TipoUtilizador tipoUtilizador)
         {
@@ -91,6 +95,7 @@ namespace GMwebApi.Controllers
         }
 
         // DELETE: api/TipoUtilizadors/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(TipoUtilizador))]
         public async Task<IHttpActionResult> DeleteTipoUtilizador(int id)
         {

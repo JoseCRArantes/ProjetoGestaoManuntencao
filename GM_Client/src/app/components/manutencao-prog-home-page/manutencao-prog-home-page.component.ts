@@ -21,6 +21,7 @@ import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoInterven
 import { MatDialog } from "@angular/material/dialog";
 import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-page/intervencao-add-user-home-page.component';
 import {IntervencaoPreventivaAddComponent} from '../intervencao-preventiva-add/intervencao-preventiva-add.component';
+import {  ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-manutencao-prog-home-page",
@@ -32,6 +33,7 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
     public pedidoService: PedidosPreventivosService,
     public tipoUtilizadorService: TipoUtilizadorService,
     public dialog: MatDialog,
+    private actRoute: ActivatedRoute
 
   ) {}
   pedidoForm: FormGroup;

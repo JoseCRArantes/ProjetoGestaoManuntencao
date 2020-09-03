@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 //import { UtilizadorService } from '../../shared/utilizador/utilizador.service';
 import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
 import { AspNetUsersService } from '../../shared/aspNetUsers/aspNetUsers.service';
+import { Router, ActivatedRoute } from '@angular/router';
+ 
 
 @Component({
   selector: 'app-asp-net-user-list',
@@ -15,7 +17,8 @@ export class AspNetUserListComponent implements OnInit {
 
   constructor(
     private aspNetUserService : AspNetUsersService,
-    private tipoUtilizadorService : TipoUtilizadorService
+    private tipoUtilizadorService : TipoUtilizadorService,
+    private actRoute: ActivatedRoute
   ) { }
 
 

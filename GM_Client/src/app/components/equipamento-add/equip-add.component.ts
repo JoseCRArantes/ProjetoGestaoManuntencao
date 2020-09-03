@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
 
 
@@ -29,7 +29,8 @@ export class EquipAddComponent implements OnInit {
     private ngZone: NgZone,
     private router: Router,
     public equipamentoService: EquipamentoService, 
-    public grupoMaquinaService: GrupoMaquinaService
+    public grupoMaquinaService: GrupoMaquinaService,
+    private actRoute: ActivatedRoute
   ){ }
 
   addEquipamento() {

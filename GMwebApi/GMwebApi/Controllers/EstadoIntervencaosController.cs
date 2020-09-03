@@ -26,6 +26,7 @@ namespace GMwebApi.Controllers
         }
 
         // GET: api/EstadoIntervencaos/5
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(EstadoIntervencao))]
         public async Task<IHttpActionResult> GetEstadoIntervencao(int id)
         {
@@ -39,6 +40,7 @@ namespace GMwebApi.Controllers
         }
 
         // PUT: api/EstadoIntervencaos/5
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEstadoIntervencao(int id, EstadoIntervencao estadoIntervencao)
         {
@@ -74,6 +76,7 @@ namespace GMwebApi.Controllers
         }
 
         // POST: api/EstadoIntervencaos
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(EstadoIntervencao))]
         public async Task<IHttpActionResult> PostEstadoIntervencao(EstadoIntervencao estadoIntervencao)
         {
@@ -104,6 +107,7 @@ namespace GMwebApi.Controllers
         }
 
         // DELETE: api/EstadoIntervencaos/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(EstadoIntervencao))]
         public async Task<IHttpActionResult> DeleteEstadoIntervencao(int id)
         {

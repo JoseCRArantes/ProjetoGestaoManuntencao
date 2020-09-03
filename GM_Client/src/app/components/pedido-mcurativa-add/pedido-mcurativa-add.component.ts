@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { GrupoMaquina } from '../../shared/gruposmaquina/grupomaquinamodel';
 import {Equipamento} from '../../shared/equipamento/equipamentomodel';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-pedido-mcurativa-add',
@@ -26,7 +28,8 @@ export class PedidoMcurativaAddComponent implements OnInit {
     public pedidoService: PedidosService, 
     public fb: FormBuilder,
     private ngZone: NgZone,
-    private router: Router) { }
+    private router: Router,
+    private actRoute: ActivatedRoute   ) { }
 
   ngOnInit(){
     this.addPedido();

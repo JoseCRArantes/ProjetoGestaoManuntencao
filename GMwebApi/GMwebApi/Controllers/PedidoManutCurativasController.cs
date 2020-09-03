@@ -26,13 +26,14 @@ namespace GMwebApi.Controllers
     {
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
-        
+
         /// <summary>
         /// GET Pedidos, com paginação incluída.
         /// </summary>
         /// <param name="pedidosPerPage"></param>
         /// <param name="currentPage"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public PedidoManutCurativaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim)
         {
             PedidoManutCurativaDtoCount pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount();
@@ -294,11 +295,12 @@ namespace GMwebApi.Controllers
                 return pedidoManutCurativaDtoCount;
         }
 
-        
+
 
 
 
         // GET: api/PedidoManutCurativas/5
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(PedidoManutCurativa))]
         public async Task<IHttpActionResult> GetPedidoManutCurativa(int id)
         {
@@ -312,6 +314,7 @@ namespace GMwebApi.Controllers
         }
 
         // PUT: api/PedidoManutCurativas/5
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPedidoManutCurativa(int id, PedidoManutCurativa pedidoManutCurativa)
         {
@@ -366,6 +369,7 @@ namespace GMwebApi.Controllers
 
 
         // POST: api/PedidoManutCurativas
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(PedidoManutCurativa))]
         public async Task<IHttpActionResult> PostPedidoManutCurativa(PedidoManutCurativaDto pedidoManutCurativaDto)
         {
@@ -397,6 +401,7 @@ namespace GMwebApi.Controllers
         }
 
         // DELETE: api/PedidoManutCurativas/5
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(PedidoManutCurativa))]
         public async Task<IHttpActionResult> DeletePedidoManutCurativa(int id)
         {
@@ -425,28 +430,5 @@ namespace GMwebApi.Controllers
         {
             return db.PedidoManutCurativa.Count(e => e.IDPedido == id) > 0;
         }
-
-
-        // GET: api/PedidoManutCurativas
-        //public IQueryable<PedidoManutCurativaDto> GetPedidoManutCurativa()
-        //{
-        //    //return db.PedidoManutCurativa;
-
-        //    IQueryable<PedidoManutCurativaDto> pMcurativa =
-        //          from c in db.AspNetUsers
-        //          from p in db.PedidoManutCurativa
-        //          where p.UtilizadorIDUser == c.Id
-        //          orderby p.DataPedido descending
-        //         select new PedidoManutCurativaDto
-        //          {
-        //              IDPedido = p.IDPedido,
-        //              UtilizadorIDUser = c.Nome,
-        //              IDEquipamento = p.IDEquipamento,
-        //              Descricao = p.Descricao,
-        //              DataPedido = p.DataPedido
-        //          };
-        //    return pMcurativa;
-
-        //}
     }
 }

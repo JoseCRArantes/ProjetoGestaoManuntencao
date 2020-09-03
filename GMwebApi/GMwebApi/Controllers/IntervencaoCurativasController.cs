@@ -21,6 +21,7 @@ namespace GMwebApi.Controllers
         private BDGestaoManutencaoEntities1 db = new BDGestaoManutencaoEntities1();
 
         // GET: api/IntervencaoCurativas
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public IQueryable<IntervencaoCurativaDto> GetIntervencaoCurativa()
         {
            
@@ -37,44 +38,16 @@ namespace GMwebApi.Controllers
                     DataInicioIntervencao = p.DataInicioIntervencao,
                     DataFimIntervencao = p.DataFimIntervencao,
                     IDEstadoIntervencao = p.IDEstadoIntervencao
-                    //Duracao = Convert.ToString(DbFunctions.DiffMinutes(p.DataFimIntervencao, p.DataInicioIntervencao))
                 };
 
-            //Duracao = Convert.ToInt32(DbFunctions.DiffMinutes(p.DataFimIntervencao, p.DataInicioIntervencao))
-            //Duracao = ((p.DataFimIntervencao - p.DataInicioIntervencao).TotalMinutes).ToString()
+ 
             return intervencaoCurativa;
         }
         
-         /*
-         public IntervencaoCurativaDtoCount GetIntervencaoCurativa()
-        {
-            
-            IQueryable<IntervencaoCurativaDto> intervencaoCurativa =
-                from c in db.AspNetUsers
-                from p in db.IntervencaoCurativa
-                where p.UtilizadorIDUser == c.Id
-                select new IntervencaoCurativaDto
-                {
-                    ID = p.ID,
-                    UtilizadorIDUser = c.Nome,
-                    IDPedido = p.IDPedido,
-                    Descricao = p.Descricao,
-                    DataInicioIntervencao = p.DataInicioIntervencao,
-                    DataFimIntervencao = p.DataFimIntervencao,
-                    IDEstadoIntervencao = p.IDEstadoIntervencao
-                };
-            IntervencaoCurativaDtoCount intervencaoCurativaDtoCount = new IntervencaoCurativaDtoCount()
-            {
-                IntervencaoCurativaList = intervencaoCurativa,
-                CountIntervencoes = intervencaoCurativa.Count()
-            };
-
-            return intervencaoCurativaDtoCount;
-        }
-             */
 
         // GET: api/IntervencaoCurativas/5
         [ResponseType(typeof(IntervencaoCurativa))]
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public async Task<IHttpActionResult> GetIntervencaoCurativa(int id)
         {
             IntervencaoCurativa intervencaoCurativa = await db.IntervencaoCurativa.FindAsync(id);
@@ -86,6 +59,8 @@ namespace GMwebApi.Controllers
         }
 
         // PUT: api/IntervencaoCurativas/5
+        [Authorize]
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutIntervencaoCurativa(int id, IntervencaoCurativa intervencaoCurativa)
         {
@@ -141,6 +116,8 @@ namespace GMwebApi.Controllers
             };
         }
 
+
+
         private IntervencaoCurativa IntervencaoCurativaDtoTOIntervencaoCurativaPost(IntervencaoCurativaDto intervencaoCurativaDto)
         {
             var user = User.Identity.GetUserId();
@@ -160,6 +137,7 @@ namespace GMwebApi.Controllers
 
 
         // POST: api/IntervencaoCurativas
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(IntervencaoCurativa))]
         public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
         {
@@ -209,41 +187,10 @@ namespace GMwebApi.Controllers
             return CreatedAtRoute("DefaultApi", new { id = intervencaoCurativa.ID }, intervencaoCurativaDto1);
         }
 
-        /*
-         // POST: api/IntervencaoCurativas
-        [ResponseType(typeof(IntervencaoCurativa))]
-        public async Task<IHttpActionResult> PostIntervencaoCurativa(IntervencaoCurativaDto intervencaoCurativaDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IntervencaoCurativa intervencaoCurativa = IntervencaoCurativaDtoTOIntervencaoCurativa(intervencaoCurativaDto);
-            db.IntervencaoCurativa.Add(intervencaoCurativa);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (IntervencaoCurativaExists(intervencaoCurativa.ID))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = intervencaoCurativa.ID }, intervencaoCurativa);
-        }
-             */
 
 
         // DELETE: api/IntervencaoCurativas/5
+        [Authorize(Roles = "Admin, Utilizador")]
         [ResponseType(typeof(IntervencaoCurativa))]
         public async Task<IHttpActionResult> DeleteIntervencaoCurativa(int id)
         {

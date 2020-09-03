@@ -9,6 +9,7 @@ import { PedidoPreventivo } from '../../shared/pedidoMpreventiva/pedidoMpreventi
 import { AspNetUsers } from '../../shared/pedidoMpreventiva/aspNetUsers.model';
 import {TipoUtilizadorService} from '../../shared/tipoUtilizador/tipoUtilizador.service';
 import { TipoUtilizador} from '../../shared/tipoUtilizador/tipoUtilizador.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-manutencao-preventiva-programada',
@@ -33,7 +34,8 @@ export class ManutencaoPreventivaProgramadaComponent implements OnInit {
     public tipoUtilizadorService: TipoUtilizadorService,
     public fb: FormBuilder,
     private ngZone: NgZone,
-    private router: Router) { }
+    private router: Router,
+    private actRoute: ActivatedRoute   ) { }
 
   ngOnInit(){
     this.addPedido();

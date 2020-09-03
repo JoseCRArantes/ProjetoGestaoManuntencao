@@ -88,7 +88,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     this.loadEstadosIntervencao();
     this.loadEquip();
     this.loadGrupoMaquinas();
-    this.loadAspNetUsers();
+    //this.loadAspNetUsers();
     this.loadTiposUtilizador();
   }
 
@@ -119,12 +119,12 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
 
 
      //load utilizadores da DB 
-     loadAspNetUsers() {
+/*      loadAspNetUsers() {
       return this.pedidosService.GetAspNetUsers().subscribe((data: {}) => {
         this.aspNetUsersList = data;
       })
     }
-    
+     */
     //load tipos de utilizador da DB
     loadTiposUtilizador() {
       return this.tipoUtilizadorService.GetTiposUtilizador().subscribe((data: {}) => {

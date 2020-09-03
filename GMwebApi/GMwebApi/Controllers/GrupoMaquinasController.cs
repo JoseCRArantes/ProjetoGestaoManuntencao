@@ -28,6 +28,7 @@ namespace GMwebApi.Controllers
 
         // GET: api/GrupoMaquinas
         [Authorize]
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public IQueryable<GrupoMaquinaDto> GetGrupoMaquina()
         {
             IQueryable<GrupoMaquinaDto> grupoMaquina =
@@ -45,6 +46,8 @@ namespace GMwebApi.Controllers
 
         // GET: api/GrupoMaquinas/5
         [ResponseType(typeof(GrupoMaquina))]
+        [Authorize]
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public async Task<IHttpActionResult> GetGrupoMaquina(int id)
         {
             GrupoMaquina grupoMaquina = await db.GrupoMaquina.FindAsync(id);
@@ -57,6 +60,8 @@ namespace GMwebApi.Controllers
         }
 
         // PUT: api/GrupoMaquinas/5
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutGrupoMaquina(int id, GrupoMaquina grupoMaquina)
         {
@@ -91,9 +96,11 @@ namespace GMwebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        
+
 
         // POST: api/GrupoMaquinas
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(GrupoMaquina))]
         public async Task<IHttpActionResult> PostGrupoMaquina(GrupoMaquina grupoMaquina)
         {
@@ -124,6 +131,8 @@ namespace GMwebApi.Controllers
         }
 
         // DELETE: api/GrupoMaquinas/5
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(GrupoMaquina))]
         public async Task<IHttpActionResult> DeleteGrupoMaquina(int id)
         {

@@ -11,49 +11,85 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  dict = [ //mudar o nome: UserRoleMapping
-    ["edit-permissao", UserRoles.Admin],
-    ["edit-permissao", UserRoles.Membro],
-    ["pedido-mcurativa-list-teste", UserRoles.Admin], 
-    ["asp-net-user-list", UserRoles.Admin],
-    ["grupomaquina-list", UserRoles.Admin]
+/*
+      Admin = 1,
+    Utilizador = 2, funcionario de manutencao
+    Convidado = 3, apenas acesso para listar equipamentos e pedir assistencia
+  */ 
+
+//mudar o nome: UserRoleMapping
+  dict = [ 
+    ['list-permissao', UserRoles.Admin],
+    ['edit-permissao', UserRoles.Admin],
+    ["edit-permissao/:id", UserRoles.Admin],
+    ['asp-net-user-list', UserRoles.Admin],  
+    ['asp-net-user-edit/:id', UserRoles.Admin],   
+    ['add-register', UserRoles.Admin],
+    ['pedido-mcurativa-list-teste', UserRoles.Admin], 
+    ['pedido-mcurativa-list-teste', UserRoles.Convidado],
+    ['pedido-mcurativa-list-teste', UserRoles.Utilizador],
+    ['pedido-mcurativa-add', UserRoles.Admin],
+    ['pedido-mcurativa-add', UserRoles.Convidado],
+    ['pedido-mcurativa-add', UserRoles.Utilizador],
+    ['intervencao-curativa-add', UserRoles.Admin],
+    ['intervencao-curativa-add', UserRoles.Utilizador],
+    ['intervencao-preventiva-add', UserRoles.Admin],
+    ['intervencao-preventiva-add', UserRoles.Utilizador],
+    ['pedido-mpreventiva-add', UserRoles.Admin],
+    ['pedido-mpreventiva-add', UserRoles.Utilizador],
+    ['pedido-mpreventiva-add', UserRoles.Convidado],
+    ['pedido-preventiva-list', UserRoles.Admin],
+    ['pedido-preventiva-list', UserRoles.Utilizador],
+    ['pedido-preventiva-list', UserRoles.Convidado],
+    ['grupomaquina-list', UserRoles.Admin],
+    ['grupomaquina-list', UserRoles.Utilizador],
+    ['grupomaquina-list', UserRoles.Convidado],
+    ['edit-equip/:id', UserRoles.Admin],
+    ['equip-list', UserRoles.Admin],
+    ['equip-list', UserRoles.Convidado],
+    ['equip-list', UserRoles.Utilizador],
+    ['add-equip', UserRoles.Admin],
+    ['manutencao-preventiva-programada', UserRoles.Admin], 
+    ['manutencao-prog-home-page', UserRoles.Utilizador],   
+    ['manutencao-prog-home-page', UserRoles.Admin], 
   ];
 
+
+  /*
+   path: "my-login"
+  */
+
   constructor(private authService: AuthService, private router: Router) {}
-
-
   
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    console.log("Rota selecionada: ", route.url[0].path);
+
 
     var currentUserRole = this.authService.getCurrentUserRoleId(); 
-    var hasAccess = false; //mudar para false
-
-    console.log("USER ROLE:", currentUserRole);
-    console.log( "HasAccess:", hasAccess);
-    
-
+    var hasAccess = false;
+  
     this.dict.forEach(function (value) {
-      console.log(value[0], "tuplo ---- ", route.url[0].path, "path escolhido"  );
-      if (value[0] == route.url[0].path) {
-        if (value[1] == currentUserRole) 
-        console.log("RoleID", value[1], "CurrentUserRoleID", currentUserRole);
-        { 
-          hasAccess = true;
-        }
-      }
-    });
+     if (value[0] === route.url[0].path) 
+     { //value[1] == currentUserRole
+       if (value[1] == localStorage.getItem('roleId')) 
+       { 
+         hasAccess = true;
+       }
+     } 
+   }); 
 
     const isAuth = this.authService.getIsAuth();
     if (!isAuth) {
       this.router.navigate(["/my-login"]);
     }
     if (!hasAccess) {
-      this.router.navigate(["/"]);
+     // this.router.navigate([""]);
     }
+
+    console.log( "HasAccess:", hasAccess);
+    
 
     return isAuth && hasAccess;
   }

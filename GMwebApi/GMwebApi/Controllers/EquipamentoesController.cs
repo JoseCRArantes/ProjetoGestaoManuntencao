@@ -22,6 +22,7 @@ namespace GMwebApi.Controllers
 
         // GET: api/Equipamentoes
         [Authorize]
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public IQueryable<EquipamentoGetDto> GetEquipamento()
         {
             IQueryable<EquipamentoGetDto> equipamentos =             
@@ -44,6 +45,7 @@ namespace GMwebApi.Controllers
         }
 
         // GET: api/Equipamentoes/5
+        [Authorize(Roles = "Admin, Utilizador, Convidado")]
         [ResponseType(typeof(Equipamento))]
         [Authorize]
         public async Task<IHttpActionResult> GetEquipamento(int id)
@@ -59,6 +61,7 @@ namespace GMwebApi.Controllers
 
         // PUT: api/Equipamentoes/5
         [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEquipamento(int id, Equipamento equipamento)
         {
@@ -95,6 +98,7 @@ namespace GMwebApi.Controllers
 
         // POST: api/Equipamentoes
         [Authorize]
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Equipamento))]
         public async Task<IHttpActionResult> PostEquipamento(EquipamentoDto equipamentoDto)
         {
@@ -142,20 +146,19 @@ namespace GMwebApi.Controllers
         }
 
         // DELETE: api/Equipamentoes/5
-        [ResponseType(typeof(Equipamento))]
-        public async Task<IHttpActionResult> DeleteEquipamento(int id)
-        {
-            Equipamento equipamento = await db.Equipamento.FindAsync(id);
-            if (equipamento == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Equipamento))]
+        //public async Task<IHttpActionResult> DeleteEquipamento(int id)
+        //{
+        //    Equipamento equipamento = await db.Equipamento.FindAsync(id);
+        //    if (equipamento == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    db.Equipamento.Remove(equipamento);
+        //    await db.SaveChangesAsync();
 
-            db.Equipamento.Remove(equipamento);
-            await db.SaveChangesAsync();
-
-            return Ok(equipamento);
-        }
+        //    return Ok(equipamento);
+        //}
 
         protected override void Dispose(bool disposing)
         {

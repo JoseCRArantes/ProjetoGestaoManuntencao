@@ -1,8 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { RegisterService } from '../../shared/register/register.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { TipoUtilizadorService } from '../../shared/tipoUtilizador/tipoUtilizador.service';
+import { Router, ActivatedRoute } from '@angular/router';
+ 
 
 
 @Component({
@@ -26,7 +27,8 @@ export class RegisterComponent implements OnInit {
     private ngZone: NgZone,
     private router: Router,
     public registerService: RegisterService, 
-    public tipoUtilizadorService: TipoUtilizadorService
+    public tipoUtilizadorService: TipoUtilizadorService,
+    private actRoute: ActivatedRoute
   ){ }
 
   addRegister() {

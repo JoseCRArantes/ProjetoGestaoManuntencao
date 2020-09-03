@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
 import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
 import { Equipamento } from 'src/app/shared/equipamento/equipamentomodel';
+import { Router, ActivatedRoute } from '@angular/router';
+ 
 
 
 @Component({
@@ -27,7 +29,8 @@ export class EquipListComponent implements OnInit {
 
   constructor(
     public equipamentoService: EquipamentoService,
-    public grupoMaquinaService: GrupoMaquinaService
+    public grupoMaquinaService: GrupoMaquinaService,
+    private actRoute: ActivatedRoute
   ){ }
 
    // lista equipamentos 

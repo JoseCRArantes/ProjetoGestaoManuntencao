@@ -15,8 +15,8 @@ export class EditPermissaoComponent implements OnInit {
 
   arrayPermissao  = [
     {Name: "Admin" },
-    {Name: "Membro" },
-    {Name:  "Utilizador"}
+    {Name: "Utilizador" },
+    {Name:  "Convidado"}
     ]
 
     roleName = "";

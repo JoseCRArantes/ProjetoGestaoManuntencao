@@ -27,59 +27,5 @@ namespace GMwebApi.Controllers
 
         ApplicationDbContext context = new ApplicationDbContext();
 
-
-
-
-        //[Authorize]
-        //public List<UserRoleModel> GetUsersAndRoles()
-        //{
-        //    var usersAndRoles = new List<UserRoleModel>();
-        //    using (var context = new ApplicationDbContext())
-        //    {
-        //        var users = context.Users;
-
-        //        foreach (var user in users)
-        //        {
-        //            foreach (var role in user.Roles)
-        //            {
-        //                usersAndRoles.Add(new UserRoleModel
-        //                {
-        //                    UserName = user.UserName,
-        //                    RoleName = role.RoleId
-        //                });
-        //            }
-        //        }
-        //    }
-        //    return usersAndRoles;
-        //}
-
-
-
-        ///// <summary>
-        ///// Método para adicionar uma role a um user.
-        ///// </summary>
-        ///// <param name="userName"></param>
-        ///// <param name="roleName"></param>
-        //    internal void AddUserToRole(string userName, string roleName)
-        //    {
-        //        var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-        //        try
-        //        {
-        //            var user = UserManager.FindByName(userName);
-        //            UserManager.AddToRole(user.Id, roleName);
-        //            context.SaveChanges();
-        //        }
-        //        catch
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-
-
-
-
-
     }
 }

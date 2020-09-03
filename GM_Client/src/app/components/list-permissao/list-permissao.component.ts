@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AspNetRolesService } from '../../shared/aspNetRoles/aspNetRoles.service';
+import { Router, ActivatedRoute } from '@angular/router';
+  
 
 @Component({
   selector: 'app-list-permissao',
@@ -11,7 +13,8 @@ export class ListPermissaoComponent implements OnInit {
   aspNetRolesList: any = [];
 
   constructor(
-    private aspNetRolesService : AspNetRolesService
+    private aspNetRolesService : AspNetRolesService,
+    private actRoute: ActivatedRoute
   ) { }
 
 
