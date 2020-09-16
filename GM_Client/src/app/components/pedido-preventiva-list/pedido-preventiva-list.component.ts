@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Subscription } from "rxjs";
+import { DatePipe } from '@angular/common';
 
 import { NgForm } from "@angular/forms";
-
+import * as printJS from 'print-js';
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 //import { IntervencaoCurativaAddComponent } from "../intervencao-curativa-add/intervencao-curativa-add.component";
@@ -11,6 +12,7 @@ import { PageEvent } from "@angular/material/paginator";
 import { Equipamento } from "../../shared/equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { PedidoPreventivo } from "../../shared/pedidoMpreventiva/pedidoMpreventiva.model";
+import {PedidoPreventivoPrint} from "../../shared/pedidoMpreventiva/pedidoMpreventivaPrint.model";
 import { PedidosPreventivosService } from "../../shared/pedidoMpreventiva/pedidoMpreventiva.service";
 import { IntervencaoPreventivo } from "src/app/shared/pedidoMpreventiva/intervencaoPreventiva.model";
 import { IntervencaoPreventivaAddComponent } from "../intervencao-preventiva-add/intervencao-preventiva-add.component";
@@ -47,11 +49,12 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   aspNetUsersList: any = [];
   tipoUtilizadorList: any = [];
   gmID : number;
-
+  pedidosImprimir : PedidoPreventivoPrint[] =[];
+  
   private pedidosSub: Subscription;
   private intervencoesSub: Subscription;
 
-  pageSizeOptions = [5, 8, 12];
+  pageSizeOptions = [5, 8, 12, 20, 25];
   totalPedidos = 0;
   pedidosPerPage = 2;
   currentPage = 1;
@@ -74,6 +77,7 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.pedidos = pedidoData.pedidos;
           this.totalPedidos = pedidoData.CountPedidos;
+          
         }
       );
 
@@ -100,7 +104,55 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
     this.selectedOptionDateInicio = "01-01-1990";
     this.selectedOptionDateFim = "01-01-1990";
   }
-  
+
+  printPedidos()
+  {   
+     type MyArrayType = Array<{UtilizadorIDUser: string, DataLimiteManutencaoPrev: string}>;
+
+     let myArray= [];
+     
+     console.log("Pedidos ", this.pedidos);
+    
+    for(let i = 0; i < this.pedidos.length; i++)
+    { 
+      
+      let pedidoPrint = {} as PedidoPreventivoPrint;
+      const datepipe: DatePipe = new DatePipe('en-US');
+
+      let dataLimiteFormatada = datepipe.transform(this.pedidos[i].DataLimiteManutencaoPrev, 'dd-MM-yyyy');
+      //let convertedDataLimite = new Date(dataPedidoFormatada);
+      let  dataPedidoFormatada = datepipe.transform(this.pedidos[i].DataPedido, 'dd-MM-yyyy HH:mm'); 
+      //let convertedDataPedidoFormatada = new Date(dataPedidoFormatada);
+        pedidoPrint.DataPedido = '';
+        pedidoPrint.DataLimiteManutencaoPrev = '';
+        pedidoPrint.Descricao = '';
+        pedidoPrint.UtilizadorIDUser = '';
+        pedidoPrint.IDEquipamento = '';
+
+        pedidoPrint.DataPedido = dataPedidoFormatada;
+        if(dataLimiteFormatada == null)
+        {dataLimiteFormatada = ''}
+        if(dataLimiteFormatada!=null)
+        { pedidoPrint.DataLimiteManutencaoPrev = dataLimiteFormatada;}
+        
+        pedidoPrint.Descricao = this.pedidos[i].Descricao;
+        pedidoPrint.UtilizadorIDUser = this.pedidos[i].UtilizadorIDUser;
+         for (let j = 0; j < this.equipamentosList.length; j++) 
+        { 
+          if (this.pedidos[i].IDEquipamento == this.equipamentosList[j].IDEquipamento) 
+                {
+                  pedidoPrint.IDEquipamento = this.equipamentosList[j].Marca + " "  + this.equipamentosList[j].Descr;           
+                }                
+        }     
+        
+        myArray.push(pedidoPrint);
+        
+        console.log(myArray);
+  }
+  printJS({printable: myArray, properties: [{field: 'UtilizadorIDUser', displayName: '#'}, {field:'IDEquipamento', displayName: 'Equipamento'}, 
+  {field:'Descricao', displayName:'Descrição'}, {field:'DataLimiteManutencaoPrev', displayName:'Data limite'}, {field :'DataPedido', displayName:'Data pedido'}], type: 'json', header: 'ACATEL - Pedidos preventivos'})
+}
+
   procuraAvancada()
   {
     console.log(this.selectedOptionGrupo, "Grupo selecionado");
@@ -117,14 +169,6 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
       );
   }
 
-
-     //load utilizadores da DB 
-/*      loadAspNetUsers() {
-      return this.pedidosService.GetAspNetUsers().subscribe((data: {}) => {
-        this.aspNetUsersList = data;
-      })
-    }
-     */
     //load tipos de utilizador da DB
     loadTiposUtilizador() {
       return this.tipoUtilizadorService.GetTiposUtilizador().subscribe((data: {}) => {
@@ -132,18 +176,6 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
      
    })
   }
-
-  /* 
-  converterIDTipoParaDescr(a:number)
-  {
-    for(let i= 0; i<this.tipoUtilizadorList.length;i++)
-    {
-      if(a==this.tipoUtilizadorList[i].IDTipo)
-      return "(" + this.tipoUtilizadorList[i].TipoDescr + " - " + this.tipoUtilizadorList[i].SeccaoTrabalho +")";
-    }
-
-  } */
-  
 
   ngOnDestroy() {
     this.pedidosSub.unsubscribe();
@@ -159,7 +191,6 @@ export class PedidoPreventivaListComponent implements OnInit, OnDestroy {
   loadGrupoMaquinas() {
     return this.pedidosService.GetGruposMaquina().subscribe((data: GrupoMaquina[]) => {
       this.gruposMaquinaList = data;
-      console.log(this.gruposMaquinaList);
     })
   }
 

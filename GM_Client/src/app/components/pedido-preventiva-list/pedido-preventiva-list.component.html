@@ -1,11 +1,11 @@
 <mat-spinner
-  style="margin: 0 auto;"
+  style="margin: 0 auto"
   mode="indeterminate"
   color="accent"
   *ngIf="isLoading"
 >
 </mat-spinner>
-<p style="text-align: center;" *ngIf="isLoading">aguarde ...</p>
+<p style="text-align: center" *ngIf="isLoading">aguarde ...</p>
 <p></p>
 
 <hr />
@@ -13,11 +13,11 @@
 <div class="inner">
   <div id="main">
     <div id="side_bar">
-      <h5 class="formatH5" style="text-align: right;">Pedidos preventivos</h5>
+      <h5 class="formatH5" style="text-align: right">Pedidos preventivos</h5>
       <button
         type="button"
         class="btn btn-outline-primary"
-        style="float: right;"
+        style="float: right"
         [routerLink]="['/pedido-mpreventiva-add']"
       >
         Pedido individual
@@ -26,10 +26,18 @@
       <button
         type="button"
         class="btn btn-outline-primary"
-        style="float: right;"
+        style="float: right"
         [routerLink]="['/manutencao-preventiva-programada']"
       >
         Pedido em grupo
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        style="float: right"
+        (click)="printPedidos()"
+      >
+        Imprimir
       </button>
       <br />
 
@@ -41,14 +49,15 @@
             class="AlignFilter"
             id="AlignFilter"
             [(ngModel)]="selectedOptionGrupo"
-            style="width: 180px;"
+            style="width: 180px"
           >
-          <option selected>0</option> 
+            <option selected>0</option>
             <option
               *ngFor="let item of gruposMaquinaList"
               [value]="item.IDGrupoMaquinas"
-              >{{ item.CodigoInterno }} - {{ item.Descr }}</option
             >
+              {{ item.CodigoInterno }} - {{ item.Descr }}
+            </option>
           </select>
         </div>
         <div class="column">
@@ -59,7 +68,7 @@
             select
             class="AlignFilter"
             id="AlignFilter"
-            style="width: 180px;"
+            style="width: 180px"
           />
         </div>
         <div class="column">
@@ -70,7 +79,7 @@
             select
             class="AlignFilter"
             id="AlignFilter"
-            style="width: 180px;"
+            style="width: 180px"
           />
         </div>
         <div class="column2">
@@ -97,16 +106,15 @@
   <br />
   <ng-container *ngIf="totalPedidos == 0">
     <br /><br /><br />
-    <p style="text-align: center;"><strong>SEM RESULTADOS</strong></p>
+    <p style="text-align: center"><strong>SEM RESULTADOS</strong></p>
     <br /><br /><br />
   </ng-container>
 
-  
   <div *ngIf="totalPedidos > 0">
     <div class="table-responsive">
       <table
         class="table table-bordered"
-        style="width: 100%;"
+        style="width: 100%"
         [hidden]="isLoading"
       >
         <thead>
@@ -149,8 +157,8 @@
         </table>
       </mat-expansion-panel-header>
       <div class="table-responsive">
-        <body style="text-align: center;">
-          <table class="table" style="width: 80%;">
+        <body style="text-align: center">
+          <table class="table" style="width: 80%">
             <thead>
               <tr>
                 <th scope="col" width="25">#</th>
