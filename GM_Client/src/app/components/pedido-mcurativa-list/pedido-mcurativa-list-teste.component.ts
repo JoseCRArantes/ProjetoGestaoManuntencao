@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { PedidoManutCurativaTeste } from "../../shared/pedidoMcurativa-teste/pedidoMcurativa.model";
 import { PedidosService } from "../../shared/pedidoMcurativa-teste/pedidoMcurativa.service";
 import { NgForm } from "@angular/forms";
+import * as printJS from 'print-js';
 import { Equipamento } from "../../shared/equipamento/equipamentomodel";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { IntervencaoCurativa } from "src/app/shared/pedidoMcurativa-teste/intervencaoCurativa.model";
@@ -11,6 +12,9 @@ import { PageEvent } from "@angular/material/paginator";
 import { IntervencaoCurativaAddComponent } from "../intervencao-curativa-add/intervencao-curativa-add.component";
 import { GrupoMaquina } from '../../shared/gruposmaquina/grupomaquinamodel'; 
 import { ActivatedRoute } from '@angular/router';
+import {PedidoManutCurativaPrint} from "../../shared/pedidoMcurativa-teste/pedidoMCurativaPrint.model";
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: "app-pedido-mcurativa-list-teste",
   templateUrl: "./pedido-mcurativa-list-teste.component.html",
@@ -75,6 +79,53 @@ export class PedidoMcurativaListTesteComponent implements OnInit, OnDestroy {
     this.loadEquip();
     this.loadGrupoMaquinas();
   }
+
+
+  printPedidos()
+  {   
+     type MyArrayType = Array<{UtilizadorIDUser: string, DataLimiteManutencaoPrev: string}>;
+
+     let myArray= [];
+     
+     console.log("Pedidos ", this.pedidos);
+    
+    for(let i = 0; i < this.pedidos.length; i++)
+    { 
+      
+      let pedidoPrint = {} as PedidoManutCurativaPrint;
+      const datepipe: DatePipe = new DatePipe('en-US');
+
+      /* IDPedido: number;
+      UtilizadorIDUser: string;
+      IDEquipamento: number;
+      Descricao: string;
+      DataPedido: string; */
+      
+      //let convertedDataLimite = new Date(dataPedidoFormatada);
+      let  dataPedidoFormatada = datepipe.transform(this.pedidos[i].DataPedido, 'dd-MM-yyyy HH:mm'); 
+      //let convertedDataPedidoFormatada = new Date(dataPedidoFormatada);
+        pedidoPrint.DataPedido = '';
+        pedidoPrint.Descricao = '';
+        pedidoPrint.UtilizadorIDUser = '';
+        pedidoPrint.IDEquipamento = '';
+        pedidoPrint.DataPedido = dataPedidoFormatada;        
+        pedidoPrint.Descricao = this.pedidos[i].Descricao;
+        pedidoPrint.UtilizadorIDUser = this.pedidos[i].UtilizadorIDUser;
+         for (let j = 0; j < this.equipamentosList.length; j++) 
+        { 
+          if (this.pedidos[i].IDEquipamento == this.equipamentosList[j].IDEquipamento) 
+                {
+                  pedidoPrint.IDEquipamento = this.equipamentosList[j].Marca + " "  + this.equipamentosList[j].Descr;           
+                }                
+        }     
+        
+        myArray.push(pedidoPrint);
+        
+        console.log(myArray);
+  }
+  printJS({printable: myArray, properties: [{field: 'UtilizadorIDUser', displayName: '#'}, {field:'IDEquipamento', displayName: 'Equipamento'}, 
+  {field:'Descricao', displayName:'Descrição'}, {field :'DataPedido', displayName:'Data pedido'}], type: 'json', header: 'ACATEL - Pedidos curativos'})
+}
 
   limparFiltros()
   {
