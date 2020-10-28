@@ -31,9 +31,9 @@ namespace GMwebApi
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = true,
-                RequireDigit = true,
+                RequireDigit = false,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = false,
             };
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)

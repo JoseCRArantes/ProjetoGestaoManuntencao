@@ -157,3 +157,5 @@ C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebAp
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Release\GMwebApi.csproj.CopyComplete
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Release\GMwebApi.dll
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Release\GMwebApi.pdb
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Dapper.dll
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Dapper.xml

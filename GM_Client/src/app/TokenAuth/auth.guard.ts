@@ -47,6 +47,7 @@ export class AuthGuard implements CanActivate {
     ["grupomaquina-list", UserRoles.Utilizador],
     ["grupomaquina-list", UserRoles.Convidado],
     ["edit-equip/:id", UserRoles.Admin],
+    ["edit-equip", UserRoles.Admin],
     ["equip-list", UserRoles.Admin],
     ["equip-list", UserRoles.Convidado],
     ["equip-list", UserRoles.Utilizador],
@@ -58,6 +59,8 @@ export class AuthGuard implements CanActivate {
     ["alerta-permissao", UserRoles.Utilizador],
     ["alerta-permissao", UserRoles.Convidado],
   ];
+
+  //http://localhost:4200/edit-equip/195
 
   /*
    path: "my-login"
@@ -76,6 +79,7 @@ export class AuthGuard implements CanActivate {
     var currentUserRole = this.authService.getCurrentUserRoleId();
     var hasAccess = false;
 
+    console.log(route.url[0].path);
     this.dict.forEach(function (value) {
       if (value[0] === route.url[0].path) {
         //value[1] == currentUserRole

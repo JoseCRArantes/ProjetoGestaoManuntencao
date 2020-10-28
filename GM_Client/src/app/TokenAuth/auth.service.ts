@@ -5,6 +5,7 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { TokenParams } from "./TokenParamsModel";
+
 import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
 import { Subject } from "rxjs";
@@ -31,7 +32,9 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
-  private TokenAPI = "http://localhost:44334/Token";
+  //private TokenAPI = "http://localhost:44334/Token";
+
+  private TokenAPI = "http://192.168.0.49:8005/Token";
 
   // Http Headers
   httpOptions = {
@@ -52,7 +55,6 @@ export class AuthService {
 
   //Método de login
   login(Username: string, Password: string) {
-    console.log("Teste - AUTH login");
 
     let headers = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -84,6 +86,10 @@ export class AuthService {
             response.roleId 
           );
           this.router.navigate(["/"]);
+          setTimeout(() => {
+            this.refresh();
+          },1000);  
+        
         }
       },
       (err) => {
@@ -94,7 +100,10 @@ export class AuthService {
   }
 
 
-  
+
+
+
+
   logout() {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
