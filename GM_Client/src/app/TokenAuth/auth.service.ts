@@ -32,9 +32,9 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
-  private TokenAPI = "http://localhost:44334/Token";
+  //private TokenAPI = "http://localhost:44334/Token";
 
-  //private TokenAPI = "http://192.168.0.49:8005/Token";
+  private TokenAPI = "http://192.168.0.49:8005/Token";
   
   // Http Headers
   httpOptions = {
