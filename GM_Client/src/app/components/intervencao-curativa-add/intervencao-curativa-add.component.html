@@ -1,7 +1,7 @@
 <h4>Inserir intervenção</h4>
 
 <mat-dialog-content [formGroup]="form">
-  <mat-form-field>
+  <mat-form-field class="form-full-width">
     <input
       formControlName="descricao"
       matInput
@@ -12,13 +12,14 @@
   <br />
 
   <mat-form-field>
-    <mat-label>Estado</mat-label>
+    <mat-label>Estado da intervenção</mat-label>
     <mat-select formControlName="estado">
       <mat-option *ngFor="let item of estadoIntervencaoList" [value]="item.ID">
         {{ item.Descr }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  &nbsp; &nbsp;&nbsp; &nbsp;
   <mat-form-field>
     <input
       matInput

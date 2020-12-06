@@ -3,6 +3,10 @@ ul {
     padding: 0;
     margin: 0;
   }
+
+  menuItem{
+    color: white;
+  }
   
   a {
     text-decoration: none;
@@ -21,15 +25,15 @@ ul {
     display: flex;
     justify-content: center;
     width: 120px;
-    color:blue
+    color:cornflowerblue
   }
 
   .ts {
-    background-color: blue !important;
+    background-color: cornflowerblue !important;
   }
   .col{
     /*background-color: teal;*/
-    background-color: slategrey;
+    background-color: cornflowerblue;
   }
   
 
@@ -46,6 +50,9 @@ ul {
   padding: 20px;
 }
 
+.ttt{
+  color:white;
+}
 .tt{
   padding:1em;
   text-align: center;

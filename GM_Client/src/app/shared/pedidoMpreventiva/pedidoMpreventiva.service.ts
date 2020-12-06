@@ -89,8 +89,8 @@ export class PedidosPreventivosService {
   }
 
 
-  getPedidos(pedidosPerPage: number, currentPage: number, selectOptionGrupo:number, selectedOptionDateInicio: string, selectedOptionDateFim: string) {
-    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}&grupoMaquina=${selectOptionGrupo}&dataInicio=${selectedOptionDateInicio}&dataFim=${selectedOptionDateFim}`;
+  getPedidos(pedidosPerPage: number, currentPage: number, selectOptionGrupo:number, selectedOptionDateInicio: string, selectedOptionDateFim: string, selectedOptionEquipamento:number) {
+    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}&grupoMaquina=${selectOptionGrupo}&dataInicio=${selectedOptionDateInicio}&dataFim=${selectedOptionDateFim}&equipamentoId=${selectedOptionEquipamento}`;
     this.httpClient
       .get<{
         PedidoManutPreventivoList: PedidoPreventivo[];
@@ -162,7 +162,7 @@ export class PedidosPreventivosService {
       )
       .toPromise()
       .then((res) => {
-        console.log(res);
+        
         this.intervencoes.push(res);
         this.intervencoesUpdated.next([...this.intervencoes]);
       })

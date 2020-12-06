@@ -1,23 +1,26 @@
 <h4>Inserir intervenção preventiva</h4>
 
-<mat-dialog-content [formGroup]="form">
-  <mat-form-field>
-    <input
+<mat-dialog-content [formGroup]="form" background-color: aqua>
+  <mat-form-field class="form-full-width">
+    <input 
       formControlName="descricao"
       matInput
       placeholder="Descrição do processo"
+      
     />
   </mat-form-field>
   <br />
 
   <mat-form-field>
-    <mat-label>Estado</mat-label>
+    <mat-label>Estado da intervenção
+    </mat-label>
     <mat-select formControlName="estado">
       <mat-option *ngFor="let item of estadoIntervencaoList" [value]="item.ID">
         {{ item.Descr }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  &nbsp; &nbsp;&nbsp; &nbsp;
   <mat-form-field>
     <input
       matInput
@@ -25,8 +28,8 @@
       placeholder="Data inicio"
       formControlName="datainicio"
     />
-
-    <br>
+    <br />
+    
 
     <mat-datepicker-toggle matSuffix [for]="pickerinicio">
     </mat-datepicker-toggle>
@@ -44,14 +47,16 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button class="close-icon" [mat-dialog-close]="true">
+  <button  mat-button class="close-icon" [mat-dialog-close]="true">
     Fechar
   </button>
   <button
+  
     mat-button
     class="close-icon"
     [mat-dialog-close]="true"
     (click)="onSubmit()"
+    
   >
     Guardar
   </button>

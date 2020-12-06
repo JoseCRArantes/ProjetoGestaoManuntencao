@@ -7,47 +7,54 @@
             <h3>Alterar informação de equipamento</h3>
             <form [formGroup]="updateEquipForm" (ngSubmit)="submitForm()" novalidate>
                 <div class="form-group">    
-                    <input type="hidden" formControlName="IDEquipamento" class="form-control">
+                    <input type="hidden" formControlName="IDEquipamento" class="form-control" style="width:300px">
                 </div>
                 <label>Grupo de máquina</label>
                 <br>
-                <select class="form-group" formControlName="IDGrupoM">
+                <select class="form-group" formControlName="IDGrupoM" style="width:300px">
                    
                     <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.Descr}}</option>                  
                 </select>
                 <div class="form-group">
-                    <label>NumeroSerie</label>
-                    <input type="text" formControlName="NumeroSerie" class="form-control">
+                    <label>N.º de série</label>
+                    <input  type="text" formControlName="NumeroSerie" class="form-control" style="width:300px" >
                 </div>
                 <div class="form-group">
                     <label>Descrição</label>
-                    <input type="text" formControlName="Descr" class="form-control">
+                    <input type="text" formControlName="Descr" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Marca</label>
-                    <input type="text" formControlName="Marca" class="form-control">
+                    <input type="text" formControlName="Marca" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Tipo</label>
-                    <input type="text" formControlName="Tipo" class="form-control">
+                    <input type="text" formControlName="Tipo" class="form-control"style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Data compra</label>
-                    <input type="date" formControlName="DataCompra" class="form-control">
+                    <input type="date" formControlName="DataCompra" class="form-control" style="width:300px">
                 </div><div class="form-group">
                     <label>Codigo interno</label>
-                    <input type="text" formControlName="CodigoInterno" class="form-control">
+                    <input type="text" formControlName="CodigoInterno" class="form-control"style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Estado equipamento</label>
-                    <input type="text" formControlName="EstadoEqui" class="form-control">
+                    <br>
+                    <select class="form-group" formControlName="EstadoEqui" style="width:300px">
+                       
+                        <option  *ngFor="let item of dict" [value]="item[0]">{{item[1]}}</option>                  
+                    </select>
+
                 </div>
                 <div class="form-group">
                     <label>Data fim atividade</label>
-                    <input type="date" formControlName="DataFimAtividade" class="form-control">
+                    <input type="date" formControlName="DataFimAtividade" class="form-control"style="width:300px">
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
+                <br>
             </form>
+            <br>
         </div>
 
     </div>

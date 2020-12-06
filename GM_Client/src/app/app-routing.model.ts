@@ -22,6 +22,7 @@ import {ManutencaoProgHomePageComponent } from "./components/manutencao-prog-hom
 import {ListPermissaoComponent} from "./components/list-permissao/list-permissao.component";
 import {EditPermissaoComponent } from "./components/edit-permissao/edit-permissao.component";
 import{AlertaPermissaoComponent} from "./components/alerta-permissao/alerta-permissao.component";
+import {AlertaAboutComponent} from "./components/alerta-about/alerta-about.component"
 
 import { audit } from 'rxjs/operators';
 const routes: Routes = [
@@ -111,7 +112,13 @@ const routes: Routes = [
   {
     path:"alerta-permissao", component: AlertaPermissaoComponent,
     canActivate:[AuthGuard],
+  },
+  {
+    path:"alerta-about", component: AlertaAboutComponent,
+    canActivate:[AuthGuard],
   }
+
+
 ];
 
 @NgModule({

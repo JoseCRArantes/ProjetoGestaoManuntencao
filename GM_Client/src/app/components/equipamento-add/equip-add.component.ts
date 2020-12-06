@@ -1,62 +1,64 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.service';
-
+import { Component, OnInit, NgZone } from "@angular/core";
+import { EquipamentoService } from "../../shared/equipamento/equipamento.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
+import { GrupoMaquinaService } from "../../shared/gruposmaquina/grupomaquina.service";
 
 @Component({
-  selector: 'app-add-equip',
-  templateUrl: './equip-add.component.html',
-  styleUrls: ['./equip-add.component.css']
+  selector: "app-add-equip",
+  templateUrl: "./equip-add.component.html",
+  styleUrls: ["./equip-add.component.css"],
 })
-
 export class EquipAddComponent implements OnInit {
+  
+  dict = [
+    [1, "Ativo"],
+    [0, "Desativo"],
+  ];
+
   equipForm: FormGroup;
   EquipArr: any = [];
   gruposMaquinaList: any = [];
 
-
-
-
   ngOnInit() {
-    this.addEquipamento(),
-    this.loadGrupoMaquinas();
+    this.addEquipamento(), this.loadGrupoMaquinas();
   }
 
   constructor(
     public fb: FormBuilder,
     private ngZone: NgZone,
     private router: Router,
-    public equipamentoService: EquipamentoService, 
+    public equipamentoService: EquipamentoService,
     public grupoMaquinaService: GrupoMaquinaService,
     private actRoute: ActivatedRoute
-  ){ }
+  ) {}
 
   addEquipamento() {
     this.equipForm = this.fb.group({
-      IDGrupoM : [0],
-      NumeroSerie : [''],
-      Descr: [''],
-      Marca: [''],
-      Tipo:[''],
-      DataCompra: [''],
-      CodigoInterno: [''],
+      IDGrupoM: [0],
+      NumeroSerie: [""],
+      Descr: [""],
+      Marca: [""],
+      Tipo: [""],
+      DataCompra: [""],
+      CodigoInterno: [""],
       EstadoEqui: [0],
-      DataFimAtividade:['']   
-    })
+      DataFimAtividade: [""],
+    });
   }
 
   loadGrupoMaquinas() {
     return this.grupoMaquinaService.GetGruposMaquina().subscribe((data: {}) => {
       this.gruposMaquinaList = data;
-    })
+    });
   }
 
   submitForm() {
-    this.equipamentoService.CreateEquip(this.equipForm.value).subscribe(res => {
-      console.log('Equipamento adicionado!')
-      this.ngZone.run(() => this.router.navigateByUrl('/equip-list'))
-    });
+    this.equipamentoService
+      .CreateEquip(this.equipForm.value)
+      .subscribe((res) => {
+        console.log("Equipamento adicionado!");
+        this.ngZone.run(() => this.router.navigateByUrl("/equip-list"));
+      });
   }
 }

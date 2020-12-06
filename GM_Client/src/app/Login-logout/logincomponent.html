@@ -1,25 +1,37 @@
+<!-- app.component.html -->
+
 <div class="container wrapper wrapper2">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <div class="row">
-    <form [formGroup]="form">
-      <br />
-      <fieldset>
-        <br />
-        <legend>Autenticação de utilizador</legend>
-        <div class="form-field">
-          <td>Email</td>
-          <input name="username" formControlName="username"/>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
+<br><br><br><br>
+<div class="container">
+  <h2>
+    Autenticação de utilizador
+  </h2>
+  <br>
+  <form [formGroup]="angForm" novalidate>
+        <div class="form-group">
+            <label>Email </label>
+            <input class="form-control" formControlName="username" type="text" style="width:400px">
         </div>
-        <div class="form-field">
-          <td>Password</td>
-          <input name="password" formControlName="password" type="password" />
+        <div *ngIf="angForm.controls['username'].invalid && (angForm.controls['username'].dirty || angForm.controls['username'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['username'].errors.required">
+             Email necessário para prosseguir.
+            </div>
         </div>
-      </fieldset>
-      <br />
-      <div class="form-buttons">
-        <button class="btn btn-primary" (click)="login()">Login</button>
-        &nbsp; &nbsp;
-      </div>
-    </form>
-  </div>
+         <div class="form-group">
+            <label>Password</label>
+            <input class="form-control" formControlName="password" type="password" style="width:400px">
+        </div>
+        <div *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['password'].errors.required">
+              Password necessária para prosseguir
+            </div>
+        </div>
+      
+        <button type="submit"
+        [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success" (click)="login()">Login</button>
+  </form>
+  <br />
+ 
 </div>

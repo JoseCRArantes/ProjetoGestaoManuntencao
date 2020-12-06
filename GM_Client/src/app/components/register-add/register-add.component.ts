@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
   submitForm() {
     this.registerService.CreateRegisto(this.equipForm.value).subscribe(res => {
       console.log('Registo adicionado!')
-      this.ngZone.run(() => this.router.navigateByUrl(''))
+      this.ngZone.run(() => this.router.navigateByUrl('/asp-net-user-list'))
     });
   }
 }

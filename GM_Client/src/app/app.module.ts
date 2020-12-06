@@ -4,6 +4,7 @@ import { FormBuilder, FormsModule, FormGroup } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.model";
 import { AppComponent } from "./app.component";
 
+
 /* Http client module */
 import { HttpClientModule } from "@angular/common/http";
 
@@ -34,6 +35,7 @@ import {  MatListModule } from  '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 /* Components */
 import { EquipListComponent } from "./components/equipamento-list/equip-list.component";
@@ -61,6 +63,7 @@ import { IntervencaoAddUserHomePageComponent } from './components/intervencao-ad
 import { EditPermissaoComponent } from './components/edit-permissao/edit-permissao.component';
 import { ListPermissaoComponent } from './components/list-permissao/list-permissao.component';
 import { AlertaPermissaoComponent } from './components/alerta-permissao/alerta-permissao.component';
+import { AlertaAboutComponent } from './components/alerta-about/alerta-about.component';
 
 //import { AspNetUsersLoadComponent } from './asp-net-users-load/asp-net-users-load.component';
 //import { TipoUtilizadorListComponent } from './components/tipo-utilizador-list/tipo-utilizador-list.component';
@@ -89,9 +92,10 @@ import { AlertaPermissaoComponent } from './components/alerta-permissao/alerta-p
     EditPermissaoComponent,
     ListPermissaoComponent,
     AlertaPermissaoComponent,
+    AlertaAboutComponent,
  
   ],
-  entryComponents: [IntervencaoCurativaAddComponent, IntervencaoPreventivaAddComponent],
+  entryComponents: [IntervencaoCurativaAddComponent, IntervencaoPreventivaAddComponent, AlertaAboutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -119,7 +123,9 @@ import { AlertaPermissaoComponent } from './components/alerta-permissao/alerta-p
     MatButtonModule,
     MatIconModule, 
     MatMenuModule, 
-    MatSidenavModule
+    MatSidenavModule, 
+    MatSnackBarModule
+
   ],
 
   providers: [AuthService] /*Aqui ficar AuthService ou RegisterService */,

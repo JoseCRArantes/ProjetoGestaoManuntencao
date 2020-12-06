@@ -34,105 +34,20 @@ namespace GMwebApi.Controllers
         /// <param name="currentPage"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin, Utilizador, Convidado")]
-        public PedidoManutCurativaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim)
+        public PedidoManutCurativaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim, int equipamentoId)
         {
             PedidoManutCurativaDtoCount pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount();
 
-            //Pesquisa sem filtros.
-            if (grupoMaquina == 0 && dataInicio == "01-01-1990" && dataFim == "01-01-1990")
-            {
-                IQueryable<PedidoManutCurativaDto> pMcurativa =
-                  from c in db.AspNetUsers
-                  from p in db.PedidoManutCurativa
-                  where p.UtilizadorIDUser == c.Id
-                  orderby p.DataPedido descending
-                  select new PedidoManutCurativaDto
-                  {
-                      IDPedido = p.IDPedido,
-                      UtilizadorIDUser = c.Nome,
-                      IDEquipamento = p.IDEquipamento,
-                      Descricao = p.Descricao,
-                      DataPedido = p.DataPedido
-                  };
-
-                IQueryable<PedidoManutCurativaDto> result = pMcurativa.Skip(
-                     pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
-
-                pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount()
-                {
-                    PedidoManutCurativaList = result,
-                    CountPedidos = pMcurativa.Count()
-                };
-            }
-
-            //Pesquisa sem grupo de máquina, mas com filtro "date a partir de"
-            if (grupoMaquina == 0 && dataInicio != "01-01-1990" && dataFim == "01-01-1990")
-            {
-                DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
-                                         System.Globalization.CultureInfo.InvariantCulture);
-
-                IQueryable<PedidoManutCurativaDto> pMcurativa =
-                  from c in db.AspNetUsers
-                  from p in db.PedidoManutCurativa
-                  where (p.UtilizadorIDUser == c.Id && p.DataPedido >=dataInicioConvertida)
-                  orderby p.DataPedido descending
-                  select new PedidoManutCurativaDto
-                  {
-                      IDPedido = p.IDPedido,
-                      UtilizadorIDUser = c.Nome,
-                      IDEquipamento = p.IDEquipamento,
-                      Descricao = p.Descricao,
-                      DataPedido = p.DataPedido
-                  };
-
-                IQueryable<PedidoManutCurativaDto> result = pMcurativa.Skip(
-                     pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
-
-                pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount()
-                {
-                    PedidoManutCurativaList = result,
-                    CountPedidos = pMcurativa.Count()
-                };
-
-            }
-
-            //Filtro com apenas DataFim
-            if (grupoMaquina == 0 && dataInicio == "01-01-1990" && dataFim != "01-01-1990")
-            {
-                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
-                                         System.Globalization.CultureInfo.InvariantCulture);
-
-                IQueryable<PedidoManutCurativaDto> pMcurativa =
-                  from c in db.AspNetUsers
-                  from p in db.PedidoManutCurativa
-                  where (p.UtilizadorIDUser == c.Id && p.DataPedido <= dataFimConvertida)
-                  orderby p.DataPedido descending
-                  select new PedidoManutCurativaDto
-                  {
-                      IDPedido = p.IDPedido,
-                      UtilizadorIDUser = c.Nome,
-                      IDEquipamento = p.IDEquipamento,
-                      Descricao = p.Descricao,
-                      DataPedido = p.DataPedido
-                  };
-
-                IQueryable<PedidoManutCurativaDto> result = pMcurativa.Skip(
-                     pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
-
-                pedidoManutCurativaDtoCount = new PedidoManutCurativaDtoCount()
-                {
-                    PedidoManutCurativaList = result,
-                    CountPedidos = pMcurativa.Count()
-                };
-            }
-
-            //Filtro com data inicio e data fim
-            if (grupoMaquina == 0 && dataInicio != "01-01-1990" && dataFim != "01-01-1990")
+            //Pesquisa sem filtros
+            if (grupoMaquina == 0 && equipamentoId==0)
             {
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
+
+                dataFimConvertida.AddDays(1); //Adiciona 1 dia à data fim, por definicão e como exemplo, 
+                // o dia 1 de Janeiro conta até ás 00H00 e não às 23h:59.
 
                 IQueryable<PedidoManutCurativaDto> pMcurativa =
                  from c in db.AspNetUsers
@@ -160,14 +75,22 @@ namespace GMwebApi.Controllers
             }
 
             //Filtro apenas com grupo de máquina.
-            if (grupoMaquina > 0 && dataInicio == "01-01-1990" && dataFim == "01-01-1990")
+            if (grupoMaquina != 0 && equipamentoId==0)
             {
+                DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                dataFimConvertida.AddDays(1); //Adiciona 1 dia à data fim, por definicão e como exemplo, 
+                // o dia 1 de Janeiro conta até ás 00H00 e não às 23h:59.
+
                 IQueryable<PedidoManutCurativaDto> pMcurativa =
                  from eq in db.Equipamento
                  from c in db.AspNetUsers
                  from p in db.PedidoManutCurativa
                  where p.UtilizadorIDUser ==c.Id
-                 where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina)
+                 where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina && p.DataPedido >= dataInicioConvertida && p.DataPedido <= dataFimConvertida)
                  orderby p.DataPedido descending
                  select new PedidoManutCurativaDto
                  {
@@ -189,19 +112,22 @@ namespace GMwebApi.Controllers
             }
 
             //Pesquisa com todos os filtros ativos.
-            if (grupoMaquina > 0 && dataInicio != "01-01-1990" && dataFim != "01-01-1990")
+            if (grupoMaquina!=0 && equipamentoId!=0)
             {
-                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
-                         System.Globalization.CultureInfo.InvariantCulture);
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
-               
+                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
+                                         System.Globalization.CultureInfo.InvariantCulture);
+
+                dataFimConvertida.AddDays(1); //Adiciona 1 dia à data fim, por definicão e como exemplo, 
+                                              // o dia 1 de Janeiro conta até ás 00H00 e não às 23h:59.
+
                 IQueryable<PedidoManutCurativaDto> pMcurativa =
                       from eq in db.Equipamento
                       from c in db.AspNetUsers
                       from p in db.PedidoManutCurativa
                       where p.UtilizadorIDUser == c.Id
-                      where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina &&
+                      where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina && p.IDEquipamento==equipamentoId &&
                       p.DataPedido >= dataInicioConvertida && p.DataPedido <=dataFimConvertida)
                       orderby p.DataPedido descending
                       select new PedidoManutCurativaDto

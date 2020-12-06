@@ -9,36 +9,38 @@
             <div class="inner">
                 <div id="main">
                     <br>
-                    <h3>Equipamentos</h3> <button type="button" class="btn btn-success btn-sm move-right" style="position: absolute; right: 0;"
+                    <h3>Equipamentos</h3> <button type="button" class="btn btn-success btn-sm move-right" data-toggle="tooltip" data-placement="top" title="Adicionar novo equipamento" style="position: absolute; right: 0;"
                     [routerLink]="['/add-equip']">Novo equipamento</button>
                     
                   </div> 
                   <br>
-                <table class="table table-bordered" style="text-align:center;">
+                  <!-- class="table table-bordered"  -->
+                <table class="table-fixed"  style="text-align:center;"  rules="cols">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Grupo de máquina</th>
-                            <th scope="col">Codigo interno</th>
+                            <th scope="col">Código interno</th>
                             <th scope="col">Descrição</th>
                             <th scope="col">Marca</th>
-                            <th scope="col">Número de Série</th>
+                            <th scope="col">N.º de série</th>
                             
                             <th scope="col">Tipo</th>
                             <th scope="col">Data de compra</th>
                             
-                            <th scope="col">Estado do equipamento</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Data fim atividade</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <tr *ngFor="let equipamentos of EquipList;let i = index">
-                            <th scope="row">{{i+1}}</th>
+                        <tr *ngFor="let equipamentos of EquipList;let i = index" [ngStyle]="{'background-color':equipamentos.EstadoEqui == 1 ? '#fff' : '#FDFF79' }">
+                            <th scope="row" [ngStyle]="{'background-color':equipamentos.EstadoEqui == 1 ? '#fff' : '#FF4545' }">{{i+1}}</th>
                             <ng-container *ngFor="let gm of gruposMaquinaList">
                                 <td *ngIf="gm.IDGrupoMaquinas==equipamentos.IDGrupoM">{{gm.Descr}}</td>
                             </ng-container>
+                            
                             <td>{{equipamentos.CodigoInterno}}</td>  
                             <td>{{equipamentos.Descr}}</td>
                             <td>{{equipamentos.Marca}}</td>
@@ -52,7 +54,7 @@
                             <td *ngIf="equipamentos.EstadoEqui==0" >Desativo</td>
                             <td>{{equipamentos.DataFimAtividade | date:'yyyy'}}</td>
                             <td>
-                               <button type="button" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Editar" [routerLink]="['/edit-equip/', equipamentos.IDEquipamento]"></button>
+                               <button type="button" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Editar equipamento" [routerLink]="['/edit-equip/', equipamentos.IDEquipamento]">»</button>
                             </td>
 
                            

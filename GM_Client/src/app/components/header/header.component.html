@@ -1,6 +1,7 @@
 
 <mat-toolbar class="col">
   <button
+  class="ttt"
     mat-button
     [matMenuTriggerFor]="menu"
     aria-label="Example icon button with a menu icon"
@@ -8,7 +9,7 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <mat-menu #menu="matMenu">
+  <mat-menu class="ttt" #menu="matMenu">
   
     <button mat-menu-item [matMenuTriggerFor]="pedidos">Pedidos</button>
  
@@ -18,6 +19,7 @@
       Grupos de máquina
     </button>
     <button mat-menu-item routerLink="/asp-net-user-list">Utilizadores</button>
+    
   </mat-menu>
 
   <mat-menu #pedidos="matMenu">
@@ -42,7 +44,10 @@
     </li>
     
     <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()">Logout</button>
+      <button class="ttt" mat-button (click)="onLogout()">Logout</button>
+    </li>
+    <li >
+      <button class="ttt" mat-button (click)="showInfo()">Info</button>
     </li>
 
   </ul>

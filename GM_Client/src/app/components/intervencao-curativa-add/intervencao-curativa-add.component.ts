@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { PedidosService } from "../../shared/pedidoMcurativa-teste/pedidoMcurativa.service";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-intervencao-curativa-add",
@@ -20,14 +21,14 @@ export class IntervencaoCurativaAddComponent implements OnInit {
   estadoIntervencaoList: EstadoIntervencao[] = [];
 
   form: FormGroup;
-  //description: string;
-
+  isValidDate:any;
   idPedido: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder,
-    public pedidoServ: PedidosService
+    public pedidoServ: PedidosService, 
+    private _snackBar: MatSnackBar,
   ) {
     this.idPedido = this.data.idPedido;
   }
@@ -54,13 +55,36 @@ export class IntervencaoCurativaAddComponent implements OnInit {
         DataFimIntervencao: values.datafim,
       };
 
-      //if (body.DataInicioIntervencao.getTime() > body.DataFimIntervencao.getTime())
-
-      this.pedidoServ.postIntervencao(body);
-      //http enviar o body para a api.
-    } else {
-      //show dialog a dizer que falta algo.
+      this.isValidDate = this.validateDates(
+        body.DataInicioIntervencao,
+        body.DataFimIntervencao
+      );
+      if (this.isValidDate) {
+        this.pedidoServ.postIntervencao(body);
+      } else {
+      }
     }
+  }
+
+  //Snack Bar - para mostrar erros ou validações.
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 8000,
+      verticalPosition: "top",
+      horizontalPosition: "right",
+    });
+  }
+
+  validateDates(sDate: string, eDate: string) {
+    this.isValidDate = true;
+    if (sDate != null && eDate != null && eDate < sDate) {
+      this.openSnackBar(
+        "Erro. \n A data de fim da intervenção não pode ser anterior à data de início.",
+        ""
+      );
+      this.isValidDate = false;
+    }
+    return this.isValidDate;
   }
 
   loadEstadosIntervencao() {

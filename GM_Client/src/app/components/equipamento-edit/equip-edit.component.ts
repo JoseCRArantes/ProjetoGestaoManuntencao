@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+
 import { EquipamentoService } from '../../shared/equipamento/equipamento.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +14,13 @@ import { GrupoMaquinaService } from '../../shared/gruposmaquina/grupomaquina.ser
 
 export class EquipEditComponent implements OnInit {
 
-  
+  dict = [
+    [1, "Ativo"],
+    [0, "Desativo"]
+    ];
+
+
+
   gruposMaquinaList: any = [];
   updateEquipForm: FormGroup;
   
@@ -74,4 +81,6 @@ export class EquipEditComponent implements OnInit {
       this.ngZone.run(() => this.router.navigateByUrl('/equip-list'))
     })
   }
+
+  
 }

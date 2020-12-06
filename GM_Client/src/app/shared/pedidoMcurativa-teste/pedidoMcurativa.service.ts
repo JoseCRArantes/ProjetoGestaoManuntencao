@@ -35,8 +35,8 @@ export class PedidosService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getPedidos(pedidosPerPage: number, currentPage: number, selectOptionGrupo:number, selectedOptionDateInicio: string, selectedOptionDateFim: string) {
-    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}&grupoMaquina=${selectOptionGrupo}&dataInicio=${selectedOptionDateInicio}&dataFim=${selectedOptionDateFim}`;
+  getPedidos(pedidosPerPage: number, currentPage: number, selectOptionGrupo:number, selectedOptionDateInicio: string, selectedOptionDateFim: string, selectedOptionEquipamento:number) {
+    const queryParms = `?pedidosPerPage=${pedidosPerPage}&currentPage=${currentPage}&grupoMaquina=${selectOptionGrupo}&dataInicio=${selectedOptionDateInicio}&dataFim=${selectedOptionDateFim}&equipamentoId=${selectedOptionEquipamento}`;
     this.httpClient
       .get<{
         PedidoManutCurativaList: PedidoManutCurativaTeste[];

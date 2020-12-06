@@ -1,34 +1,49 @@
-<mat-spinner
-  style="margin: 0 auto;"
-  mode="indeterminate"
-  color="accent"
-  *ngIf="isLoading"
->
+<mat-spinner style="margin: 0 auto" mode="indeterminate" color="accent" *ngIf="isLoading">
 </mat-spinner>
-<p style="text-align:center" *ngIf="isLoading">aguarde ...</p>
-<p>
+<p style="text-align: center" *ngIf="isLoading">aguarde ...</p>
+<p></p>
 
 <hr />
 <div class="inner">
   <div id="main">
     <div id="side_bar">
-    <h5 class="formatH5" style="text-align:left">Tarefas a aguardar a sua intervenção</h5> 
+      <ng-container *ngIf="totalPedidos == 1">
+        <h5 class="formatH5" style="text-align: left">
+          Tem uma tarefa pendente de ser realizada:
+        </h5>
+      </ng-container>
+      <ng-container *ngIf="totalPedidos > 1">
+        <h5 class="formatH5" style="text-align: left">
+          Tem as seguintes tarefas pendentes de serem realizadas
+          <p>Total de tarefas: {{ totalPedidos }}</p>
+        </h5>
+      </ng-container>
+    </div>
   </div>
-  </div>
-  <br />
-  <div class="table-responsive">
-    <table class="table table-bordered" style="width: 100%;" [hidden]="isLoading">
-      <thead>
-        <tr>
-         <th scope="col"width="80">ID</th>
-          <th scope="col" width="350">Equipamento</th>
-          <th scope="col" width="400">Descrição</th>
-          <th scope="col" width="150">Data pedido</th>
-          <th scope="col" width="150">Data limite</th>
-          <!--<th scope="col" width="80">Estado</th>-->
-        </tr>
-      </thead>
-    </table>
+
+  <ng-container *ngIf="totalPedidos == 0">
+    <br /><br /><br /><br /><br /><br /><br /><br />
+    <p style="text-align: center">
+      <strong>Não tem tarefas pendentes de serem realizadas</strong>
+    </p>
+    <br /><br /><br />
+  </ng-container>
+
+  <div *ngIf="totalPedidos > 0">
+    <div class="table-responsive">
+      <table class="table table-bordered" style="width: 100%" [hidden]="isLoading">
+        <thead>
+          <tr>
+            <!--  <th scope="col" width="80">ID</th> -->
+            <th scope="col" width="350">Equipamento</th>
+            <th scope="col" width="400">Descrição</th>
+            <th scope="col" width="150">Data pedido</th>
+            <th scope="col" width="150">Data limite</th>
+            <!--<th scope="col" width="80">Estado</th>-->
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
 
   <mat-accordion multi="false">
@@ -37,8 +52,7 @@
         <table class="table">
           <tbody>
             <tr>
-   
-              <td class="tb-td-txt" width="80">{{ item.IDPedido}}</td>
+              <!-- <td class="tb-td-txt" width="80">{{ item.IDPedido }}</td> -->
               <td class="tb-td-txt" width="360">
                 {{ changeIDtoInternalCode(i) }}
               </td>
@@ -54,33 +68,23 @@
         </table>
       </mat-expansion-panel-header>
       <div class="table-responsive">
-        <body style="text-align: center;">
-          <table class="table" style="width: 100%;">
+
+        <body style="text-align: center">
+          <table class="table" style="width: 100%">
             <thead>
               <tr>
-                <br>
-                
-                <button
-                type="button"
-                (click)="openDialog(item.IDPedido)"
-                class="btn btn-success btn-sm move-right"
-                style="
-                  position: center;
-                  right: 0;
-                  height: 40px;
-                  width: 150px;
-                "
-              >
-                Fechar pedido
-              </button>
-              <br>
-              <br>
+                <br />
+
+                <button type="button" (click)="openDialog(item.IDPedido)" class="btn btn-success btn-sm move-right"
+                  style="position: center; right: 0; height: 40px; width: 150px">
+                  Fechar pedido
+                </button>
+                <br />
+                <br />
               </tr>
             </thead>
             <tbody>
               <tr></tr>
-
-
             </tbody>
           </table>
         </body>

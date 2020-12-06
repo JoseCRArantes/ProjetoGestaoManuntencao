@@ -26,6 +26,7 @@ export class AuthGuard implements CanActivate {
     ["edit-permissao/:id", UserRoles.Admin],
     ["asp-net-user-list", UserRoles.Admin],
     ["asp-net-user-edit/:id", UserRoles.Admin],
+    ["asp-net-user-edit", UserRoles.Admin],
     ["add-register", UserRoles.Admin],
     ["pedido-mcurativa-list-teste", UserRoles.Admin],
     ["pedido-mcurativa-list-teste", UserRoles.Convidado],
@@ -58,6 +59,9 @@ export class AuthGuard implements CanActivate {
     ["alerta-permissao", UserRoles.Admin],
     ["alerta-permissao", UserRoles.Utilizador],
     ["alerta-permissao", UserRoles.Convidado],
+    ["alerta-about", UserRoles.Admin],
+    ["alerta-about", UserRoles.Convidado],
+    ["alerta-about", UserRoles.Utilizador]
   ];
 
   //http://localhost:4200/edit-equip/195
@@ -70,6 +74,7 @@ export class AuthGuard implements CanActivate {
     private authService: AuthService,
     private router: Router,
     public dialog: MatDialog
+    
   ) {}
 
   canActivate(
@@ -82,7 +87,7 @@ export class AuthGuard implements CanActivate {
     console.log(route.url[0].path);
     this.dict.forEach(function (value) {
       if (value[0] === route.url[0].path) {
-        //value[1] == currentUserRole
+        
         if (value[1] == localStorage.getItem("roleId")) {
           hasAccess = true;
         }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { Inject } from "@angular/core";
+import { Inject, NgZone } from "@angular/core";
 import { NgForm, RequiredValidator } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -23,6 +23,8 @@ export class IntervencaoAddUserHomePageComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder,
+    private ngZone: NgZone,
+    private router: Router,
     public pedidoServ: PedidosPreventivosService
   ) {
     this.IDPedido = this.data.IDPedido;
@@ -52,11 +54,24 @@ export class IntervencaoAddUserHomePageComponent implements OnInit {
       //if (body.DataInicioIntervencao.getTime() > body.DataFimIntervencao.getTime())
 
       this.pedidoServ.postIntervencao(body);
+      this.router.navigate(["/manutencao-prog-home-page"]);
+      setTimeout(() => {
+        this.refresh();
+      }, 1000);
       //http enviar o body para a api.
     } else {
       //show dialog a dizer que falta algo.
     }
   }
+
+
+
+
+  //Refresh à janela.
+  refresh(): void {
+    window.location.reload();
+  }
+
 
   loadEstadosIntervencao() {
     return this.pedidoServ

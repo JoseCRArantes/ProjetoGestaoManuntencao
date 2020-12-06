@@ -19,9 +19,9 @@ import { Subscription } from "rxjs";
 import { IntervencaoPreventivo } from "src/app/shared/pedidoMpreventiva/intervencaoPreventiva.model";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { MatDialog } from "@angular/material/dialog";
-import {IntervencaoAddUserHomePageComponent} from '../intervencao-add-user-home-page/intervencao-add-user-home-page.component';
-import {IntervencaoPreventivaAddComponent} from '../intervencao-preventiva-add/intervencao-preventiva-add.component';
-import {  ActivatedRoute } from '@angular/router';
+import { IntervencaoAddUserHomePageComponent } from "../intervencao-add-user-home-page/intervencao-add-user-home-page.component";
+import { IntervencaoPreventivaAddComponent } from "../intervencao-preventiva-add/intervencao-preventiva-add.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-manutencao-prog-home-page",
@@ -34,7 +34,6 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
     public tipoUtilizadorService: TipoUtilizadorService,
     public dialog: MatDialog,
     private actRoute: ActivatedRoute
-
   ) {}
   pedidoForm: FormGroup;
   selectedOption: number;
@@ -55,30 +54,39 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
   private intervencoesSub: Subscription;
   private pedidosSub: Subscription;
   private pedidosUserSub: Subscription;
-
- 
+  totalPedidos : number;
 
   ngOnDestroy() {
     this.pedidosUserSub.unsubscribe();
   }
   ngOnInit() {
-    this.loadEstadosIntervencao();
-
-
     this.pedidoService.getPedidosUser();
     this.pedidosUserSub = this.pedidoService
       .getPedidosUserUpdateListener()
       .subscribe((pedidosuser: PedidoPreventivo[]) => {
         this.pedidosEsperaUser = pedidosuser;
+        this.totalPedidos = this.pedidosEsperaUser.length;
       });
-  
-
-    //this.addPedido();
+    this.loadEstadosIntervencao();
+    
+    
     this.loadGrupoMaquinas();
     this.loadEquipamentos();
     this.loadTiposUtilizador();
-   // this.loadPedidosEsperaUser();
-  }
+    }
+
+    mudaNumeroPedidos()
+    {
+      let utilizadorIDUser = "";
+
+      if(this.totalPedidos ==0)
+      utilizadorIDUser = " pedidos";
+      if(this.totalPedidos==1)
+      utilizadorIDUser = " pedido"
+      if(this.totalPedidos>1)
+      utilizadorIDUser =" pedidos";
+      return utilizadorIDUser;
+    }
 
   //Troca no front-end, o ID do equipamento pelo código interno da empresa
   changeIDtoInternalCode(equip: number) {
@@ -99,7 +107,6 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
   }
 
   openDialog(IDPedido) {
-    console.log(IDPedido, "passou na componente");
     this.dialog.open(IntervencaoAddUserHomePageComponent, {
       data: { IDPedido: IDPedido },
     });
@@ -122,13 +129,6 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
-/*   loadPedidosEsperaUser() {
-    return this.pedidoService.GetPedidosEmEsperaUser().subscribe((data: {}) => {
-      this.pedidosEsperaUser = data;
-    });
-  } */
-
-
   loadGrupoMaquinas() {
     return this.pedidoService
       .GetGruposMaquina()
@@ -138,23 +138,19 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
-      //Troca o ID do estado de intervenção, pela sua descrição correspondente.
-      changeIDtoDescription(estado: number) {
-        for (let j = 0; j < this.equipamentosList.length; j++) {
-          if (
-            this.intervencoes[estado].IDEstadoIntervencao ==
-            this.estadoIntervencaoList[j].ID
-          ) {
-            return this.estadoIntervencaoList[j].Descr;
-          }
-        }
+  //Troca o ID do estado de intervenção, pela sua descrição correspondente.
+  changeIDtoDescription(estado: number) {
+    for (let j = 0; j < this.equipamentosList.length; j++) {
+      if (
+        this.intervencoes[estado].IDEstadoIntervencao ==
+        this.estadoIntervencaoList[j].ID
+      ) {
+        return this.estadoIntervencaoList[j].Descr;
       }
+    }
+  }
 
-      
-
-        //lista estados de intervenção.
+  //lista estados de intervenção.
   loadEstadosIntervencao() {
     return this.pedidoService
       .GetEstadosIntervencao()
@@ -162,7 +158,4 @@ export class ManutencaoProgHomePageComponent implements OnInit, OnDestroy {
         this.estadoIntervencaoList = data;
       });
   }
-
- 
-
 }

@@ -5,22 +5,20 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { TokenParams } from "./TokenParamsModel";
-
 import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
 import { Subject } from "rxjs";
-
-// Http Headers
-/*   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
- */
-
 import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
-import { UserRoles } from '../shared/Constantes/userRoles';
+import { UserRoles } from "../shared/Constantes/userRoles";
+
+
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, NgZone } from "@angular/core";
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
+
+
 
 @Injectable()
 export class AuthService {
@@ -31,11 +29,13 @@ export class AuthService {
   private roleId: UserRoles;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
-  //private TokenAPI = "http://localhost:44334/Token";
+  constructor(private http: HttpClient, private router: Router, 
+    private _snackBar: MatSnackBar,
+    private zone: NgZone,) {}
+  private TokenAPI = "http://localhost:44334/Token";
 
-  private TokenAPI = "http://192.168.0.49:8005/Token";
-  
+  //private TokenAPI = "http://192.168.0.49:8005/Token";
+
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
@@ -55,7 +55,6 @@ export class AuthService {
 
   //Método de login
   login(Username: string, Password: string) {
-
     let headers = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
     });
@@ -77,43 +76,58 @@ export class AuthService {
           const expirationDate = new Date(
             now.getTime() + expiresInDuration * 1000
           );
-          console.log("expirationDate", expirationDate);
-          // localStorage.setItem("token", response.access_token);
           this.saveAuthData(
             response.access_token,
             expirationDate,
             response.userName,
-            response.roleId 
+            response.roleId
           );
-          this.router.navigate(["/"]);
+          //this.openSnackBar("Login com sucesso.", "");
           setTimeout(() => {
-            this.refresh();
-          },1000);  
-        
+            this.router.navigate(["/"]);
+            setTimeout(() => {
+              this.refresh();
+            }, );
+          }, 0);
+          
+          
         }
+        
       },
       (err) => {
         this.authStatusListener.next(false);
         console.log(err.message);
+        this.openSnackBar("Email ou password errada.", "");
       }
     );
   }
 
+  
 
+  //Snack Bar - para mostrar erros ou validações.
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+      // here specify the position
+      verticalPosition:'top', horizontalPosition:'right'
+      
+    });
+  }
 
+  
 
+  
 
+ 
 
   logout() {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    console.log("Passei no logout");
   }
 
   private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       //this.logout();
     }, duration * 1000);
@@ -148,11 +162,16 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       username: username,
-      roleId: roleId
+      roleId: roleId,
     };
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userName: string, roleId:string) {
+  private saveAuthData(
+    token: string,
+    expirationDate: Date,
+    userName: string,
+    roleId: string
+  ) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("username", userName);
@@ -170,16 +189,16 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  getCurrentUserRoleId()
-  {
+  getCurrentUserRoleId() {
     return this.roleId;
-
   }
 
   //Refresh à janela.
   refresh(): void {
     window.location.reload();
   }
+
+
 
   //erros de pedidos ao servidor.
   errorHandl(error) {

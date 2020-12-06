@@ -3,9 +3,11 @@ import { MatMenuModule } from "@angular/material/menu";
 import { AuthService } from "../../TokenAuth/auth.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
 
 import { interval, Observable } from "rxjs";
 import { map, share } from "rxjs/operators";
+import { AlertaAboutComponent } from '../alerta-about/alerta-about.component';
 
 @Component({
   selector: "app-header",
@@ -16,7 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    public dialog:MatDialog
   ) {}
 
   user: any = localStorage.getItem("username");
@@ -52,10 +55,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.refresh();
-    }, 1000);
+    }, 10);
   }
 
   refresh(): void {
     window.location.reload();
+  }
+  showInfo()
+  {
+    this.dialog.open(AlertaAboutComponent);
   }
 }

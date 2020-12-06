@@ -10,11 +10,11 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-//import { AspNetUsersLoadComponent} from './asp-net-users-load/asp-net-users-load.component';
 import { AspNetUsers } from "../shared/aspNetUsers/aspNetUsers.model";
 import { AspNetUsersService } from "../shared/aspNetUsers/aspNetUsers.service";
 import { Subscription } from "rxjs";
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 //import * as moment from "moment";
 
@@ -27,6 +27,8 @@ export class LoginComponent {
   private authStatusSub: Subscription;
   form: FormGroup;
   tokenParam: TokenParams;
+  angForm: FormGroup;
+  private 
 
   ngOnInit() {
     this.authStatusSub = this.authService
@@ -36,6 +38,8 @@ export class LoginComponent {
       });
   }
   constructor(
+    public _snackBar: MatSnackBar,
+    private zone: NgZone,
     private actRoute: ActivatedRoute,   
     private fb: FormBuilder,
     private authService: AuthService,
@@ -43,27 +47,40 @@ export class LoginComponent {
     private ngZone: NgZone,
     public aspNetUsersService: AspNetUsersService
   ) {
-    this.form = this.fb.group({
-      username: ["", Validators.required],
-      password: ["", Validators.required],
-    });
+
+    this.createForm();
+
   }
 
   login() {
-    const val = this.form.value;
-    if (this.form.invalid) {
+    const val = this.angForm.value;
+    if (this.angForm.invalid) {
       return;
     }
     this.isLoading = true;
     this.authService.login(val.username, val.password);
     
-
- /*    setTimeout(() => {
-      this.refresh();
-    },3000);  */
   }
 
+  //Refresh à janela.
   refresh(): void {
     window.location.reload();
   }
+
+  
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 100000,
+    });
+  }
+
+  createForm() {
+    this.angForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
+
+
 }

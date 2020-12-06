@@ -13,3 +13,35 @@
   }
   
 
+  .table-fixed {
+    width: 100%;
+  }
+  
+  /*This will work on every browser but Chrome Browser*/
+  .table-fixed thead {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #FBFBFB;
+    color: #000;
+  }
+  
+  /*This will work on every browser*/
+  .table-fixed thead th {
+      position: sticky;
+      position: -webkit-sticky;
+      top: 0;
+      z-index: 999;
+      background-color: #FBFBFB;
+      color: #000;
+  }
+/* 
+  table, th, td {
+    border: 0.5px solid black;
+  } */
+/* 
+  table {
+    border: 1px solid black;
+  }
+ */

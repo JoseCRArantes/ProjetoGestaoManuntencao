@@ -8,40 +8,45 @@
             <br>
             <div class="td">Grupo de Máquina</div>
             <form [formGroup]="equipForm" (ngSubmit)="submitForm()" novalidate>   
-                <select class="form-group" formControlName="IDGrupoM">
+                <select class="form-group" formControlName="IDGrupoM" style="width:300px">
                     <label>Grupo de máquina</label> 
                     <option value="0">Selecione</option>   
-                    <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas" style="width:500px">{{item.Descr}}</option>                  
+                    <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas" style="width:300px">{{item.Descr}}</option>                  
                 </select>
                 <div class="form-group">
                     <label>Número série</label>
-                    <input type="text" formControlName="NumeroSerie" class="form-control" style="width:500px">
+                    <input type="text" formControlName="NumeroSerie" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Descrição</label>
-                    <input type="text" formControlName="Descr" class="form-control" style="width:500px">
+                    <input type="text" formControlName="Descr" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Marca</label>
-                    <input type="text" formControlName="Marca" class="form-control" style="width:500px">
+                    <input type="text" formControlName="Marca" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Tipo</label>
-                    <input type="text" formControlName="Tipo" class="form-control" style="width:500px">
+                    <input type="text" formControlName="Tipo" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Data de compra</label>
-                    <input type="Date" formControlName="DataCompra" class="form-control" style="width:500px">
+                    <input type="Date" formControlName="DataCompra" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Codigo interno</label>
-                    <input type="text" formControlName="CodigoInterno" class="form-control" style="width:500px">
+                    <input type="text" formControlName="CodigoInterno" class="form-control" style="width:300px">
                 </div>
                 <div class="form-group">
                     <label>Estado do equipamento</label>
-                    <input type="text" formControlName="EstadoEqui" class="form-control" style="width:50px">
+                    <br>
+                    <select class="form-group" formControlName="EstadoEqui" style="width:300px">
+                       
+                        <option  *ngFor="let item of dict" [value]="item[0]">{{item[1]}}</option>                  
+                    </select>
+
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submeter</button>
                 <br>
                 <br>
             </form>

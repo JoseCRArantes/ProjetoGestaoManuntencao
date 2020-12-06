@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { EstadoIntervencao } from "../../shared/estadoIntervencao/estadoIntervencao.model";
 import { PedidosPreventivosService } from "../../shared/pedidoMpreventiva/pedidoMpreventiva.service";
 import { MatSelectModule } from "@angular/material/select";
-
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-intervencao-preventiva-add",
@@ -19,10 +19,11 @@ export class IntervencaoPreventivaAddComponent implements OnInit {
   estadoIntervencaoList: EstadoIntervencao[] = [];
   form: FormGroup;
   idPedido: number;
-
+  isValidDate: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder,
+    private _snackBar: MatSnackBar,
     public pedidoServ: PedidosPreventivosService
   ) {
     this.idPedido = this.data.idPedido;
@@ -37,7 +38,6 @@ export class IntervencaoPreventivaAddComponent implements OnInit {
       datafim: [null],
     });
   }
-  
 
   onSubmit() {
     if (this.form.valid) {
@@ -50,13 +50,36 @@ export class IntervencaoPreventivaAddComponent implements OnInit {
         DataFimIntervencao: values.datafim,
       };
 
-      //if (body.DataInicioIntervencao.getTime() > body.DataFimIntervencao.getTime())
-
-      this.pedidoServ.postIntervencao(body);
-      //http enviar o body para a api.
-    } else {
-      //show dialog a dizer que falta algo.
+      this.isValidDate = this.validateDates(
+        body.DataInicioIntervencao,
+        body.DataFimIntervencao
+      );
+      if (this.isValidDate) {
+        this.pedidoServ.postIntervencao(body);
+      } else {
+      }
     }
+  }
+
+  //Snack Bar - para mostrar erros ou validações.
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 8000,
+      verticalPosition: "top",
+      horizontalPosition: "right",
+    });
+  }
+
+  validateDates(sDate: string, eDate: string) {
+    this.isValidDate = true;
+    if (sDate != null && eDate != null && eDate < sDate) {
+      this.openSnackBar(
+        "Erro. \n A data de fim da intervenção não pode ser anterior à data de início.",
+        ""
+      );
+      this.isValidDate = false;
+    }
+    return this.isValidDate;
   }
 
   loadEstadosIntervencao() {

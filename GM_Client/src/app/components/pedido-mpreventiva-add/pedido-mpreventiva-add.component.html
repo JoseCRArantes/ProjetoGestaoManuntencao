@@ -8,20 +8,21 @@
             <div class="td"></div>
             <br>
 
+
             <label>Grupo de máquina</label>
             <br>
-            <select [(ngModel)]="selectedOption" (click)="listJustgroupmachine()">           
+            <select [(ngModel)]="selectedOption" (click)="listJustgroupmachine()" style="width:400px">           
                 <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.CodigoInterno }}-{{ item.Descr}}</option>
             </select>
             <br>
             <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>   
                 <br><label>Equipamento</label><br>
-                <select  class="form-group" formControlName="IDEquipamento">
+                <select  class="form-group" formControlName="IDEquipamento" style="width:400px">
                     <option value="0">Selecione o equipamento</option>   
-                    <option *ngFor="let item of equipamentosFiltrados" [value]="item.IDEquipamento">{{item.CodigoInterno}}-{{ item.Marca}} {{ item.Descr}}</option>                  
+                    <option *ngFor="let item of equipamentosFiltrados" [value]="item.IDEquipamento">{{item.CodigoInterno}} - {{ item.Marca}}: {{ item.Descr}} #{{item.Tipo}}</option>                  
                 </select>
                 <div class="form-group">
-                    <label>Descrição</label>
+                    <label>Descrição</label>                                                            
                     <br>
                     <input type="text" formControlName="Descricao" class="form-control" class="myText" maxlength="100">
                 </div>

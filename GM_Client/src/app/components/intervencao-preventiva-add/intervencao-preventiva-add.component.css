@@ -1,0 +1,19 @@
+.input-full-width {
+  width: 800px;
+}
+
+.form-full-width {
+  min-width: 150px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+button {
+  text-align: center;
+  display: inline-block;
+}
+
+mat-dialog-container {
+    padding: 0px !important;
+    background-color: aqua !important;
+  }
