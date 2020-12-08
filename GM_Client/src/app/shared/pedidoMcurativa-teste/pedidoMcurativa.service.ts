@@ -23,8 +23,7 @@ export class PedidosService {
   };
 
   pedidos: PedidoManutCurativaTeste[] = [];
-  //private pedidosUpdated = new Subject<PedidoManutCurativaTeste[]>();
-
+  
   private pedidosUpdated = new Subject<{
     pedidos: PedidoManutCurativaTeste[];
     CountPedidos: number;
@@ -181,67 +180,3 @@ export class PedidosService {
       .pipe(retry(1));
   }
 }
-
-/* LAST GETPEDIDOS
-  getPedidos() {
-    this.httpClient
-      .get<any[]>(
-        "http://localhost:44334/api/PedidoManutCurativas",
-        this.httpOptions
-      )
-      .subscribe((pedidos) => {
-        let transformedpedidos: PedidoManutCurativaTeste[] = [];
-        for (let x = 0; x < pedidos.length; x++) {
-          let transformedpedido: PedidoManutCurativaTeste = {
-            IDPedido: pedidos[x].IDPedido,
-            UtilizadorIDUser: pedidos[x].UtilizadorIDUser,
-            IDEquipamento: pedidos[x].IDEquipamento,
-            Descricao: pedidos[x].Descricao,
-            DataPedido: pedidos[x].DataPedido,
-          };
-          transformedpedidos.push(transformedpedido);
-        }
-
-        this.pedidos = transformedpedidos;
-        this.pedidosUpdated.next([...this.pedidos]);
-      });
-  }*/
-
-/*  getPedidos() {
-      this.httpClient.get<any>('http://localhost:44334/api/PedidoManutCurativas', this.httpOptions)
-        .toPromise()
-        .then(r => r.map(pedido => ({
-          PedidoIDPedido : pedido.IDPedido,
-          UtilizadorIDUser : pedido.UtilizadorIDUser,
-          IDEquipamento : pedido.IDEquipamento,
-          Descricao : pedido.Descricao,
-          DataPedido : pedido.DataPedido 
-        }))
-        )
-          .then(transformedpedidos => {
-          this.pedidos = transformedpedidos;
-          this.pedidosUpdated.next([...this.pedidos]);
-        });
-        
-  } */
-
-/*  getIntervencoes() {
-        this.httpClient.get<any>('http://localhost:44334/api/IntervencaoCurativas', this.httpOptions)
-          .toPromise()
-          .then(r => r.map(intervencao => ({
-            ID : intervencao.ID,
-            IDPedido : intervencao.IDPedido,
-            UtilizadorIDUser : intervencao.UtilizadorIDUser,
-            IDEquipamento : intervencao.IDEquipamento,
-            Descricao : intervencao.Descricao,
-            IDEstadoIntervencao : intervencao.IDEstadoIntervencao,
-            DataFimIntervencao: intervencao.DataFimIntervencao,
-            DataInicioIntervencao : intervencao.DataInicioIntervencao
-          }))
-          )
-            .then(transformedintervencoes=> {
-            this.intervencoes = transformedintervencoes;
-            this.intervencoesUpdated.next([...this.intervencoes]);
-          });
-          console.log(this.intervencoes, 'teste');
-    } */

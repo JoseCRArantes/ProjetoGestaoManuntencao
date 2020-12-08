@@ -75,14 +75,21 @@ export class PedidoMcurativaAddComponent implements OnInit {
     this.pedidoForm = this.fb.group({
       IDEquipamento : [0],
       Descricao: [''],
-      //IDEstadoIntervencao: [0],
-      //DataPedido:['']   
+  
     })
   }
 
+ /*  submitForm2() {
+    this.pedidoService.postPedido(this.pedidoForm.value).subscribe(res => {
+      console.log('Registo adicionado!')
+      this.ngZone.run(() => this.router.navigateByUrl('/pedido-mcurativa-list-teste'))
+    });
+  } */
+
   submitForm() {
     this.pedidoService.postPedido(this.pedidoForm.value);
-    this.router.navigateByUrl('/pedido-mcurativa-list-teste'); 
+    this.ngZone.run(() => this.router.navigateByUrl('/pedido-mcurativa-list-teste'))
+    
     }
     
   

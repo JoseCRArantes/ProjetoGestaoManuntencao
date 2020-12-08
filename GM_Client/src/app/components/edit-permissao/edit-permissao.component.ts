@@ -63,14 +63,8 @@ export class EditPermissaoComponent implements OnInit {
  
   }
 
-
+//submissão do pedido PUT 
 submitForm(){ 
-/* var id = this.actRoute.snapshot.paramMap.get('Email');
-  var rolename = this.actRoute.snapshot.paramMap.get('Name');
-  console.log(id, "id ---, ", rolename, " role" ); */
-  console.log("UsernameNGMODEL: ", this.userName); 
-  console.log("RoleNameNGMODEL: ", this.roleName); 
-
   this.aspNetRolesService.UpdateAspNetRole(this.userName, this.roleName, this.oldRoleName, this.updatePermissaoForm.value).subscribe(res => {
     this.ngZone.run(() => this.router.navigateByUrl('/list-permissao'))
   }) 

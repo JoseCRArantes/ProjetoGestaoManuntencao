@@ -1,8 +1,19 @@
-.form-control{
-        width: 400px;
-        
-
+.form-control {
+  width: 400px;
 }
+
+.column {
+  float: left;
+  width: 15%;
+  padding: 1px;
+}
+.column2 {
+  float: left;
+  width: 15%;
+  padding: 1px;
+  margin-left: 200px;
+}
+
 /* .centerScreen{
    
         display: flex;
@@ -23,4 +34,3 @@
         text-align: center;
         min-height: 100vh;
 } */
-

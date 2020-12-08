@@ -6,16 +6,16 @@
             <form [formGroup]="updatePermissaoForm" (ngSubmit)="submitForm()" novalidate>
                 <label>Nome</label>
                 <div class="form-group">
-                    <input type="text" formControlName="Nome" class="form-control" disabled />
+                    <input type="text" formControlName="Nome" class="form-control" style="width:350px"disabled />
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="text" [(ngModel)]="userName" formControlName="Email" class="form-control" disabled />
+                    <input type="text" [(ngModel)]="userName" formControlName="Email" style="width:350px" class="form-control" disabled />
                 </div>
 
                 <label>Tipo de utilizador</label>
                 <br />
-                <select class="form-group" [(ngModel)]="roleName" formControlName="Name">
+                <select class="form-group" [(ngModel)]="roleName" formControlName="Name" style="width:350px">
                     <option *ngFor="let item of arrayPermissao" [value]="item.Name">{{
             item.Name
           }}</option>

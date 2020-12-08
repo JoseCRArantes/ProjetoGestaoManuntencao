@@ -70,22 +70,23 @@ namespace GMwebApi.Controllers
         [Authorize(Roles = "Admin, Utilizador, Convidado")]
         public PedidoPreventivaDtoCount GetPedidoManutCurativa(int pedidosPerPage, int currentPage, int grupoMaquina, string dataInicio, string dataFim, int equipamentoId)
         {
-
             PedidoPreventivaDtoCount pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount();
-           
+
+            DateTime aux = new DateTime();
+
             //Filtro com data inicio e data fim
-            if (grupoMaquina == 0 && equipamentoId==0)
+            if (grupoMaquina == 0 && equipamentoId == 0)
             {
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
-                dataFimConvertida.AddDays(1);
+                aux = dataFimConvertida.AddDays(1);
                 IQueryable<PedidoPreventivaDto> pMpreventiva =
 
                   from c in db.AspNetUsers
                   from p in db.PedidoManutPreventiva
-                  where (p.UtilizadorIDUser == c.Id && p.DataPedido>=dataInicioConvertida &&  p.DataPedido <= dataFimConvertida)
+                  where (p.UtilizadorIDUser == c.Id && p.DataPedido >= dataInicioConvertida && p.DataPedido <= aux)
                   orderby p.DataPedido descending
                   select new PedidoPreventivaDto
                   {
@@ -108,17 +109,14 @@ namespace GMwebApi.Controllers
 
             }
 
-
-           
-
             //Pesquisa com grupo maquina.
-            if (grupoMaquina !=0 && equipamentoId ==0)
+            if (grupoMaquina != 0 && equipamentoId == 0)
             {
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
                          System.Globalization.CultureInfo.InvariantCulture);
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
-                dataFimConvertida.AddDays(1);
+                aux = dataFimConvertida.AddDays(1);
 
                 IQueryable<PedidoPreventivaDto> pMpreventiva =
                     from eq in db.Equipamento
@@ -126,7 +124,7 @@ namespace GMwebApi.Controllers
                     from p in db.PedidoManutPreventiva
                     where p.UtilizadorIDUser == c.Id
                     where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina &&
-                    p.DataPedido >= dataInicioConvertida && p.DataPedido <= dataFimConvertida) 
+                    p.DataPedido >= dataInicioConvertida && p.DataPedido <= aux)
                     orderby p.DataPedido descending
                     select new PedidoPreventivaDto
                     {
@@ -149,18 +147,16 @@ namespace GMwebApi.Controllers
             }
 
             //Pesquisa com grupo maquina e data inicio.
-            if (grupoMaquina !=0 && equipamentoId !=0)
+            if (grupoMaquina != 0 && equipamentoId != 0)
             {
-
-
 
                 DateTime dataInicioConvertida = DateTime.ParseExact(dataInicio, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
                 DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
                                          System.Globalization.CultureInfo.InvariantCulture);
 
-                dataFimConvertida.AddDays(1); //Adiciona 1 dia à data fim, por definicão e como exemplo, 
-                                              // o dia 1 de Janeiro conta até ás 00H00 e não às 23h:59.
+                aux = dataFimConvertida.AddDays(1); //Adiciona 1 dia à data fim, por definicão e como exemplo, 
+                                                    // o dia 1 de Janeiro conta até ás 00H00 e não às 23h:59.
 
 
                 IQueryable<PedidoPreventivaDto> pMpreventiva =
@@ -169,7 +165,7 @@ namespace GMwebApi.Controllers
                     from p in db.PedidoManutPreventiva
                     where p.UtilizadorIDUser == c.Id
                     where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina && p.IDEquipamento == equipamentoId &&
-                      p.DataPedido >= dataInicioConvertida && p.DataPedido <= dataFimConvertida)
+                      p.DataPedido >= dataInicioConvertida && p.DataPedido <= aux)
                     orderby p.DataPedido descending
                     select new PedidoPreventivaDto
                     {
@@ -190,48 +186,12 @@ namespace GMwebApi.Controllers
                     CountPedidos = pMpreventiva.Count()
                 };
             }
-
-            //Pesquisa com grupo maquina e data fim
-            if (grupoMaquina > 0 && dataInicio == "01-01-1990" && dataFim != "01-01-1990")
-            {
-
-                DateTime dataFimConvertida = DateTime.ParseExact(dataFim, "yyyy-MM-dd",
-                                         System.Globalization.CultureInfo.InvariantCulture);
-
-                IQueryable<PedidoPreventivaDto> pMpreventiva =
-                    from eq in db.Equipamento
-                    from c in db.AspNetUsers
-                    from p in db.PedidoManutPreventiva
-                    where p.UtilizadorIDUser == c.Id
-                    where (p.IDEquipamento == eq.IDEquipamento && eq.IDGrupoM == grupoMaquina &&
-                    p.DataPedido <= dataFimConvertida)
-                    orderby p.DataPedido descending
-                    select new PedidoPreventivaDto
-                    {
-                        IDPedido = p.ID,
-                        UtilizadorIDUser = c.Nome,
-                        IDEquipamento = p.IDEquipamento,
-                        Descricao = p.Descricao,
-                        DataPedido = p.DataPedido,
-                        DataLimiteManutencaoPrev = p.DataLimiteManutencaoPrev
-                    };
-
-                IQueryable<PedidoPreventivaDto> result = pMpreventiva.Skip(
-                    pedidosPerPage * (currentPage - 1)).Take(pedidosPerPage);
-
-                pedidoPreventivaDtoCount = new PedidoPreventivaDtoCount()
-                {
-                    PedidoManutPreventivoList = result,
-                    CountPedidos = pMpreventiva.Count()
-                };
-            }
-
 
             return pedidoPreventivaDtoCount;
-    }
+        }
 
 
-       
+
         /// DTO de um post simples para inserir num método POST.
         private PedidoManutPreventiva PedidoMPreventivaDtoTOPedidoMPreventiva(PedidoPreventivaDto pedidoManutPreventivaDto)
         {
@@ -241,7 +201,7 @@ namespace GMwebApi.Controllers
                 UtilizadorIDUser = (string)user,
                 IDEquipamento = pedidoManutPreventivaDto.IDEquipamento,
                 Descricao = pedidoManutPreventivaDto.Descricao,
-                DataPedido = DateTime.Now 
+                DataPedido = DateTime.Now
             };
         }
 
@@ -256,7 +216,7 @@ namespace GMwebApi.Controllers
         private PedidoManutPreventiva PedidosPrevDtoToManutPreventivaGrMaquina(ManutPreventivaGrupoMaquina manutPreventivaGrupoMaquina)
         {
             AspNetUsers aspNetUsers = db.AspNetUsers.FirstOrDefault(a => a.UserName == manutPreventivaGrupoMaquina.UtilizadorIDUser);
-            
+
             {
                 return new PedidoManutPreventiva()
                 {
@@ -266,7 +226,7 @@ namespace GMwebApi.Controllers
                     Descricao = manutPreventivaGrupoMaquina.Descricao
                     // IDEquipamento = (int)manutPreventivaGrupoMaquina.IDEquipamento,
                 };
-            }            
+            }
         }
 
         /// <summary>
