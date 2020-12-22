@@ -262,9 +262,10 @@ namespace GMwebApi.Controllers
                     throw;
                 }
             }
-
             return CreatedAtRoute("DefaultApi", new { id = pedidoManutCurativa.IDPedido }, pedidoManutCurativa);
         }
+
+
 
         // DELETE: api/PedidoManutCurativas/5
         [Authorize(Roles = "Admin, Utilizador")]

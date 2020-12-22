@@ -44,6 +44,7 @@ namespace GMwebApi.Controllers
 
         }
 
+
         // GET: api/GrupoMaquinas/5
         [ResponseType(typeof(GrupoMaquina))]
         [Authorize]

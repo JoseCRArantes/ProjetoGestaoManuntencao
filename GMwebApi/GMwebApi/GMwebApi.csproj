@@ -300,7 +300,6 @@
     <Compile Include="Controllers\PedidoManutCurativasController.cs" />
     <Compile Include="Controllers\PedidosPreventivasController.cs" />
     <Compile Include="Controllers\TipoUtilizadorsController.cs" />
-    <Compile Include="Controllers\UsersRoles.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\AspNetRolesDto.cs" />
     <Compile Include="DTO\AspNetUsersDto.cs" />
