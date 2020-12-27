@@ -48,43 +48,44 @@ export class PedidosPreventivosService {
     return this.pedidosUserUpdated.asObservable();
   }
 
+  getPedidoUpdateListener() {
+    return this.pedidosUpdated.asObservable();
+  }
 
 
   //POST: manutenção em grupo, através do IdGrupoMaquina via link.
-  postPedidoPerGrupoMaquinas(idGrupoMaquina, data) {
-    this.httpClient
+  async postPedidoPerGrupoMaquinas(idGrupoMaquina, data) {
+    await this.httpClient
       .post<any>(
         BACKEND_URL + "/PedidosPreventivas?grupoMaquina=" + idGrupoMaquina,
         JSON.stringify(data),
         this.httpOptions
       )
-      .toPromise();
-    this.pedidos.push(data);
-    this.countPedidos = this.countPedidos + 1;
-    this.pedidosUpdated.next({
-      pedidos: [...this.pedidos],
-      CountPedidos: this.countPedidos,
+      .toPromise().then(res=> {
+        this.pedidos.push(data);
+        this.countPedidos = this.countPedidos + 1;
+        this.pedidosUpdated.next({
+          pedidos: [...this.pedidos],
+          CountPedidos: this.countPedidos,
+      });
     });
   }
 
-  getPedidoUpdateListener() {
-    return this.pedidosUpdated.asObservable();
-  }
-
   //POST PEDIDO
-  postPedido(data) {
-    this.httpClient
+  async postPedido(data) {
+    await this.httpClient
       .post<any>(
         BACKEND_URL + "/PedidosPreventivas",
         JSON.stringify(data),
         this.httpOptions
       )
-      .toPromise();
-    this.pedidos.push(data);
-    this.countPedidos = this.countPedidos + 1;
-    this.pedidosUpdated.next({
-      pedidos: [...this.pedidos],
-      CountPedidos: this.countPedidos,
+      .toPromise().then(res=> {
+        this.pedidos.push(data);
+        this.countPedidos = this.countPedidos + 1;
+        this.pedidosUpdated.next({
+          pedidos: [...this.pedidos],
+          CountPedidos: this.countPedidos,
+      });
     });
   }
 

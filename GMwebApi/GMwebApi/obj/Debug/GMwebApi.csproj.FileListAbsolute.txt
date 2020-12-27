@@ -754,7 +754,6 @@ C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Deb
 C:\Users\José Carlos\Desktop\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Dapper.dll
 C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\bin\Dapper.xml
-C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\bin\GMwebApi.dll.config
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\bin\GMwebApi.dll
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\bin\GMwebApi.pdb
@@ -916,3 +915,4 @@ C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebAp
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\obj\Debug\GMwebApi.dll
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\obj\Debug\GMwebApi.pdb
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
+C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache

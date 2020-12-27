@@ -97,19 +97,20 @@ export class PedidosService {
   }
 
   //POST PEDIDO
-  postPedido(data) {
-    this.httpClient
+  async postPedido(data) {
+    await this.httpClient
       .post<any>(
         BACKEND_URL + "/PedidoManutCurativas",
         JSON.stringify(data),
         this.httpOptions
       )
-      .toPromise();
-    this.pedidos.push(data);
-    this.countPedidos = this.countPedidos + 1;
-    this.pedidosUpdated.next({
-      pedidos: [...this.pedidos],
-      CountPedidos: this.countPedidos,
+      .toPromise().then(res => {
+          this.pedidos.push(data);
+          this.countPedidos = this.countPedidos + 1;
+          this.pedidosUpdated.next({
+            pedidos: [...this.pedidos],
+            CountPedidos: this.countPedidos,
+        });
     });
   }
 

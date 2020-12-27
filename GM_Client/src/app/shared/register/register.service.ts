@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Register } from "./registermodel";
+import { Register } from "./registerModel";
 import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
 
@@ -11,7 +11,7 @@ const BACKEND_URL = environment.apiUrl;
   providedIn: "root",
 })
 export class RegisterService {
-  baseurl = "http://localhost:44334/api";
+  //baseurl = "http://localhost:44334/api";
 
   constructor(private http: HttpClient) {}
 

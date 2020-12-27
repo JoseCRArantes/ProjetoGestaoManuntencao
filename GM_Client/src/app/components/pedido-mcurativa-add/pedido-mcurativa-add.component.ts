@@ -79,21 +79,10 @@ export class PedidoMcurativaAddComponent implements OnInit {
     })
   }
 
- /*  submitForm2() {
-    this.pedidoService.postPedido(this.pedidoForm.value).subscribe(res => {
-      console.log('Registo adicionado!')
-      this.ngZone.run(() => this.router.navigateByUrl('/pedido-mcurativa-list-teste'))
-    });
-  } */
 
-  submitForm() {
-    this.pedidoService.postPedido(this.pedidoForm.value);
-    this.ngZone.run(() => this.router.navigateByUrl('/pedido-mcurativa-list-teste'))
-    
+  async submitFormAsync() {
+    await this.pedidoService.postPedido(this.pedidoForm.value);
+    this.router.navigateByUrl('/pedido-mcurativa-list-teste');
     }
     
-  
-
-
-
 }

@@ -76,8 +76,8 @@ export class PedidoMpreventivaAddComponent implements OnInit {
   }
 
 
-  submitForm() {
-    this.pedidoService.postPedido(this.pedidoForm.value);
+  async submitFormAsync() {
+    await this.pedidoService.postPedido(this.pedidoForm.value);
     this.router.navigateByUrl('/pedido-preventiva-list'); 
     }
     

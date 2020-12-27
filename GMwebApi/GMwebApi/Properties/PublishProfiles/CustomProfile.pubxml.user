@@ -88,10 +88,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2020 21:10:28</publishTime>
     </File>
     <File Include="bin/GMwebApi.dll">
-      <publishTime>12/13/2020 13:37:42</publishTime>
+      <publishTime>12/27/2020 19:31:24</publishTime>
     </File>
     <File Include="bin/GMwebApi.pdb">
-      <publishTime>12/13/2020 13:37:42</publishTime>
+      <publishTime>12/27/2020 19:31:24</publishTime>
     </File>
     <File Include="bin/JwtAuthForWebAPI.dll">
       <publishTime>10/30/2020 21:10:28</publishTime>
@@ -496,7 +496,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2020 21:10:28</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/13/2020 13:37:47</publishTime>
+      <publishTime>12/27/2020 19:32:25</publishTime>
     </File>
   </ItemGroup>
 </Project>

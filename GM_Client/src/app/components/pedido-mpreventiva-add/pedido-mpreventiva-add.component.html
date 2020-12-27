@@ -15,7 +15,7 @@
                 <option *ngFor="let item of gruposMaquinaList" [value]="item.IDGrupoMaquinas">{{item.CodigoInterno }}-{{ item.Descr}}</option>
             </select>
             <br>
-            <form [formGroup]="pedidoForm" (ngSubmit)="submitForm()" novalidate>   
+            <form [formGroup]="pedidoForm" (ngSubmit)="submitFormAsync()" novalidate>   
                 <br><label>Equipamento</label><br>
                 <select  class="form-group" formControlName="IDEquipamento" style="width:400px">
                     <option value="0">Selecione o equipamento</option>   

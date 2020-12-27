@@ -113,14 +113,13 @@ export class ManutencaoPreventivaProgramadaComponent implements OnInit {
     });
   }
 
-  submitFormWithID(selectedOption: number) {
+  async submitFormWithID(selectedOption: number) {
     console.log("Form ID SelectedOption", selectedOption);
-    //var id = this.actRoute.snapshot.paramMap.get('id');
-    this.pedidoService.postPedidoPerGrupoMaquinas(
+    await this.pedidoService.postPedidoPerGrupoMaquinas(
       selectedOption,
       this.pedidoForm.value
     );
-    this.ngZone.run(() => this.router.navigateByUrl("/pedido-preventiva-list"));
+    this.router.navigateByUrl("/pedido-preventiva-list");
   }
 
   submitForm() {

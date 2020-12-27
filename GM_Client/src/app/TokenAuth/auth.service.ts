@@ -13,12 +13,13 @@ import { map } from "rxjs/operators";
 import { UserRoles } from "../shared/Constantes/userRoles";
 
 
-
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Component, NgZone } from "@angular/core";
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { validateHorizontalPosition } from "@angular/cdk/overlay";
 
+import { environment } from "../shared/environments/environments";
 
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable()
 export class AuthService {
@@ -29,12 +30,15 @@ export class AuthService {
   private roleId: UserRoles;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router, 
+  constructor(
+    private http: HttpClient,
+    private router: Router,
     private _snackBar: MatSnackBar,
-    private zone: NgZone,) {}
-  private TokenAPI = "http://localhost:44334/Token";
+    private zone: NgZone
+  ) {}
+  //private TokenAPI = "http://localhost:44334/Token";
 
-  //private TokenAPI = "http://192.168.0.49:8005/Token";
+  private TokenAPI = BACKEND_URL + "/Token";
 
   // Http Headers
   httpOptions = {
@@ -54,19 +58,17 @@ export class AuthService {
   }
 
   //Método de login
+
   login(Username: string, Password: string) {
     let headers = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
     });
     let options = { headers: headers };
-    var data =
-      "grant_type=password&username=" + Username + "&password=" + Password;
-
+    var data = "grant_type=password&username=" + Username + "&password=" + Password;
     return this.http.post<TokenParams>(this.TokenAPI, data, options).subscribe(
       (response) => {
         console.log(response);
         const token = response.access_token;
-
         if (token) {
           const expiresInDuration = response.expires_in;
           this.setAuthTimer(expiresInDuration);
@@ -87,12 +89,9 @@ export class AuthService {
             this.router.navigate(["/"]);
             setTimeout(() => {
               this.refresh();
-            }, );
+            });
           }, 0);
-          
-          
         }
-        
       },
       (err) => {
         this.authStatusListener.next(false);
@@ -102,23 +101,15 @@ export class AuthService {
     );
   }
 
-  
-
   //Snack Bar - para mostrar erros ou validações.
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,
       // here specify the position
-      verticalPosition:'top', horizontalPosition:'right'
-      
+      verticalPosition: "top",
+      horizontalPosition: "right",
     });
   }
-
-  
-
-  
-
- 
 
   logout() {
     this.isAuthenticated = false;
@@ -197,8 +188,6 @@ export class AuthService {
   refresh(): void {
     window.location.reload();
   }
-
-
 
   //erros de pedidos ao servidor.
   errorHandl(error) {

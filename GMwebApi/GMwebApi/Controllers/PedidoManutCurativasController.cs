@@ -89,9 +89,11 @@ namespace GMwebApi.Controllers
                                          System.Globalization.CultureInfo.InvariantCulture);
                 aux = dataFimConvertida.AddDays(1);
 
-                dataFimConvertida = dataFimConvertida.AddDays(1); //Adiciona 1 dia à data fim, por definicão e como exemplo, 
+                dataFimConvertida = dataFimConvertida.AddDays(1);//Adiciona 1 dia à data fim, por definicão e como exemplo, 
+
                 // o dia 1 de Janeiro conta até ás 00H00 e não às 23h:59.
 
+                //dataFimConvertida = dataFimConvertida.AddDays(1).AddTicks(-1);
                 IQueryable<PedidoManutCurativaDto> pMcurativa =
                  from eq in db.Equipamento
                  from c in db.AspNetUsers
