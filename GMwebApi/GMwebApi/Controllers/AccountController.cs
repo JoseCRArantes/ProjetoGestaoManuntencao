@@ -364,7 +364,7 @@ namespace GMwebApi.Controllers
             }
 
             //Atribuir Role por definição. Permissão mais baixa aquando o registo de um novo user.
-            UserManager.AddToRole(user.Id, "Utilizador");
+            UserManager.AddToRole(user.Id, "Convidado");
             context.SaveChanges();
 
             return Ok();
