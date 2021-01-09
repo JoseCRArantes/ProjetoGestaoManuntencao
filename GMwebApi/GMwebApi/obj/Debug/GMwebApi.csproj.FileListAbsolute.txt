@@ -915,4 +915,3 @@ C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebAp
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\obj\Debug\GMwebApi.dll
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\obj\Debug\GMwebApi.pdb
 C:\Users\José Carlos\Downloads\ProjetoGestaoManuntencao-master\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
-C:\Users\José Carlos\Documents\GitHub\ProjetoGestaoManuntencao\GMwebApi\GMwebApi\obj\Debug\GMwebApi.csprojAssemblyReference.cache
